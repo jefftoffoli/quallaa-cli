@@ -1,5 +1,4 @@
 import { Command } from 'commander';
-import chalk from 'chalk';
 import { displayBanner } from './ui/brand/banner';
 import { initCommand } from './commands/init';
 import { setupCommand } from './commands/setup';
@@ -11,7 +10,7 @@ export const cli = new Command();
 
 cli
   .name('quallaa')
-  .description(chalk.blue('Sets up core infrastructure services for AI-assisted development'))
+  .description('')
   .version(version, '-v, --version', 'display version number')
   .helpOption('-h, --help', 'display help for command');
 
@@ -32,5 +31,6 @@ cli.on('command:*', () => {
 // Show help if no command provided
 if (!process.argv.slice(2).length) {
   displayBanner();
-  cli.outputHelp();
+  console.log(cli.helpInformation());
+  process.exit(0);
 }
