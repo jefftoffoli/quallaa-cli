@@ -32,11 +32,17 @@ vi.mock('axios', () => ({
   },
 }));
 
-// Mock child_process for CLI operations
-vi.mock('child_process', () => ({
-  spawn: vi.fn(),
-  exec: vi.fn(),
-}));
+// Mock child_process for CLI operations - allow execSync for integration tests
+vi.mock('child_process', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('child_process')>();
+  return {
+    ...actual,
+    spawn: vi.fn(),
+    exec: vi.fn(),
+    // Keep execSync for integration tests that need to actually run CLI commands
+    execSync: actual.execSync,
+  };
+});
 
 // Mock fs/promises for file operations
 vi.mock('fs/promises', () => ({
