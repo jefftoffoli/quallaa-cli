@@ -1,5 +1,5 @@
 {
-  "name": "@quallaa/cli",
+  "name": "quallaa-cli",
   "version": "1.0.1",
   "description": "Sets up core infrastructure services for AI-assisted development",
   "main": "./dist/index.js",
