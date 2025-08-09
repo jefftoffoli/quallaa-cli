@@ -1,7 +1,7 @@
 {
   "name": "@quallaa/cli",
-  "version": "1.0.0",
-  "description": "AI-native development stack setup for domain experts",
+  "version": "1.0.1",
+  "description": "Sets up core infrastructure services for AI-assisted development",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
