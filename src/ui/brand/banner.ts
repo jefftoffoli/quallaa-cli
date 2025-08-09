@@ -9,11 +9,10 @@ ${chalk.blue('  ██║▄▄██║ ██║   ██║ ██╔══�
 ${chalk.blue('  ╚██████║ ╚██████╔╝ ██║  ██║ ███████╗███████╗██║  ██║ ██║  ██║')}
 ${chalk.blue('   ╚══▀▀═╝  ╚═════╝  ╚═╝  ╚═╝ ╚══════╝╚══════╝╚═╝  ╚═╝ ╚═╝  ╚═╝')}
 
-${chalk.bold('Domain Engineering Revolution')}
+${chalk.bold('Quallaa CLI')}
 ${chalk.gray('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')}
 
-${chalk.cyan('🚀 Join the 0.37% → Empower the 99.63%')}
-${chalk.gray('Transform from GUI-constrained workflows to AI-native development')}
+${chalk.gray('Sets up core infrastructure services for AI-assisted development')}
 `;
 
   console.log(banner);
@@ -26,16 +25,15 @@ export function displayWelcome(): void {
   console.log(`
 ${chalk.bold('Welcome to Quallaa CLI!')}
 
-${chalk.gray('This tool will help you set up a modern, AI-native development stack')}
-${chalk.gray('that liberates you from expensive SaaS subscriptions and GUI bottlenecks.')}
+${chalk.gray('This tool helps you set up core infrastructure services for your development projects.')}
 
-${chalk.yellow('⚡ What you\'ll get:')}
+${chalk.yellow('Available services:')}
   • ${chalk.green('Vercel')} - Hosting and deployment
   • ${chalk.green('Supabase')} - Database and authentication  
   • ${chalk.green('GitHub')} - Version control
   • ${chalk.green('Resend')} - Email infrastructure
-  • ${chalk.green('Claude')} - AI coding assistant with custom context
+  • ${chalk.green('Typesense')} - Search (optional)
 
-${chalk.gray('Let\'s build exactly what you need, right now.')}
+${chalk.gray('Choose your role to get customized setup guidance and AI context files.')}
 `);
 }

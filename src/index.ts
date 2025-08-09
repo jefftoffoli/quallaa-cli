@@ -13,11 +13,7 @@ cli
   .name('quallaa')
   .description(chalk.blue('Sets up core infrastructure services for AI-assisted development'))
   .version(version, '-v, --version', 'display version number')
-  .helpOption('-h, --help', 'display help for command')
-  .addHelpText('before', () => {
-    displayBanner();
-    return '';
-  });
+  .helpOption('-h, --help', 'display help for command');
 
 // Add commands
 cli.addCommand(initCommand);
@@ -35,5 +31,6 @@ cli.on('command:*', () => {
 
 // Show help if no command provided
 if (!process.argv.slice(2).length) {
+  displayBanner();
   cli.outputHelp();
 }
