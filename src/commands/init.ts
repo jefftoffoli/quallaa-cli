@@ -10,7 +10,7 @@ import { setupAllServices } from './setup';
 import { Role, ProjectConfig } from '../types';
 
 export const initCommand = new Command('init')
-  .description('Initialize a new Quallaa project')
+  .description('Initialize a new project with infrastructure services')
   .option('-n, --name <name>', 'Project name')
   .option('-r, --role <role>', 'Your role (founder, product, marketing, operations)')
   .option('--skip-lead-capture', 'Skip lead capture (not recommended)')

@@ -11,7 +11,7 @@ export const cli = new Command();
 
 cli
   .name('quallaa')
-  .description(chalk.blue('AI-native development stack setup for domain experts'))
+  .description(chalk.blue('Sets up core infrastructure services for AI-assisted development'))
   .version(version, '-v, --version', 'display version number')
   .helpOption('-h, --help', 'display help for command')
   .addHelpText('before', () => {

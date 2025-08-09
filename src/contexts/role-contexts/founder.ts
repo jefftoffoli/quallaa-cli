@@ -2,7 +2,7 @@ import { RoleContext } from '../../types';
 
 export const founderContext: RoleContext = {
   title: 'Technical Co-Founder / First Engineer Context',
-  description: 'This system empowers technical leaders to build scalable, AI-native solutions without vendor lock-in or expensive SaaS dependencies.',
+  description: 'Configuration guidance for technical leaders setting up infrastructure services for AI-assisted development.',
   specificSections: [
     'Architecture Decisions',
     'Team Scaling',
@@ -33,13 +33,13 @@ export const founderContext: RoleContext = {
 
 export const founderSections = `
 ## Architecture Decisions Context
-This system replaces expensive enterprise SaaS with custom, AI-native solutions:
-- Database: Supabase PostgreSQL with pgvector for AI capabilities
-- Frontend: Next.js 15 with App Router for optimal performance
+Standard technology stack configuration:
+- Database: Supabase PostgreSQL for data storage
+- Frontend: Next.js with App Router
 - Authentication: Supabase Auth with Row Level Security
-- Email: Resend for transactional emails and automated sequences
-- Search: pgvector for semantic search, Typesense for keyword search
-- Hosting: Vercel with edge functions for global performance
+- Email: Resend for transactional emails
+- Search: Supabase for basic search, Typesense for advanced search
+- Hosting: Vercel for deployment
 
 ## Team Scaling Guidelines
 - All code follows strict TypeScript patterns for team consistency

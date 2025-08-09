@@ -2,7 +2,7 @@ import { RoleContext } from '../../types';
 
 export const operationsContext: RoleContext = {
   title: 'Operations Manager Context',
-  description: 'This system enables process automation and data pipeline management, replacing expensive operations and workflow SaaS with AI-native solutions.',
+  description: 'Configuration guidance for operations teams setting up process automation, data pipelines, and reporting systems in an AI-assisted development environment.',
   specificSections: [
     'Process Automation',
     'Data Pipeline Management', 
@@ -33,7 +33,7 @@ export const operationsContext: RoleContext = {
 
 export const operationsSections = `
 ## Process Automation Context
-This system replaces expensive workflow SaaS (Zapier, Monday.com) with custom automation:
+Process automation and workflow setup:
 - Workflow automation: Custom business process automation
 - Data synchronization: Keep multiple systems in sync
 - Notification systems: Automated alerts and reminders  

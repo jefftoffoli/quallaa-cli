@@ -9,7 +9,7 @@ import { setupTypesense } from '../../services/typesense';
 import { ProjectConfig, ServiceSetupResult } from '../../types';
 
 export const setupCommand = new Command('setup')
-  .description('Set up individual services')
+  .description('Configure individual infrastructure services')
   .addCommand(
     new Command('vercel')
       .description('Set up Vercel hosting and deployment')

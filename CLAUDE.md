@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Quallaa CLI is an AI-native development tool that democratizes software development by enabling domain experts (founders, product managers, marketers, operations managers) to work directly with AI in its native code environment. It eliminates the "GUI translation bottleneck" and replaces expensive SaaS subscriptions with owned, AI-optimized infrastructure.
+Quallaa CLI sets up core infrastructure services for development projects. It's designed to help domain experts (founders, product managers, marketers, operations managers) work with AI development assistants by providing detailed project context and pre-configured service integrations.
 
 ## Development Commands
 
@@ -116,10 +116,10 @@ The CLI generates different contexts based on user role (src/contexts/):
 
 ## Project-Specific Considerations
 
-### AI-Native Development Philosophy
-- Optimize for token-based interaction over GUI manipulation
+### AI-Assisted Development Philosophy
 - Provide comprehensive context in generated CLAUDE.md files
-- Focus on eliminating repetitive SaaS integrations
+- Configure services to work well with AI development assistants
+- Minimize manual setup steps through automation
 
 ### Security Requirements
 - Never log or expose API keys/tokens

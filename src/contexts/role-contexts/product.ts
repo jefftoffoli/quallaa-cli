@@ -2,7 +2,7 @@ import { RoleContext } from '../../types';
 
 export const productContext: RoleContext = {
   title: 'Product Manager Context',
-  description: 'This system enables data-driven product decisions with custom analytics instead of expensive product management SaaS.',
+  description: 'Configuration guidance for product managers setting up user analytics and testing in an AI-assisted development environment.',
   specificSections: [
     'User Analytics & Tracking',
     'A/B Testing Framework',
@@ -33,7 +33,7 @@ export const productContext: RoleContext = {
 
 export const productSections = `
 ## User Analytics & Tracking Context
-This system replaces expensive product analytics SaaS (Mixpanel, Amplitude) with custom tracking:
+Basic user analytics and tracking setup:
 - Event tracking: Custom events for user actions and feature usage
 - Funnel analysis: Conversion tracking through user journeys
 - Cohort analysis: User retention and engagement over time

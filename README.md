@@ -1,21 +1,21 @@
 # Quallaa CLI
 
-> AI-native development stack setup for domain experts
+> Sets up core infrastructure services for AI-assisted development
 
 [![npm version](https://badge.fury.io/js/%40quallaa%2Fcli.svg)](https://badge.fury.io/js/%40quallaa%2Fcli)
 [![Node.js Version](https://img.shields.io/node/v/@quallaa/cli.svg)](https://nodejs.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## 🚀 The 0.37% Revolution
+## What It Does
 
-Only **0.37%** of people are software developers, but AI + IDEs can democratize their capabilities to millions of tech-savvy domain experts. Quallaa CLI eliminates the GUI translation bottleneck that prevents AI from working in its native environment.
+Quallaa CLI sets up common infrastructure services needed for development projects, configured to work well with AI development assistants.
 
 ### What You Get
 
-- **Domain Expert Empowerment**: Join the 0.37% developer advantage with AI-native workflows
-- **IDE/AI Native Environment**: Work directly in AI's native language (tokens) instead of GUI translations
-- **Cost Savings as Bonus**: 90%+ cost reduction by eliminating expensive SaaS subscriptions
-- **Full Stack Ownership**: Complete control over your development infrastructure
+- **Infrastructure Setup**: Automated configuration of database, hosting, email, and other services
+- **AI Context Generation**: Creates detailed context files for AI development assistants
+- **Role-Based Configuration**: Setup tailored to your role (founder, product manager, marketing, operations)
+- **Service Integration**: Pre-configured connections between different services
 
 ## 📋 Prerequisites
 
@@ -47,8 +47,8 @@ This will:
 - Collect your information for support and improvements
 - Guide you through role selection (Technical Co-Founder, Product Manager, Marketing Lead, Operations Manager)
 - Set up your preferred services
-- Generate a complete Next.js application with role-specific context
-- Create a custom `CLAUDE.md` file that gives Claude deep understanding of your project
+- Generate a complete Next.js application with role-specific configuration
+- Create a custom `CLAUDE.md` file with detailed project context for AI assistants
 
 ### 2. Set Up Individual Services
 
@@ -149,7 +149,7 @@ The generated `CLAUDE.md` file gives Claude Code comprehensive context about you
 - **Common Tasks**: Role-specific tasks and workflows
 - **Libraries & Dependencies**: What tools are available and how to use them
 
-This means Claude can help you build exactly what you need without generic responses.
+This means AI assistants can provide more specific and relevant help for your project.
 
 ## 🔒 Security & Privacy
 
@@ -213,19 +213,15 @@ npm test        # Run tests
 
 MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🌟 Why Quallaa CLI?
+## Why Use Quallaa CLI?
 
-Traditional development often locks domain experts out of the powerful AI-native workflows that developers enjoy. Expensive SaaS tools create vendor lock-in and force AI to work through inefficient GUI translation layers.
+Quallaa CLI simplifies the process of setting up development infrastructure by:
 
-Quallaa CLI bridges this gap by:
-
-1. **Democratizing Developer Tools**: Making IDE-based, AI-native development accessible to non-developers
-2. **Eliminating Vendor Lock-In**: You own your entire stack and data
-3. **Optimizing for AI**: Working in AI's native environment (tokens and code) instead of clicking interfaces
-4. **Reducing Costs**: 90%+ cost savings compared to SaaS equivalents
-5. **Enabling Customization**: Build exactly what your business needs
-
-**Join the revolution. Become part of the 0.37%.**
+1. **Automating Setup**: Handles the configuration of multiple services in one command
+2. **Providing Context**: Generates detailed documentation for AI development assistants
+3. **Role-Based Configuration**: Tailors setup to different team roles and needs
+4. **Service Integration**: Pre-configures services to work well together
+5. **Reducing Setup Time**: Gets you from zero to working infrastructure quickly
 
 ---
 

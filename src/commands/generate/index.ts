@@ -5,10 +5,10 @@ import { generateClaudeMd } from './claude';
 import { ProjectConfig, Role } from '../../types';
 
 export const generateCommand = new Command('generate')
-  .description('Generate project files and configurations')
+  .description('Generate context files for AI-assisted development')
   .addCommand(
     new Command('claude')
-      .description('Generate CLAUDE.md with role-specific context')
+      .description('Generate CLAUDE.md context file for AI development assistant')
       .option('-r, --role <role>', 'Role for context generation')
       .action(async (options) => {
         try {

@@ -2,7 +2,7 @@ import { RoleContext } from '../../types';
 
 export const marketingContext: RoleContext = {
   title: 'Marketing Lead Context',
-  description: 'This system replaces expensive marketing SaaS with AI-native automation for customer data analysis, campaign management, and growth optimization.',
+  description: 'Configuration guidance for marketing teams setting up customer tracking, email automation, and campaign analytics in an AI-assisted development environment.',
   specificSections: [
     'Customer Data & Segmentation',
     'Campaign Performance Tracking',
@@ -33,7 +33,7 @@ export const marketingContext: RoleContext = {
 
 export const marketingSections = `
 ## Customer Data & Segmentation Context
-This system replaces expensive marketing SaaS (HubSpot, Marketo) with custom solutions:
+Customer data management and segmentation setup:
 - Lead scoring: Custom algorithms based on behavior and engagement
 - Customer segmentation: Behavioral, demographic, and psychographic segments
 - Lifecycle tracking: From lead to customer to advocate
