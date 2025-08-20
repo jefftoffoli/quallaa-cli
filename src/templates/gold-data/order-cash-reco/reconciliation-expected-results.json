@@ -1,0 +1,128 @@
+{
+  "testCases": [
+    {
+      "id": "case_001",
+      "description": "Perfect match - single order to single payout transaction",
+      "input": {
+        "orderId": "order_1001",
+        "payoutTransactionId": "txn_1N2A3B4C5D6E7F8G"
+      },
+      "expected": {
+        "matchStatus": "perfect_match",
+        "confidence": 1.0,
+        "discrepancies": [],
+        "reconciled": true
+      }
+    },
+    {
+      "id": "case_002", 
+      "description": "Partial refund scenario - order with refund transaction",
+      "input": {
+        "orderId": "order_1002",
+        "payoutTransactionIds": ["txn_2N3B4C5D6E7F8G9H", "txn_3N4C5D6E7F8G9H0I"]
+      },
+      "expected": {
+        "matchStatus": "partial_match",
+        "confidence": 0.95,
+        "discrepancies": [],
+        "reconciled": true,
+        "netAmount": 18275,
+        "refundAmount": 5000
+      }
+    },
+    {
+      "id": "case_003",
+      "description": "Voided order - should not appear in payouts",
+      "input": {
+        "orderId": "order_1003"
+      },
+      "expected": {
+        "matchStatus": "no_payout_expected",
+        "confidence": 1.0,
+        "discrepancies": [],
+        "reconciled": true,
+        "reason": "order_cancelled_before_capture"
+      }
+    },
+    {
+      "id": "case_004",
+      "description": "Missing order - payout without matching order",
+      "input": {
+        "payoutTransactionId": "txn_unknown_12345"
+      },
+      "expected": {
+        "matchStatus": "no_order_found",
+        "confidence": 0.0,
+        "discrepancies": ["missing_order"],
+        "reconciled": false,
+        "exceptionType": "missing_order",
+        "suggestedAction": "investigate_payout_source"
+      }
+    },
+    {
+      "id": "case_005",
+      "description": "Amount mismatch - order total vs payout amount",
+      "input": {
+        "orderId": "order_1001",
+        "payoutAmount": 11000
+      },
+      "expected": {
+        "matchStatus": "amount_mismatch", 
+        "confidence": 0.3,
+        "discrepancies": ["amount_difference"],
+        "reconciled": false,
+        "exceptionType": "amount_mismatch",
+        "expectedAmount": 11875,
+        "actualAmount": 11000,
+        "difference": -875,
+        "suggestedAction": "check_fee_calculation"
+      }
+    }
+  ],
+  "evaluationMetrics": {
+    "accuracy": {
+      "target": 0.95,
+      "description": "Percentage of correctly identified matches and exceptions"
+    },
+    "precision": {
+      "target": 0.92,
+      "description": "Percentage of identified matches that are actually correct"
+    },
+    "recall": {
+      "target": 0.90,
+      "description": "Percentage of actual matches that are correctly identified"
+    },
+    "processingTime": {
+      "target": 2.0,
+      "unit": "seconds",
+      "description": "Average time to process each reconciliation case"
+    },
+    "exceptionRate": {
+      "target": 0.05,
+      "description": "Percentage of transactions requiring manual review"
+    }
+  },
+  "businessRules": [
+    {
+      "rule": "cancelled_orders_no_payout",
+      "description": "Orders cancelled before capture should not have corresponding payouts",
+      "testCaseIds": ["case_003"]
+    },
+    {
+      "rule": "fee_adjustment_tolerance",
+      "description": "Allow up to $0.05 difference for fee calculation variations",
+      "tolerance": 5,
+      "unit": "cents"
+    },
+    {
+      "rule": "refund_net_calculation",
+      "description": "Refunded orders should show net amount after refund deduction",
+      "testCaseIds": ["case_002"]
+    },
+    {
+      "rule": "currency_consistency",
+      "description": "All amounts in a reconciliation must use the same currency",
+      "validation": "strict"
+    }
+  ]
+}

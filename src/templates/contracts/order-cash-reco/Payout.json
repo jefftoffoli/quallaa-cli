@@ -1,0 +1,246 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Payout",
+  "description": "Payment processor payout data structure",
+  "type": "object",
+  "required": ["id", "amount", "currency", "status", "arrivalDate", "createdAt"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique payout identifier from payment processor"
+    },
+    "amount": {
+      "type": "integer",
+      "description": "Payout amount in cents",
+      "minimum": 0
+    },
+    "currency": {
+      "type": "string",
+      "description": "Currency code (ISO 4217)",
+      "pattern": "^[A-Z]{3}$"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "in_transit", "paid", "failed", "cancelled"],
+      "description": "Payout status"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["bank_account", "card", "fpx"],
+      "description": "Payout destination type"
+    },
+    "method": {
+      "type": "string",
+      "enum": ["standard", "instant"],
+      "description": "Payout speed/method"
+    },
+    "bankAccount": {
+      "type": "object",
+      "description": "Destination bank account details",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Bank account identifier"
+        },
+        "last4": {
+          "type": "string",
+          "pattern": "^[0-9]{4}$",
+          "description": "Last 4 digits of account"
+        },
+        "bankName": {
+          "type": "string",
+          "description": "Name of the bank"
+        },
+        "country": {
+          "type": "string",
+          "pattern": "^[A-Z]{2}$",
+          "description": "Bank country code"
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$",
+          "description": "Account currency"
+        }
+      }
+    },
+    "balanceTransactions": {
+      "type": "array",
+      "description": "Transactions included in this payout",
+      "items": {
+        "type": "object",
+        "required": ["id", "amount", "fee", "net", "type", "createdAt"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Balance transaction identifier"
+          },
+          "amount": {
+            "type": "integer",
+            "description": "Gross amount in cents"
+          },
+          "fee": {
+            "type": "integer",
+            "description": "Processing fee in cents"
+          },
+          "net": {
+            "type": "integer",
+            "description": "Net amount (amount - fee) in cents"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "charge",
+              "refund",
+              "adjustment",
+              "application_fee",
+              "application_fee_refund",
+              "transfer",
+              "payment",
+              "payout",
+              "payout_cancel",
+              "stripe_fee",
+              "network_cost"
+            ],
+            "description": "Transaction type"
+          },
+          "currency": {
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "description": "Transaction currency"
+          },
+          "description": {
+            "type": "string",
+            "description": "Transaction description"
+          },
+          "sourceId": {
+            "type": "string",
+            "description": "ID of the source object (e.g., charge ID)"
+          },
+          "sourceType": {
+            "type": "string",
+            "description": "Type of source (e.g., 'charge', 'refund')"
+          },
+          "orderId": {
+            "type": "string",
+            "description": "Associated order ID from e-commerce platform"
+          },
+          "customerEmail": {
+            "type": "string",
+            "format": "email",
+            "description": "Customer email if available"
+          },
+          "reportingCategory": {
+            "type": "string",
+            "description": "Category for financial reporting"
+          },
+          "exchangeRate": {
+            "type": "number",
+            "description": "Exchange rate if currency conversion occurred"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Transaction creation timestamp"
+          },
+          "availableOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When funds become available"
+          }
+        }
+      }
+    },
+    "feeDetails": {
+      "type": "array",
+      "description": "Breakdown of fees",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["stripe_fee", "tax", "processing_fee", "application_fee"],
+            "description": "Fee type"
+          },
+          "amount": {
+            "type": "integer",
+            "description": "Fee amount in cents"
+          },
+          "currency": {
+            "type": "string",
+            "pattern": "^[A-Z]{3}$"
+          },
+          "description": {
+            "type": "string",
+            "description": "Fee description"
+          }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "description": "Payout summary",
+      "properties": {
+        "chargeGross": {
+          "type": "integer",
+          "description": "Total charges in cents"
+        },
+        "chargeFees": {
+          "type": "integer",
+          "description": "Total charge fees in cents"
+        },
+        "chargeCount": {
+          "type": "integer",
+          "description": "Number of charges"
+        },
+        "refundGross": {
+          "type": "integer",
+          "description": "Total refunds in cents"
+        },
+        "refundFees": {
+          "type": "integer",
+          "description": "Total refund fees in cents"
+        },
+        "refundCount": {
+          "type": "integer",
+          "description": "Number of refunds"
+        },
+        "adjustmentGross": {
+          "type": "integer",
+          "description": "Total adjustments in cents"
+        },
+        "adjustmentFees": {
+          "type": "integer",
+          "description": "Total adjustment fees in cents"
+        },
+        "adjustmentCount": {
+          "type": "integer",
+          "description": "Number of adjustments"
+        },
+        "netTotal": {
+          "type": "integer",
+          "description": "Net payout amount in cents"
+        }
+      }
+    },
+    "arrivalDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Expected or actual arrival date of funds"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Payout creation timestamp"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last update timestamp"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional processor-specific data",
+      "additionalProperties": true
+    }
+  }
+}

@@ -1,0 +1,130 @@
+[
+  {
+    "id": "po_1234567890123456",
+    "amount": 11875,
+    "currency": "USD",
+    "status": "paid",
+    "type": "bank_account",
+    "method": "standard",
+    "bankAccount": {
+      "id": "ba_1A2B3C4D5E6F7G8H",
+      "last4": "6789",
+      "bankName": "Chase Bank",
+      "country": "US",
+      "currency": "USD"
+    },
+    "balanceTransactions": [
+      {
+        "id": "txn_1N2A3B4C5D6E7F8G",
+        "amount": 12500,
+        "fee": 625,
+        "net": 11875,
+        "type": "charge",
+        "currency": "USD",
+        "description": "Payment for ORD-1001",
+        "sourceId": "ch_1N2A3B4C5D6E7F8G",
+        "sourceType": "charge",
+        "orderId": "order_1001",
+        "customerEmail": "john.doe@example.com",
+        "reportingCategory": "charge",
+        "createdAt": "2024-12-01T10:30:00Z",
+        "availableOn": "2024-12-03T10:30:00Z"
+      }
+    ],
+    "feeDetails": [
+      {
+        "type": "stripe_fee",
+        "amount": 625,
+        "currency": "USD",
+        "description": "Stripe processing fee (2.9% + 30¢)"
+      }
+    ],
+    "summary": {
+      "chargeGross": 12500,
+      "chargeFees": 625,
+      "chargeCount": 1,
+      "refundGross": 0,
+      "refundFees": 0,
+      "refundCount": 0,
+      "adjustmentGross": 0,
+      "adjustmentFees": 0,
+      "adjustmentCount": 0,
+      "netTotal": 11875
+    },
+    "arrivalDate": "2024-12-03",
+    "createdAt": "2024-12-02T00:00:00Z",
+    "updatedAt": "2024-12-03T10:30:00Z"
+  },
+  {
+    "id": "po_2345678901234567",
+    "amount": 18275,
+    "currency": "USD",
+    "status": "paid",
+    "type": "bank_account",
+    "method": "standard",
+    "bankAccount": {
+      "id": "ba_1A2B3C4D5E6F7G8H",
+      "last4": "6789",
+      "bankName": "Chase Bank",
+      "country": "US",
+      "currency": "USD"
+    },
+    "balanceTransactions": [
+      {
+        "id": "txn_2N3B4C5D6E7F8G9H",
+        "amount": 25000,
+        "fee": 1225,
+        "net": 23775,
+        "type": "charge",
+        "currency": "USD",
+        "description": "Payment for ORD-1002",
+        "sourceId": "ch_2N3B4C5D6E7F8G9H",
+        "sourceType": "charge",
+        "orderId": "order_1002",
+        "customerEmail": "jane.smith@company.com",
+        "reportingCategory": "charge",
+        "createdAt": "2024-12-02T14:15:00Z",
+        "availableOn": "2024-12-04T14:15:00Z"
+      },
+      {
+        "id": "txn_3N4C5D6E7F8G9H0I",
+        "amount": -5000,
+        "fee": -500,
+        "net": -4500,
+        "type": "refund",
+        "currency": "USD",
+        "description": "Refund for ORD-1002",
+        "sourceId": "re_3N4C5D6E7F8G9H0I",
+        "sourceType": "refund",
+        "orderId": "order_1002",
+        "customerEmail": "jane.smith@company.com",
+        "reportingCategory": "refund",
+        "createdAt": "2024-12-03T09:20:00Z",
+        "availableOn": "2024-12-05T09:20:00Z"
+      }
+    ],
+    "feeDetails": [
+      {
+        "type": "stripe_fee",
+        "amount": 725,
+        "currency": "USD",
+        "description": "Net processing fees after refund"
+      }
+    ],
+    "summary": {
+      "chargeGross": 25000,
+      "chargeFees": 1225,
+      "chargeCount": 1,
+      "refundGross": 5000,
+      "refundFees": 500,
+      "refundCount": 1,
+      "adjustmentGross": 0,
+      "adjustmentFees": 0,
+      "adjustmentCount": 0,
+      "netTotal": 18275
+    },
+    "arrivalDate": "2024-12-05",
+    "createdAt": "2024-12-04T00:00:00Z",
+    "updatedAt": "2024-12-05T09:20:00Z"
+  }
+]

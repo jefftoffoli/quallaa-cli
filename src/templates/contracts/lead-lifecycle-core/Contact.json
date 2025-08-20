@@ -1,0 +1,405 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Contact",
+  "description": "Lead/Contact data structure for lifecycle management",
+  "type": "object",
+  "required": ["email", "firstName", "lastName", "source", "consent"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique contact identifier"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Primary email address"
+    },
+    "secondaryEmail": {
+      "type": "string",
+      "format": "email",
+      "description": "Secondary email address"
+    },
+    "firstName": {
+      "type": "string",
+      "description": "First name"
+    },
+    "lastName": {
+      "type": "string",
+      "description": "Last name"
+    },
+    "fullName": {
+      "type": "string",
+      "description": "Full name for display"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Primary phone number (E.164 format preferred)"
+    },
+    "mobilePhone": {
+      "type": "string",
+      "description": "Mobile phone number"
+    },
+    "workPhone": {
+      "type": "string",
+      "description": "Work phone number"
+    },
+    "company": {
+      "type": "string",
+      "description": "Company/organization name"
+    },
+    "companyId": {
+      "type": "string",
+      "description": "Associated company record ID"
+    },
+    "jobTitle": {
+      "type": "string",
+      "description": "Job title/position"
+    },
+    "department": {
+      "type": "string",
+      "description": "Department within organization"
+    },
+    "seniority": {
+      "type": "string",
+      "enum": ["individual_contributor", "manager", "director", "vp", "c_level", "owner"],
+      "description": "Seniority level"
+    },
+    "industry": {
+      "type": "string",
+      "description": "Industry classification"
+    },
+    "address": {
+      "type": "object",
+      "properties": {
+        "street": { "type": "string" },
+        "city": { "type": "string" },
+        "state": { "type": "string" },
+        "postalCode": { "type": "string" },
+        "country": { "type": "string" },
+        "countryCode": { "type": "string", "pattern": "^[A-Z]{2}$" }
+      }
+    },
+    "source": {
+      "type": "string",
+      "description": "Lead source (normalized)",
+      "examples": ["organic_search", "paid_search", "social", "referral", "direct", "email", "event", "content", "partner"]
+    },
+    "originalSource": {
+      "type": "string",
+      "description": "Original source before normalization"
+    },
+    "utm": {
+      "$ref": "#/definitions/UTM"
+    },
+    "leadScore": {
+      "type": "integer",
+      "description": "Lead scoring points",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "leadGrade": {
+      "type": "string",
+      "enum": ["A+", "A", "B+", "B", "C+", "C", "D", "F"],
+      "description": "Lead grade based on profile fit"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "marketing_qualified",
+        "sales_accepted",
+        "sales_qualified",
+        "opportunity",
+        "customer",
+        "evangelist",
+        "unqualified",
+        "bad_timing",
+        "unresponsive",
+        "competitor"
+      ],
+      "description": "Lifecycle stage/status"
+    },
+    "subStatus": {
+      "type": "string",
+      "description": "Sub-status for additional granularity"
+    },
+    "tags": {
+      "type": "array",
+      "description": "Tags for categorization",
+      "items": {
+        "type": "string"
+      }
+    },
+    "interests": {
+      "type": "array",
+      "description": "Areas of interest",
+      "items": {
+        "type": "string"
+      }
+    },
+    "consent": {
+      "type": "object",
+      "description": "Consent and communication preferences",
+      "required": ["email"],
+      "properties": {
+        "email": {
+          "type": "boolean",
+          "description": "Consent for email communication"
+        },
+        "sms": {
+          "type": "boolean",
+          "description": "Consent for SMS communication"
+        },
+        "phone": {
+          "type": "boolean",
+          "description": "Consent for phone communication"
+        },
+        "mail": {
+          "type": "boolean",
+          "description": "Consent for postal mail"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When consent was given"
+        },
+        "ipAddress": {
+          "type": "string",
+          "description": "IP address when consent was recorded"
+        },
+        "source": {
+          "type": "string",
+          "description": "Source of consent (form, API, etc.)"
+        },
+        "doubleOptIn": {
+          "type": "boolean",
+          "description": "Whether double opt-in was completed"
+        },
+        "gdprLawfulBasis": {
+          "type": "string",
+          "enum": ["consent", "contract", "legal_obligation", "vital_interests", "public_task", "legitimate_interests"],
+          "description": "GDPR lawful basis for processing"
+        }
+      }
+    },
+    "enrichment": {
+      "type": "object",
+      "description": "Enriched data from external sources",
+      "properties": {
+        "enrichedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "enrichmentSource": {
+          "type": "string",
+          "examples": ["clearbit", "zoominfo", "apollo", "internal"]
+        },
+        "socialProfiles": {
+          "type": "object",
+          "properties": {
+            "linkedin": { "type": "string", "format": "uri" },
+            "twitter": { "type": "string" },
+            "github": { "type": "string" },
+            "facebook": { "type": "string", "format": "uri" }
+          }
+        },
+        "technographics": {
+          "type": "array",
+          "description": "Technologies used by the contact's company",
+          "items": {
+            "type": "object",
+            "properties": {
+              "category": { "type": "string" },
+              "technology": { "type": "string" },
+              "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+            }
+          }
+        },
+        "companyData": {
+          "type": "object",
+          "properties": {
+            "size": { "type": "string" },
+            "revenue": { "type": "string" },
+            "fundingStage": { "type": "string" },
+            "fundingTotal": { "type": "number" }
+          }
+        }
+      }
+    },
+    "assignedTo": {
+      "type": "string",
+      "description": "User/team assigned to this contact"
+    },
+    "assignedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the contact was assigned"
+    },
+    "lastActivity": {
+      "type": "object",
+      "description": "Most recent activity",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["email_open", "email_click", "form_submission", "page_view", "call", "meeting", "email_sent", "note_logged"]
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "engagementScore": {
+      "type": "integer",
+      "description": "Recent engagement activity score",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "slaTracking": {
+      "type": "object",
+      "description": "SLA compliance tracking",
+      "properties": {
+        "firstResponseDue": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When first response is due"
+        },
+        "firstResponseAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When first response occurred"
+        },
+        "responseTime": {
+          "type": "integer",
+          "description": "Response time in minutes"
+        },
+        "slaStatus": {
+          "type": "string",
+          "enum": ["met", "breached", "at_risk", "pending"],
+          "description": "SLA compliance status"
+        },
+        "escalatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the lead was escalated due to SLA breach"
+        }
+      }
+    },
+    "duplicates": {
+      "type": "object",
+      "description": "Deduplication metadata",
+      "properties": {
+        "isDuplicate": {
+          "type": "boolean",
+          "description": "Whether this contact is a duplicate"
+        },
+        "masterRecordId": {
+          "type": "string",
+          "description": "ID of the master record if this is a duplicate"
+        },
+        "duplicateConfidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Confidence score for duplicate detection"
+        },
+        "mergedFrom": {
+          "type": "array",
+          "description": "IDs of records merged into this one",
+          "items": {
+            "type": "string"
+          }
+        },
+        "lastDedupeCheck": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When deduplication was last run"
+        }
+      }
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Record creation timestamp"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last update timestamp"
+    },
+    "createdBy": {
+      "type": "string",
+      "description": "User who created the record"
+    },
+    "updatedBy": {
+      "type": "string",
+      "description": "User who last updated the record"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional CRM-specific data",
+      "additionalProperties": true
+    }
+  },
+  "definitions": {
+    "UTM": {
+      "type": "object",
+      "description": "UTM tracking parameters",
+      "properties": {
+        "source": {
+          "type": "string",
+          "description": "UTM source (normalized)"
+        },
+        "medium": {
+          "type": "string",
+          "description": "UTM medium (normalized)"
+        },
+        "campaign": {
+          "type": "string",
+          "description": "UTM campaign"
+        },
+        "term": {
+          "type": "string",
+          "description": "UTM term (keywords)"
+        },
+        "content": {
+          "type": "string",
+          "description": "UTM content"
+        },
+        "originalSource": {
+          "type": "string",
+          "description": "Original utm_source before normalization"
+        },
+        "originalMedium": {
+          "type": "string",
+          "description": "Original utm_medium before normalization"
+        },
+        "gclid": {
+          "type": "string",
+          "description": "Google Click ID"
+        },
+        "fbclid": {
+          "type": "string",
+          "description": "Facebook Click ID"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Analytics session ID"
+        },
+        "landingPage": {
+          "type": "string",
+          "format": "uri",
+          "description": "Landing page URL"
+        },
+        "referrer": {
+          "type": "string",
+          "format": "uri",
+          "description": "HTTP referrer"
+        }
+      }
+    }
+  }
+}

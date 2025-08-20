@@ -1,0 +1,421 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SLAPolicy",
+  "description": "Service Level Agreement policy for lead response times",
+  "type": "object",
+  "required": ["id", "name", "firstResponseMinutes", "active"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique SLA policy identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "SLA policy name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Policy description"
+    },
+    "active": {
+      "type": "boolean",
+      "description": "Whether this policy is currently active"
+    },
+    "priority": {
+      "type": "integer",
+      "description": "Policy priority (lower = higher priority)",
+      "minimum": 1
+    },
+    "applicableToSources": {
+      "type": "array",
+      "description": "Lead sources this policy applies to",
+      "items": {
+        "type": "string"
+      }
+    },
+    "applicableToTiers": {
+      "type": "array",
+      "description": "Lead tiers/segments this policy applies to",
+      "items": {
+        "type": "string",
+        "examples": ["enterprise", "smb", "startup", "individual"]
+      }
+    },
+    "conditions": {
+      "type": "array",
+      "description": "Conditions that must be met for this policy to apply",
+      "items": {
+        "type": "object",
+        "required": ["field", "operator", "value"],
+        "properties": {
+          "field": {
+            "type": "string",
+            "description": "Contact field to evaluate"
+          },
+          "operator": {
+            "type": "string",
+            "enum": ["equals", "not_equals", "contains", "greater_than", "less_than", "in", "not_in"],
+            "description": "Comparison operator"
+          },
+          "value": {
+            "description": "Value to compare against"
+          }
+        }
+      }
+    },
+    "responseTargets": {
+      "type": "object",
+      "description": "Response time targets",
+      "required": ["firstResponse"],
+      "properties": {
+        "firstResponse": {
+          "type": "object",
+          "description": "First response requirements",
+          "required": ["minutes"],
+          "properties": {
+            "minutes": {
+              "type": "integer",
+              "description": "Target first response time in minutes",
+              "minimum": 1
+            },
+            "businessHoursOnly": {
+              "type": "boolean",
+              "description": "Whether SLA only applies during business hours",
+              "default": false
+            },
+            "priority": {
+              "type": "string",
+              "enum": ["critical", "high", "normal", "low"],
+              "description": "Response priority level",
+              "default": "normal"
+            }
+          }
+        },
+        "qualified": {
+          "type": "object",
+          "description": "Lead qualification timeline",
+          "properties": {
+            "minutes": {
+              "type": "integer",
+              "description": "Target qualification time in minutes"
+            },
+            "businessHoursOnly": {
+              "type": "boolean",
+              "default": true
+            }
+          }
+        },
+        "followUp": {
+          "type": "object",
+          "description": "Follow-up requirements",
+          "properties": {
+            "sequence": {
+              "type": "array",
+              "description": "Follow-up sequence timing",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "attemptNumber": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "delayMinutes": {
+                    "type": "integer",
+                    "description": "Minutes to wait before this attempt"
+                  },
+                  "method": {
+                    "type": "string",
+                    "enum": ["email", "phone", "linkedin", "any"],
+                    "description": "Preferred contact method"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "workingHours": {
+      "type": "object",
+      "description": "Business hours configuration",
+      "properties": {
+        "timezone": {
+          "type": "string",
+          "description": "Timezone for business hours (e.g., 'America/New_York')"
+        },
+        "schedule": {
+          "type": "object",
+          "description": "Weekly schedule",
+          "properties": {
+            "monday": { "$ref": "#/definitions/BusinessDay" },
+            "tuesday": { "$ref": "#/definitions/BusinessDay" },
+            "wednesday": { "$ref": "#/definitions/BusinessDay" },
+            "thursday": { "$ref": "#/definitions/BusinessDay" },
+            "friday": { "$ref": "#/definitions/BusinessDay" },
+            "saturday": { "$ref": "#/definitions/BusinessDay" },
+            "sunday": { "$ref": "#/definitions/BusinessDay" }
+          }
+        },
+        "holidays": {
+          "type": "array",
+          "description": "Company holidays when SLA is paused",
+          "items": {
+            "type": "object",
+            "properties": {
+              "date": {
+                "type": "string",
+                "format": "date"
+              },
+              "name": {
+                "type": "string"
+              },
+              "recurring": {
+                "type": "boolean",
+                "description": "Whether this holiday repeats annually",
+                "default": false
+              }
+            }
+          }
+        }
+      }
+    },
+    "escalations": {
+      "type": "array",
+      "description": "Escalation rules when SLA is breached",
+      "items": {
+        "type": "object",
+        "required": ["trigger", "action"],
+        "properties": {
+          "trigger": {
+            "type": "object",
+            "description": "When to trigger escalation",
+            "properties": {
+              "afterMinutes": {
+                "type": "integer",
+                "description": "Minutes after SLA breach to escalate"
+              },
+              "condition": {
+                "type": "string",
+                "enum": ["no_response", "no_contact", "no_qualification", "multiple_attempts"],
+                "description": "Condition that triggers escalation"
+              }
+            }
+          },
+          "action": {
+            "type": "object",
+            "description": "Escalation action to take",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["notify", "reassign", "create_task", "send_slack", "send_email"],
+                "description": "Type of escalation action"
+              },
+              "recipients": {
+                "type": "array",
+                "description": "Who to notify/assign to",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "type": { "type": "string", "enum": ["user", "team", "role", "manager"] },
+                    "name": { "type": "string" }
+                  }
+                }
+              },
+              "message": {
+                "type": "string",
+                "description": "Custom message for notifications"
+              },
+              "priority": {
+                "type": "string",
+                "enum": ["low", "normal", "high", "urgent"],
+                "description": "Escalation priority",
+                "default": "high"
+              }
+            }
+          },
+          "maxEscalations": {
+            "type": "integer",
+            "description": "Maximum number of times to escalate",
+            "minimum": 1,
+            "default": 3
+          }
+        }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "description": "SLA performance metrics tracking",
+      "properties": {
+        "trackingEnabled": {
+          "type": "boolean",
+          "description": "Whether to track SLA performance",
+          "default": true
+        },
+        "reportingPeriod": {
+          "type": "string",
+          "enum": ["daily", "weekly", "monthly", "quarterly"],
+          "description": "How often to generate SLA reports",
+          "default": "weekly"
+        },
+        "thresholds": {
+          "type": "object",
+          "description": "Performance thresholds",
+          "properties": {
+            "compliance": {
+              "type": "number",
+              "description": "Target SLA compliance percentage",
+              "minimum": 0,
+              "maximum": 100,
+              "default": 90
+            },
+            "averageResponseTime": {
+              "type": "integer",
+              "description": "Target average response time in minutes"
+            }
+          }
+        }
+      }
+    },
+    "notifications": {
+      "type": "object",
+      "description": "Notification settings",
+      "properties": {
+        "assigneeWarning": {
+          "type": "object",
+          "description": "Warning notifications to assignee",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "default": true
+            },
+            "minutesBefore": {
+              "type": "integer",
+              "description": "Minutes before SLA breach to warn",
+              "default": 15
+            },
+            "method": {
+              "type": "string",
+              "enum": ["email", "slack", "teams", "in_app", "sms"],
+              "default": "email"
+            }
+          }
+        },
+        "managerAlert": {
+          "type": "object",
+          "description": "Alerts to managers on SLA breach",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "default": true
+            },
+            "immediateAlert": {
+              "type": "boolean",
+              "description": "Alert immediately on breach",
+              "default": true
+            },
+            "digestFrequency": {
+              "type": "string",
+              "enum": ["immediate", "hourly", "daily"],
+              "description": "How often to send digest alerts",
+              "default": "daily"
+            }
+          }
+        }
+      }
+    },
+    "exceptions": {
+      "type": "array",
+      "description": "Exceptions to SLA policy",
+      "items": {
+        "type": "object",
+        "properties": {
+          "reason": {
+            "type": "string",
+            "enum": ["weekend", "holiday", "after_hours", "high_volume", "technical_issue", "custom"],
+            "description": "Reason for exception"
+          },
+          "description": {
+            "type": "string",
+            "description": "Exception description"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When exception starts"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When exception ends"
+          },
+          "approvedBy": {
+            "type": "string",
+            "description": "Who approved this exception"
+          }
+        }
+      }
+    },
+    "audit": {
+      "type": "object",
+      "properties": {
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "modifiedBy": { "type": "string" },
+        "modifiedAt": { "type": "string", "format": "date-time" },
+        "lastReviewed": { "type": "string", "format": "date-time" },
+        "reviewedBy": { "type": "string" }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional SLA policy metadata",
+      "additionalProperties": true
+    }
+  },
+  "definitions": {
+    "BusinessDay": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether this is a business day",
+          "default": true
+        },
+        "start": {
+          "type": "string",
+          "pattern": "^([0-1][0-9]|2[0-3]):[0-5][0-9]$",
+          "description": "Business day start time (HH:MM)",
+          "default": "09:00"
+        },
+        "end": {
+          "type": "string",
+          "pattern": "^([0-1][0-9]|2[0-3]):[0-5][0-9]$",
+          "description": "Business day end time (HH:MM)",
+          "default": "17:00"
+        },
+        "lunch": {
+          "type": "object",
+          "description": "Lunch break period",
+          "properties": {
+            "start": {
+              "type": "string",
+              "pattern": "^([0-1][0-9]|2[0-3]):[0-5][0-9]$",
+              "default": "12:00"
+            },
+            "end": {
+              "type": "string",
+              "pattern": "^([0-1][0-9]|2[0-3]):[0-5][0-9]$",
+              "default": "13:00"
+            },
+            "pausesSLA": {
+              "type": "boolean",
+              "description": "Whether lunch break pauses SLA counting",
+              "default": false
+            }
+          }
+        }
+      }
+    }
+  }
+}

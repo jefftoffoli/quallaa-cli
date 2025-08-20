@@ -1,0 +1,424 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RoutingRule",
+  "description": "Lead routing and assignment rules configuration",
+  "type": "object",
+  "required": ["id", "name", "strategy", "active"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique routing rule identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable rule name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Rule description"
+    },
+    "strategy": {
+      "type": "string",
+      "enum": ["round_robin", "territory", "tiered", "load_balanced", "priority", "custom"],
+      "description": "Routing strategy type"
+    },
+    "active": {
+      "type": "boolean",
+      "description": "Whether this rule is currently active"
+    },
+    "priority": {
+      "type": "integer",
+      "description": "Rule execution priority (lower = higher priority)",
+      "minimum": 1
+    },
+    "conditions": {
+      "type": "array",
+      "description": "Conditions that must be met for this rule to apply",
+      "items": {
+        "type": "object",
+        "required": ["field", "operator", "value"],
+        "properties": {
+          "field": {
+            "type": "string",
+            "description": "Contact field to evaluate",
+            "examples": ["source", "company", "country", "leadScore", "industry", "jobTitle"]
+          },
+          "operator": {
+            "type": "string",
+            "enum": ["equals", "not_equals", "contains", "not_contains", "starts_with", "ends_with", "greater_than", "less_than", "greater_than_or_equal", "less_than_or_equal", "in", "not_in", "exists", "not_exists"],
+            "description": "Comparison operator"
+          },
+          "value": {
+            "oneOf": [
+              { "type": "string" },
+              { "type": "number" },
+              { "type": "boolean" },
+              { "type": "array", "items": { "type": "string" } }
+            ],
+            "description": "Value to compare against"
+          },
+          "logicalOperator": {
+            "type": "string",
+            "enum": ["AND", "OR"],
+            "description": "Logical operator for chaining conditions",
+            "default": "AND"
+          }
+        }
+      }
+    },
+    "roundRobin": {
+      "type": "object",
+      "description": "Round robin strategy configuration",
+      "properties": {
+        "assignees": {
+          "type": "array",
+          "description": "List of users/teams for round robin",
+          "items": {
+            "type": "object",
+            "required": ["id", "type"],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "User or team ID"
+              },
+              "type": {
+                "type": "string",
+                "enum": ["user", "team", "queue"],
+                "description": "Assignee type"
+              },
+              "name": {
+                "type": "string",
+                "description": "Display name"
+              },
+              "weight": {
+                "type": "integer",
+                "description": "Assignment weight (higher = more assignments)",
+                "minimum": 1,
+                "default": 1
+              },
+              "active": {
+                "type": "boolean",
+                "description": "Whether this assignee is currently active",
+                "default": true
+              },
+              "capacity": {
+                "type": "integer",
+                "description": "Maximum concurrent assignments",
+                "minimum": 1
+              },
+              "workingHours": {
+                "$ref": "#/definitions/WorkingHours"
+              }
+            }
+          }
+        },
+        "resetFrequency": {
+          "type": "string",
+          "enum": ["never", "daily", "weekly", "monthly"],
+          "description": "How often to reset the round robin counter",
+          "default": "never"
+        }
+      }
+    },
+    "territory": {
+      "type": "object",
+      "description": "Territory-based routing configuration",
+      "properties": {
+        "territories": {
+          "type": "array",
+          "description": "Territory definitions",
+          "items": {
+            "type": "object",
+            "required": ["name", "assignee"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Territory name"
+              },
+              "assignee": {
+                "type": "object",
+                "required": ["id", "type"],
+                "properties": {
+                  "id": { "type": "string" },
+                  "type": { "type": "string", "enum": ["user", "team", "queue"] },
+                  "name": { "type": "string" }
+                }
+              },
+              "countries": {
+                "type": "array",
+                "description": "Country codes for this territory",
+                "items": { "type": "string", "pattern": "^[A-Z]{2}$" }
+              },
+              "states": {
+                "type": "array",
+                "description": "State/province codes",
+                "items": { "type": "string" }
+              },
+              "regions": {
+                "type": "array",
+                "description": "Custom region identifiers",
+                "items": { "type": "string" }
+              },
+              "languages": {
+                "type": "array",
+                "description": "Supported languages",
+                "items": { "type": "string", "pattern": "^[a-z]{2}(-[A-Z]{2})?$" }
+              },
+              "timezones": {
+                "type": "array",
+                "description": "Supported timezones",
+                "items": { "type": "string" }
+              }
+            }
+          }
+        },
+        "fallbackAssignee": {
+          "type": "object",
+          "description": "Default assignee when no territory matches",
+          "required": ["id", "type"],
+          "properties": {
+            "id": { "type": "string" },
+            "type": { "type": "string", "enum": ["user", "team", "queue"] },
+            "name": { "type": "string" }
+          }
+        }
+      }
+    },
+    "tiered": {
+      "type": "object",
+      "description": "Tiered routing based on lead value/size",
+      "properties": {
+        "tiers": {
+          "type": "array",
+          "description": "Tier definitions in priority order",
+          "items": {
+            "type": "object",
+            "required": ["name", "assignee", "conditions"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Tier name (e.g., 'Enterprise', 'SMB')"
+              },
+              "assignee": {
+                "type": "object",
+                "required": ["id", "type"],
+                "properties": {
+                  "id": { "type": "string" },
+                  "type": { "type": "string", "enum": ["user", "team", "queue"] },
+                  "name": { "type": "string" }
+                }
+              },
+              "conditions": {
+                "type": "array",
+                "description": "Conditions for this tier",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "field": { "type": "string" },
+                    "operator": { "type": "string" },
+                    "value": {}
+                  }
+                }
+              },
+              "priority": {
+                "type": "integer",
+                "description": "Tier priority (lower = higher priority)",
+                "minimum": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "loadBalanced": {
+      "type": "object",
+      "description": "Load balanced routing configuration",
+      "properties": {
+        "assignees": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "type": { "type": "string", "enum": ["user", "team", "queue"] },
+              "name": { "type": "string" },
+              "currentLoad": {
+                "type": "integer",
+                "description": "Current number of assigned leads",
+                "minimum": 0
+              },
+              "maxCapacity": {
+                "type": "integer",
+                "description": "Maximum capacity",
+                "minimum": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "schedule": {
+      "type": "object",
+      "description": "When this rule should be active",
+      "properties": {
+        "timezone": {
+          "type": "string",
+          "description": "Timezone for schedule evaluation"
+        },
+        "workingHours": {
+          "$ref": "#/definitions/WorkingHours"
+        },
+        "effectiveDate": {
+          "type": "string",
+          "format": "date",
+          "description": "When this rule becomes effective"
+        },
+        "expirationDate": {
+          "type": "string",
+          "format": "date",
+          "description": "When this rule expires"
+        }
+      }
+    },
+    "escalation": {
+      "type": "object",
+      "description": "Escalation rules if assignment fails",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false
+        },
+        "fallbackAssignee": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string" },
+            "type": { "type": "string", "enum": ["user", "team", "queue"] },
+            "name": { "type": "string" }
+          }
+        },
+        "notifyManagers": {
+          "type": "boolean",
+          "description": "Whether to notify managers on escalation",
+          "default": false
+        },
+        "maxAttempts": {
+          "type": "integer",
+          "description": "Maximum assignment attempts before escalation",
+          "minimum": 1,
+          "default": 3
+        }
+      }
+    },
+    "notifications": {
+      "type": "object",
+      "description": "Notification settings for assignments",
+      "properties": {
+        "assigneeNotification": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean", "default": true },
+            "method": { 
+              "type": "string", 
+              "enum": ["email", "slack", "teams", "in_app"],
+              "default": "email"
+            },
+            "template": { "type": "string" }
+          }
+        },
+        "managerNotification": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean", "default": false },
+            "conditions": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "audit": {
+      "type": "object",
+      "properties": {
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "modifiedBy": { "type": "string" },
+        "modifiedAt": { "type": "string", "format": "date-time" },
+        "lastUsed": { "type": "string", "format": "date-time" },
+        "usageCount": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional routing rule metadata",
+      "additionalProperties": true
+    }
+  },
+  "definitions": {
+    "WorkingHours": {
+      "type": "object",
+      "properties": {
+        "timezone": {
+          "type": "string",
+          "description": "Timezone identifier (e.g., 'America/New_York')"
+        },
+        "schedule": {
+          "type": "object",
+          "properties": {
+            "monday": { "$ref": "#/definitions/DaySchedule" },
+            "tuesday": { "$ref": "#/definitions/DaySchedule" },
+            "wednesday": { "$ref": "#/definitions/DaySchedule" },
+            "thursday": { "$ref": "#/definitions/DaySchedule" },
+            "friday": { "$ref": "#/definitions/DaySchedule" },
+            "saturday": { "$ref": "#/definitions/DaySchedule" },
+            "sunday": { "$ref": "#/definitions/DaySchedule" }
+          }
+        },
+        "holidays": {
+          "type": "array",
+          "description": "Holiday dates when assignee is not available",
+          "items": {
+            "type": "object",
+            "properties": {
+              "date": { "type": "string", "format": "date" },
+              "name": { "type": "string" },
+              "recurring": { "type": "boolean", "default": false }
+            }
+          }
+        }
+      }
+    },
+    "DaySchedule": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether assignee works this day",
+          "default": true
+        },
+        "start": {
+          "type": "string",
+          "pattern": "^([0-1][0-9]|2[0-3]):[0-5][0-9]$",
+          "description": "Start time in HH:MM format"
+        },
+        "end": {
+          "type": "string",
+          "pattern": "^([0-1][0-9]|2[0-3]):[0-5][0-9]$",
+          "description": "End time in HH:MM format"
+        },
+        "breaks": {
+          "type": "array",
+          "description": "Break periods during the day",
+          "items": {
+            "type": "object",
+            "properties": {
+              "start": { "type": "string", "pattern": "^([0-1][0-9]|2[0-3]):[0-5][0-9]$" },
+              "end": { "type": "string", "pattern": "^([0-1][0-9]|2[0-3]):[0-5][0-9]$" },
+              "name": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

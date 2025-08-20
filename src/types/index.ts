@@ -71,6 +71,7 @@ export type OutcomeTemplate = 'order-cash-reco' | 'lead-lifecycle-core';
 export interface OutcomeConfig extends ProjectConfig {
   template: OutcomeTemplate;
   stackVariant?: StackVariant;
+  demo?: boolean;
 }
 
 export interface DataContract {

@@ -1,0 +1,223 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ReconciliationException",
+  "description": "Exception record for mismatched or unreconciled transactions",
+  "type": "object",
+  "required": ["id", "type", "severity", "status", "createdAt"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique exception identifier"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "missing_order",
+        "missing_payout",
+        "missing_journal_entry",
+        "amount_mismatch",
+        "currency_mismatch",
+        "date_mismatch",
+        "duplicate_entry",
+        "unmatched_refund",
+        "fee_discrepancy",
+        "tax_discrepancy"
+      ],
+      "description": "Type of reconciliation exception"
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["critical", "high", "medium", "low"],
+      "description": "Exception severity level"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["open", "investigating", "resolved", "ignored", "escalated"],
+      "description": "Current status of the exception"
+    },
+    "orderId": {
+      "type": "string",
+      "description": "Related order ID if applicable"
+    },
+    "payoutId": {
+      "type": "string",
+      "description": "Related payout ID if applicable"
+    },
+    "journalEntryId": {
+      "type": "string",
+      "description": "Related journal entry ID if applicable"
+    },
+    "expectedAmount": {
+      "type": "number",
+      "description": "Expected amount in cents"
+    },
+    "actualAmount": {
+      "type": "number",
+      "description": "Actual amount found in cents"
+    },
+    "discrepancyAmount": {
+      "type": "number",
+      "description": "Difference between expected and actual in cents"
+    },
+    "currency": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}$",
+      "description": "Currency code"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the exception"
+    },
+    "suggestedAction": {
+      "type": "string",
+      "description": "Recommended action to resolve"
+    },
+    "affectedPeriod": {
+      "type": "object",
+      "properties": {
+        "startDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Start of affected period"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date",
+          "description": "End of affected period"
+        }
+      }
+    },
+    "relatedExceptions": {
+      "type": "array",
+      "description": "IDs of related exceptions",
+      "items": {
+        "type": "string"
+      }
+    },
+    "resolution": {
+      "type": "object",
+      "description": "Resolution details when status is resolved",
+      "properties": {
+        "resolvedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Resolution timestamp"
+        },
+        "resolvedBy": {
+          "type": "string",
+          "description": "User who resolved the exception"
+        },
+        "resolutionType": {
+          "type": "string",
+          "enum": [
+            "manual_adjustment",
+            "system_correction",
+            "data_sync",
+            "ignore_acceptable",
+            "process_change"
+          ],
+          "description": "How the exception was resolved"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Resolution notes"
+        },
+        "adjustmentEntries": {
+          "type": "array",
+          "description": "Any adjustment entries created",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "Type of adjustment"
+              },
+              "id": {
+                "type": "string",
+                "description": "Adjustment entry ID"
+              },
+              "amount": {
+                "type": "number",
+                "description": "Adjustment amount"
+              }
+            }
+          }
+        }
+      }
+    },
+    "audit": {
+      "type": "object",
+      "properties": {
+        "detectedBy": {
+          "type": "string",
+          "enum": ["system", "manual_review", "customer_report", "audit"],
+          "description": "How the exception was detected"
+        },
+        "assignedTo": {
+          "type": "string",
+          "description": "User assigned to investigate"
+        },
+        "escalatedTo": {
+          "type": "string",
+          "description": "User/team escalated to"
+        },
+        "comments": {
+          "type": "array",
+          "description": "Audit trail comments",
+          "items": {
+            "type": "object",
+            "properties": {
+              "author": {
+                "type": "string"
+              },
+              "comment": {
+                "type": "string"
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        }
+      }
+    },
+    "impact": {
+      "type": "object",
+      "description": "Business impact assessment",
+      "properties": {
+        "financialImpact": {
+          "type": "number",
+          "description": "Estimated financial impact in cents"
+        },
+        "customerImpact": {
+          "type": "boolean",
+          "description": "Whether this affects customers"
+        },
+        "reportingImpact": {
+          "type": "boolean",
+          "description": "Whether this affects financial reporting"
+        },
+        "complianceImpact": {
+          "type": "boolean",
+          "description": "Whether this has compliance implications"
+        }
+      }
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Exception creation timestamp"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last update timestamp"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional exception metadata",
+      "additionalProperties": true
+    }
+  }
+}

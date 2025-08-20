@@ -16,6 +16,7 @@ export const outcomeCommand = new Command('outcome')
   .option('-t, --template <template>', 'Outcome template (order-cash-reco, lead-lifecycle-core)')
   .option('-n, --name <name>', 'Project name')
   .option('-r, --role <role>', 'Your role (founder, product, marketing, operations)')
+  .option('--demo', 'Generate with demo data and sample configurations')
   .option('--skip-lead-capture', 'Skip lead capture (not recommended)')
   .action(async (options) => {
     displayWelcome();
@@ -66,6 +67,7 @@ export const outcomeCommand = new Command('outcome')
         leadInfo,
         template,
         stackVariant,
+        demo: options.demo,
       };
 
       // Create base project structure

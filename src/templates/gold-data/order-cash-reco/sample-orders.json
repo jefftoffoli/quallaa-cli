@@ -1,0 +1,164 @@
+[
+  {
+    "id": "order_1001",
+    "orderNumber": "ORD-1001",
+    "customerId": "cust_abc123",
+    "customerEmail": "john.doe@example.com",
+    "status": "paid",
+    "financialStatus": "paid",
+    "fulfillmentStatus": "fulfilled",
+    "totalAmount": 12500,
+    "subtotalAmount": 10000,
+    "taxAmount": 800,
+    "shippingAmount": 1200,
+    "discountAmount": 500,
+    "refundedAmount": 0,
+    "currency": "USD",
+    "items": [
+      {
+        "productId": "prod_001",
+        "variantId": "var_001",
+        "productName": "Wireless Headphones",
+        "sku": "WH-001",
+        "quantity": 2,
+        "unitPrice": 5000,
+        "totalPrice": 10000,
+        "taxAmount": 800,
+        "discountAmount": 500
+      }
+    ],
+    "transactions": [
+      {
+        "id": "txn_001",
+        "type": "sale",
+        "status": "success",
+        "amount": 12500,
+        "gateway": "stripe",
+        "gatewayTransactionId": "ch_1N2A3B4C5D6E7F8G",
+        "processedAt": "2024-12-01T10:30:00Z"
+      }
+    ],
+    "source": "web",
+    "channel": "online_store",
+    "createdAt": "2024-12-01T10:00:00Z",
+    "updatedAt": "2024-12-01T11:00:00Z"
+  },
+  {
+    "id": "order_1002",
+    "orderNumber": "ORD-1002",
+    "customerId": "cust_def456",
+    "customerEmail": "jane.smith@company.com",
+    "status": "partially_refunded",
+    "financialStatus": "partially_refunded",
+    "fulfillmentStatus": "fulfilled",
+    "totalAmount": 25000,
+    "subtotalAmount": 20000,
+    "taxAmount": 1600,
+    "shippingAmount": 1500,
+    "discountAmount": 1000,
+    "refundedAmount": 5000,
+    "currency": "USD",
+    "items": [
+      {
+        "productId": "prod_002",
+        "variantId": "var_002",
+        "productName": "Laptop Stand",
+        "sku": "LS-002",
+        "quantity": 1,
+        "unitPrice": 15000,
+        "totalPrice": 15000,
+        "taxAmount": 1200,
+        "discountAmount": 0
+      },
+      {
+        "productId": "prod_003",
+        "variantId": "var_003",
+        "productName": "USB Cable",
+        "sku": "UC-003",
+        "quantity": 10,
+        "unitPrice": 500,
+        "totalPrice": 5000,
+        "taxAmount": 400,
+        "discountAmount": 1000
+      }
+    ],
+    "transactions": [
+      {
+        "id": "txn_002",
+        "type": "sale",
+        "status": "success",
+        "amount": 25000,
+        "gateway": "stripe",
+        "gatewayTransactionId": "ch_2N3B4C5D6E7F8G9H",
+        "processedAt": "2024-12-02T14:15:00Z"
+      },
+      {
+        "id": "txn_003",
+        "type": "refund",
+        "status": "success",
+        "amount": 5000,
+        "gateway": "stripe",
+        "gatewayTransactionId": "re_3N4C5D6E7F8G9H0I",
+        "processedAt": "2024-12-03T09:20:00Z"
+      }
+    ],
+    "source": "web",
+    "channel": "online_store",
+    "createdAt": "2024-12-02T14:00:00Z",
+    "updatedAt": "2024-12-03T09:25:00Z"
+  },
+  {
+    "id": "order_1003",
+    "orderNumber": "ORD-1003",
+    "customerId": "cust_ghi789",
+    "customerEmail": "bob.wilson@startup.io",
+    "status": "cancelled",
+    "financialStatus": "voided",
+    "fulfillmentStatus": "unfulfilled",
+    "totalAmount": 7500,
+    "subtotalAmount": 6000,
+    "taxAmount": 480,
+    "shippingAmount": 1020,
+    "discountAmount": 0,
+    "refundedAmount": 0,
+    "currency": "USD",
+    "items": [
+      {
+        "productId": "prod_004",
+        "variantId": "var_004",
+        "productName": "Keyboard",
+        "sku": "KB-004",
+        "quantity": 1,
+        "unitPrice": 6000,
+        "totalPrice": 6000,
+        "taxAmount": 480,
+        "discountAmount": 0
+      }
+    ],
+    "transactions": [
+      {
+        "id": "txn_004",
+        "type": "authorization",
+        "status": "success",
+        "amount": 7500,
+        "gateway": "stripe",
+        "gatewayTransactionId": "ch_4N5C6D7E8F9G0H1I",
+        "processedAt": "2024-12-03T16:45:00Z"
+      },
+      {
+        "id": "txn_005",
+        "type": "void",
+        "status": "success",
+        "amount": 7500,
+        "gateway": "stripe",
+        "gatewayTransactionId": "ch_4N5C6D7E8F9G0H1I",
+        "processedAt": "2024-12-04T08:30:00Z"
+      }
+    ],
+    "source": "mobile_app",
+    "channel": "mobile_app",
+    "createdAt": "2024-12-03T16:30:00Z",
+    "updatedAt": "2024-12-04T08:35:00Z",
+    "cancelledAt": "2024-12-04T08:30:00Z"
+  }
+]

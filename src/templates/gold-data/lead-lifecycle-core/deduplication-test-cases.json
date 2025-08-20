@@ -1,0 +1,227 @@
+{
+  "testCases": [
+    {
+      "id": "dedup_001",
+      "description": "Exact email match - same person, different form submissions",
+      "contacts": [
+        {
+          "id": "lead_001",
+          "email": "sarah.johnson@acmecorp.com",
+          "firstName": "Sarah",
+          "lastName": "Johnson",
+          "company": "Acme Corp"
+        },
+        {
+          "id": "lead_004", 
+          "email": "john.smith@acmecorp.com",
+          "firstName": "John",
+          "lastName": "Smith",
+          "company": "Acme Corp"
+        }
+      ],
+      "expected": {
+        "isDuplicate": false,
+        "confidence": 0.15,
+        "reason": "different_people_same_company",
+        "matchType": "no_match"
+      }
+    },
+    {
+      "id": "dedup_002",
+      "description": "Same person, slight name variation and company domain match",
+      "contacts": [
+        {
+          "id": "lead_006",
+          "email": "s.johnson@acmecorp.com", 
+          "firstName": "Sarah",
+          "lastName": "Johnson",
+          "company": "Acme Corporation"
+        },
+        {
+          "id": "lead_001",
+          "email": "sarah.johnson@acmecorp.com",
+          "firstName": "Sarah", 
+          "lastName": "Johnson",
+          "company": "Acme Corp"
+        }
+      ],
+      "expected": {
+        "isDuplicate": true,
+        "confidence": 0.95,
+        "reason": "same_person_domain_match",
+        "matchType": "high_confidence_duplicate",
+        "masterRecord": "lead_001",
+        "duplicateRecord": "lead_006"
+      }
+    },
+    {
+      "id": "dedup_003",
+      "description": "Phone number match with similar name",
+      "contacts": [
+        {
+          "id": "lead_007",
+          "email": "mike.c@different-startup.com",
+          "firstName": "Michael",
+          "lastName": "Chen",
+          "phone": "+15552345678",
+          "company": "Different Startup"
+        },
+        {
+          "id": "lead_002",
+          "email": "mike.chen@startup.io",
+          "firstName": "Mike",
+          "lastName": "Chen",
+          "phone": "+1-555-234-5678",
+          "company": "StartupIO"
+        }
+      ],
+      "expected": {
+        "isDuplicate": true,
+        "confidence": 0.88,
+        "reason": "phone_match_name_similarity",
+        "matchType": "probable_duplicate",
+        "masterRecord": "lead_002",
+        "duplicateRecord": "lead_007",
+        "requiresReview": true
+      }
+    },
+    {
+      "id": "dedup_004", 
+      "description": "Company match with similar name but different email domains",
+      "contacts": [
+        {
+          "id": "lead_008",
+          "email": "alice.brown@enterprise-solutions.com",
+          "firstName": "Alice",
+          "lastName": "Brown",
+          "company": "Enterprise Solutions Inc"
+        },
+        {
+          "id": "lead_003",
+          "email": "alice.brown@enterprise.com",
+          "firstName": "Alice",
+          "lastName": "Brown", 
+          "company": "Enterprise Solutions Inc"
+        }
+      ],
+      "expected": {
+        "isDuplicate": true,
+        "confidence": 0.82,
+        "reason": "name_company_match_different_domains",
+        "matchType": "medium_confidence_duplicate",
+        "masterRecord": "lead_003",
+        "duplicateRecord": "lead_008",
+        "requiresReview": true
+      }
+    },
+    {
+      "id": "dedup_005",
+      "description": "False positive - common name, different companies",
+      "contacts": [
+        {
+          "id": "lead_009",
+          "email": "john.smith@different-company.com",
+          "firstName": "John",
+          "lastName": "Smith",
+          "company": "Different Company Inc"
+        },
+        {
+          "id": "lead_010",
+          "email": "john.smith@another-company.com", 
+          "firstName": "John",
+          "lastName": "Smith",
+          "company": "Another Company LLC"
+        }
+      ],
+      "expected": {
+        "isDuplicate": false,
+        "confidence": 0.25,
+        "reason": "common_name_different_companies",
+        "matchType": "no_match"
+      }
+    },
+    {
+      "id": "dedup_006",
+      "description": "Typo in email with strong name/company match",
+      "contacts": [
+        {
+          "id": "lead_011",
+          "email": "emma.willson@techstartup.dev",
+          "firstName": "Emma",
+          "lastName": "Wilson",
+          "company": "TechStartup Dev"
+        },
+        {
+          "id": "lead_005",
+          "email": "emma.wilson@techstartup.dev",
+          "firstName": "Emma",
+          "lastName": "Wilson",
+          "company": "TechStartup Dev"
+        }
+      ],
+      "expected": {
+        "isDuplicate": true,
+        "confidence": 0.92,
+        "reason": "typo_in_email_strong_match",
+        "matchType": "high_confidence_duplicate",
+        "masterRecord": "lead_005",
+        "duplicateRecord": "lead_011"
+      }
+    }
+  ],
+  "evaluationMetrics": {
+    "precision": {
+      "target": 0.90,
+      "description": "Percentage of identified duplicates that are actually duplicates"
+    },
+    "recall": {
+      "target": 0.85,
+      "description": "Percentage of actual duplicates that are correctly identified"
+    },
+    "f1Score": {
+      "target": 0.87,
+      "description": "Harmonic mean of precision and recall"
+    },
+    "falsePositiveRate": {
+      "target": 0.05,
+      "description": "Percentage of non-duplicates incorrectly flagged as duplicates"
+    },
+    "reviewQueueSize": {
+      "target": 0.15,
+      "description": "Percentage of contacts requiring manual review"
+    }
+  },
+  "matchingRules": [
+    {
+      "rule": "exact_email_match",
+      "weight": 70,
+      "description": "Same email address (case-insensitive)"
+    },
+    {
+      "rule": "phone_match", 
+      "weight": 40,
+      "description": "Same phone number (normalized E.164)"
+    },
+    {
+      "rule": "name_company_match",
+      "weight": 25,
+      "description": "Same first name, last name, and company (fuzzy match)"
+    },
+    {
+      "rule": "domain_match_penalty",
+      "weight": -20,
+      "description": "Different email domains reduce match confidence"
+    },
+    {
+      "rule": "time_proximity_bonus",
+      "weight": 10,
+      "description": "Contacts created within 24 hours get bonus points"
+    }
+  ],
+  "confidenceThresholds": {
+    "autoMerge": 85,
+    "requireReview": 60,
+    "noMatch": 40,
+    "description": "Confidence score thresholds for automated decisions"
+  }
+}

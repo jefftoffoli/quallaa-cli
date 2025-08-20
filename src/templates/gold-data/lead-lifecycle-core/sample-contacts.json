@@ -1,0 +1,284 @@
+[
+  {
+    "id": "lead_001",
+    "email": "sarah.johnson@acmecorp.com",
+    "firstName": "Sarah",
+    "lastName": "Johnson",
+    "phone": "+1-555-123-4567",
+    "company": "Acme Corp",
+    "jobTitle": "VP of Marketing",
+    "department": "Marketing",
+    "seniority": "vp",
+    "industry": "Software",
+    "source": "paid_search",
+    "utm": {
+      "source": "google",
+      "medium": "cpc",
+      "campaign": "enterprise-demo",
+      "term": "marketing automation software",
+      "content": "ad-variant-a",
+      "gclid": "CjwKCAjw...",
+      "landingPage": "https://example.com/demo",
+      "referrer": "https://google.com"
+    },
+    "leadScore": 85,
+    "leadGrade": "A",
+    "status": "marketing_qualified",
+    "consent": {
+      "email": true,
+      "sms": false,
+      "phone": true,
+      "timestamp": "2024-12-01T10:30:00Z",
+      "source": "demo_form",
+      "doubleOptIn": true,
+      "gdprLawfulBasis": "consent"
+    },
+    "enrichment": {
+      "enrichedAt": "2024-12-01T11:00:00Z",
+      "enrichmentSource": "clearbit",
+      "socialProfiles": {
+        "linkedin": "https://linkedin.com/in/sarahjohnson",
+        "twitter": "@sarahj_marketing"
+      },
+      "companyData": {
+        "size": "500-1000",
+        "revenue": "$50M-$100M",
+        "fundingStage": "Series C",
+        "fundingTotal": 75000000
+      }
+    },
+    "slaTracking": {
+      "firstResponseDue": "2024-12-01T11:30:00Z",
+      "responseTime": 25,
+      "slaStatus": "met"
+    },
+    "createdAt": "2024-12-01T10:30:00Z",
+    "updatedAt": "2024-12-01T11:30:00Z"
+  },
+  {
+    "id": "lead_002",
+    "email": "mike.chen@startup.io",
+    "firstName": "Mike",
+    "lastName": "Chen", 
+    "phone": "+1-555-234-5678",
+    "company": "StartupIO",
+    "jobTitle": "Founder",
+    "department": "Executive",
+    "seniority": "owner",
+    "industry": "Technology",
+    "source": "organic_search",
+    "utm": {
+      "source": "google",
+      "medium": "organic",
+      "landingPage": "https://example.com/pricing",
+      "referrer": "https://google.com"
+    },
+    "leadScore": 92,
+    "leadGrade": "A+",
+    "status": "sales_qualified",
+    "consent": {
+      "email": true,
+      "sms": true,
+      "phone": true,
+      "timestamp": "2024-12-02T14:15:00Z",
+      "source": "pricing_page",
+      "doubleOptIn": false,
+      "gdprLawfulBasis": "legitimate_interests"
+    },
+    "enrichment": {
+      "enrichedAt": "2024-12-02T14:30:00Z",
+      "enrichmentSource": "apollo",
+      "socialProfiles": {
+        "linkedin": "https://linkedin.com/in/mikechen-founder",
+        "github": "mikechen",
+        "twitter": "@mike_builds"
+      },
+      "companyData": {
+        "size": "1-10",
+        "revenue": "$1M-$5M",
+        "fundingStage": "Seed",
+        "fundingTotal": 2000000
+      }
+    },
+    "assignedTo": "rep_enterprise_001",
+    "assignedAt": "2024-12-02T14:45:00Z",
+    "slaTracking": {
+      "firstResponseDue": "2024-12-02T15:45:00Z",
+      "firstResponseAt": "2024-12-02T15:20:00Z",
+      "responseTime": 35,
+      "slaStatus": "met"
+    },
+    "createdAt": "2024-12-02T14:15:00Z",
+    "updatedAt": "2024-12-02T15:20:00Z"
+  },
+  {
+    "id": "lead_003",
+    "email": "alice.brown@enterprise.com",
+    "firstName": "Alice",
+    "lastName": "Brown",
+    "phone": "+1-555-345-6789", 
+    "company": "Enterprise Solutions Inc",
+    "jobTitle": "Director of Operations",
+    "department": "Operations",
+    "seniority": "director",
+    "industry": "Consulting",
+    "source": "referral",
+    "originalSource": "partner_referral_acme",
+    "utm": {
+      "source": "partner",
+      "medium": "referral",
+      "campaign": "partner-acme-q4",
+      "landingPage": "https://example.com/partner/acme"
+    },
+    "leadScore": 78,
+    "leadGrade": "B+",
+    "status": "new",
+    "consent": {
+      "email": true,
+      "sms": false,
+      "phone": false,
+      "timestamp": "2024-12-03T09:20:00Z",
+      "source": "partner_form",
+      "doubleOptIn": false,
+      "gdprLawfulBasis": "legitimate_interests"
+    },
+    "enrichment": {
+      "enrichedAt": "2024-12-03T09:30:00Z",
+      "enrichmentSource": "zoominfo",
+      "socialProfiles": {
+        "linkedin": "https://linkedin.com/in/alicebrown-ops"
+      },
+      "companyData": {
+        "size": "1000-5000",
+        "revenue": "$100M+",
+        "fundingStage": "Public"
+      }
+    },
+    "slaTracking": {
+      "firstResponseDue": "2024-12-03T10:20:00Z",
+      "slaStatus": "breached",
+      "escalatedAt": "2024-12-03T11:00:00Z"
+    },
+    "duplicates": {
+      "isDuplicate": false,
+      "lastDedupeCheck": "2024-12-03T09:25:00Z"
+    },
+    "createdAt": "2024-12-03T09:20:00Z",
+    "updatedAt": "2024-12-03T11:00:00Z"
+  },
+  {
+    "id": "lead_004",
+    "email": "john.smith@acmecorp.com",
+    "firstName": "John",
+    "lastName": "Smith",
+    "phone": "+1-555-456-7890",
+    "company": "Acme Corp",
+    "jobTitle": "Marketing Manager",
+    "department": "Marketing", 
+    "seniority": "manager",
+    "industry": "Software",
+    "source": "email",
+    "utm": {
+      "source": "newsletter",
+      "medium": "email",
+      "campaign": "product-announcement-nov",
+      "content": "cta-demo",
+      "landingPage": "https://example.com/demo"
+    },
+    "leadScore": 45,
+    "leadGrade": "C",
+    "status": "unqualified",
+    "consent": {
+      "email": true,
+      "sms": false,
+      "phone": false,
+      "timestamp": "2024-12-04T16:45:00Z",
+      "source": "email_link",
+      "doubleOptIn": true,
+      "gdprLawfulBasis": "consent"
+    },
+    "duplicates": {
+      "isDuplicate": true,
+      "masterRecordId": "lead_001",
+      "duplicateConfidence": 0.95,
+      "lastDedupeCheck": "2024-12-04T17:00:00Z"
+    },
+    "createdAt": "2024-12-04T16:45:00Z",
+    "updatedAt": "2024-12-04T17:00:00Z"
+  },
+  {
+    "id": "lead_005",
+    "email": "emma.wilson@techstartup.dev",
+    "firstName": "Emma",
+    "lastName": "Wilson",
+    "phone": "+1-555-567-8901",
+    "company": "TechStartup Dev",
+    "jobTitle": "CTO", 
+    "department": "Engineering",
+    "seniority": "c_level",
+    "industry": "Technology",
+    "source": "social",
+    "utm": {
+      "source": "linkedin",
+      "medium": "social", 
+      "campaign": "tech-leaders-webinar",
+      "content": "sponsored-post",
+      "landingPage": "https://example.com/webinar/tech-leaders"
+    },
+    "leadScore": 88,
+    "leadGrade": "A",
+    "status": "opportunity",
+    "consent": {
+      "email": true,
+      "sms": true,
+      "phone": true,
+      "timestamp": "2024-12-05T11:30:00Z",
+      "source": "webinar_registration",
+      "doubleOptIn": true,
+      "gdprLawfulBasis": "consent"
+    },
+    "enrichment": {
+      "enrichedAt": "2024-12-05T11:45:00Z",
+      "enrichmentSource": "clearbit",
+      "socialProfiles": {
+        "linkedin": "https://linkedin.com/in/emmawilson-cto",
+        "github": "emmawilson",
+        "twitter": "@emma_codes"
+      },
+      "technographics": [
+        {
+          "category": "Infrastructure",
+          "technology": "AWS",
+          "confidence": 0.9
+        },
+        {
+          "category": "Development",
+          "technology": "React",
+          "confidence": 0.85
+        }
+      ],
+      "companyData": {
+        "size": "50-200",
+        "revenue": "$5M-$10M",
+        "fundingStage": "Series A",
+        "fundingTotal": 8000000
+      }
+    },
+    "assignedTo": "rep_enterprise_002",
+    "assignedAt": "2024-12-05T12:00:00Z",
+    "slaTracking": {
+      "firstResponseDue": "2024-12-05T13:00:00Z",
+      "firstResponseAt": "2024-12-05T12:45:00Z",
+      "responseTime": 45,
+      "slaStatus": "met"
+    },
+    "lastActivity": {
+      "type": "email_open",
+      "timestamp": "2024-12-05T13:15:00Z",
+      "description": "Opened follow-up email after demo"
+    },
+    "engagementScore": 75,
+    "createdAt": "2024-12-05T11:30:00Z",
+    "updatedAt": "2024-12-05T13:15:00Z"
+  }
+]
