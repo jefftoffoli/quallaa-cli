@@ -258,3 +258,20 @@ export async function sendTestEmail(to: string, from?: string): Promise<void> {
     console.log(chalk.green('✓ Test email sent successfully'));
   }
 }
+
+export async function verifyResendCredentials(): Promise<boolean> {
+  try {
+    const credentials = await getCredentials('resend');
+    if (!credentials?.apiKey) {
+      return false;
+    }
+    
+    // Verify API key by making a simple API call
+    const response = await axios.get('https://api.resend.com/domains', {
+      headers: { Authorization: `Bearer ${credentials.apiKey}` },
+    });
+    return response.status === 200;
+  } catch {
+    return false;
+  }
+}

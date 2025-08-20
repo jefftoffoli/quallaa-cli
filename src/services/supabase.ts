@@ -283,3 +283,18 @@ export async function createSupabaseTable(tableName: string, schema: string): Pr
   // Apply migration
   await execAsync('supabase db push');
 }
+
+export async function verifySupabaseCredentials(): Promise<boolean> {
+  try {
+    const credentials = await getCredentials('supabase');
+    if (!credentials) {
+      return false;
+    }
+    
+    // Check if Supabase CLI is installed and user is logged in
+    await execAsync('supabase status');
+    return true;
+  } catch {
+    return false;
+  }
+}

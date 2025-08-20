@@ -237,3 +237,20 @@ export async function pushToGitHub(
   
   console.log(chalk.green('✓ Code pushed to GitHub'));
 }
+
+export async function verifyGitHubCredentials(): Promise<boolean> {
+  try {
+    const credentials = await getCredentials('github');
+    if (!credentials?.token) {
+      return false;
+    }
+    
+    // Check if token is valid by making a simple API call
+    const response = await axios.get('https://api.github.com/user', {
+      headers: { Authorization: `token ${credentials.token}` },
+    });
+    return response.status === 200;
+  } catch {
+    return false;
+  }
+}

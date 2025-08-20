@@ -268,3 +268,20 @@ export const defaultSchemas = {
     default_sorting_field: 'created_at',
   },
 };
+
+export async function verifyTypesenseCredentials(): Promise<boolean> {
+  try {
+    const credentials = await getCredentials('typesense');
+    if (!credentials?.apiKey || !credentials?.nodes) {
+      return false;
+    }
+    
+    // Verify connection by checking cluster health
+    const response = await axios.get(`${credentials.nodes[0].protocol}://${credentials.nodes[0].host}:${credentials.nodes[0].port}/health`, {
+      headers: { 'X-TYPESENSE-API-KEY': credentials.apiKey },
+    });
+    return response.status === 200;
+  } catch {
+    return false;
+  }
+}

@@ -313,3 +313,17 @@ export async function setVercelEnvVars(projectId: string, envVars: Record<string
 
   await Promise.all(promises);
 }
+
+export async function verifyVercelCredentials(): Promise<boolean> {
+  try {
+    const credentials = await getCredentials('vercel');
+    if (!credentials?.token) {
+      return false;
+    }
+    
+    await verifyToken(credentials.token);
+    return true;
+  } catch {
+    return false;
+  }
+}

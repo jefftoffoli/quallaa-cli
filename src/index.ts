@@ -3,6 +3,7 @@ import { displayBanner } from './ui/brand/banner';
 import { initCommand } from './commands/init';
 import { setupCommand } from './commands/setup';
 import { generateCommand } from './commands/generate';
+import { doctorCommand } from './commands/doctor';
 const packageJson = require('../package.json');
 const { version } = packageJson;
 
@@ -18,6 +19,7 @@ cli
 cli.addCommand(initCommand);
 cli.addCommand(setupCommand);
 cli.addCommand(generateCommand);
+cli.addCommand(doctorCommand);
 
 // Global error handling
 cli.exitOverride();
