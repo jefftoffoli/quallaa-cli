@@ -1,0 +1,296 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Fund",
+  "description": "Fund or program designation for donations and member dues",
+  "required": ["id", "name", "type"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique fund identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "Fund name or title"
+    },
+    "code": {
+      "type": "string",
+      "description": "Fund code or abbreviation"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["restricted", "unrestricted", "temporarily_restricted", "permanently_restricted", "endowment", "operating", "capital", "program"],
+      "description": "Fund restriction type"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["general", "program", "project", "campaign", "memorial", "scholarship", "endowment", "building", "emergency"],
+      "description": "Fund category"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed fund description"
+    },
+    "purpose": {
+      "type": "string",
+      "description": "Fund purpose or mission"
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether fund is currently active for new donations"
+    },
+    "startDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Fund start date"
+    },
+    "endDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Fund end date (if applicable)"
+    },
+    "targetAmount": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Fundraising target amount in cents"
+    },
+    "currentBalance": {
+      "type": "number",
+      "description": "Current fund balance in cents"
+    },
+    "totalRaised": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Total amount raised to date in cents"
+    },
+    "totalAllocated": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Total amount allocated/spent in cents"
+    },
+    "restrictions": {
+      "type": "object",
+      "description": "Fund restrictions and rules",
+      "properties": {
+        "spendingPolicy": {
+          "type": "string",
+          "description": "How funds can be spent"
+        },
+        "minimumBalance": {
+          "type": "number",
+          "description": "Minimum balance to maintain in cents"
+        },
+        "spendingRate": {
+          "type": "number",
+          "description": "Maximum spending rate (percentage)"
+        },
+        "timeRestrictions": {
+          "type": "string",
+          "description": "Time-based spending restrictions"
+        },
+        "purposeRestrictions": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Purpose-based spending restrictions"
+        }
+      }
+    },
+    "reportingRequirements": {
+      "type": "object",
+      "description": "Reporting requirements for fund",
+      "properties": {
+        "frequency": {
+          "type": "string",
+          "enum": ["monthly", "quarterly", "annually", "as_needed"],
+          "description": "Reporting frequency"
+        },
+        "recipients": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Report recipients (email addresses)"
+        },
+        "format": {
+          "type": "string",
+          "description": "Required report format"
+        },
+        "dueDate": {
+          "type": "string",
+          "description": "When reports are due"
+        }
+      }
+    },
+    "accountMapping": {
+      "type": "object",
+      "description": "Accounting system mapping",
+      "properties": {
+        "revenueAccount": {
+          "type": "string",
+          "description": "Revenue GL account number"
+        },
+        "assetAccount": {
+          "type": "string",
+          "description": "Asset GL account number"
+        },
+        "expenseAccount": {
+          "type": "string",
+          "description": "Expense GL account number"
+        },
+        "costCenter": {
+          "type": "string",
+          "description": "Cost center code"
+        },
+        "department": {
+          "type": "string",
+          "description": "Department code"
+        },
+        "grant": {
+          "type": "string",
+          "description": "Grant tracking code"
+        }
+      }
+    },
+    "donors": {
+      "type": "object",
+      "description": "Donor statistics",
+      "properties": {
+        "totalDonors": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total number of donors"
+        },
+        "activeDonors": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Active donors (donated in last 12 months)"
+        },
+        "newDonors": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "New donors this year"
+        },
+        "averageGift": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Average gift amount in cents"
+        },
+        "largestGift": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Largest gift amount in cents"
+        }
+      }
+    },
+    "campaign": {
+      "type": "object",
+      "description": "Campaign information (if fund is part of campaign)",
+      "properties": {
+        "campaignId": {
+          "type": "string",
+          "description": "Parent campaign ID"
+        },
+        "campaignName": {
+          "type": "string",
+          "description": "Campaign name"
+        },
+        "phase": {
+          "type": "string",
+          "description": "Campaign phase (quiet, public, completion)"
+        }
+      }
+    },
+    "stewardship": {
+      "type": "object",
+      "description": "Stewardship and recognition information",
+      "properties": {
+        "recognitionLevel": {
+          "type": "string",
+          "description": "Recognition level for donors"
+        },
+        "stewarding": {
+          "type": "string",
+          "description": "Who stewards this fund"
+        },
+        "thanksRequired": {
+          "type": "boolean",
+          "description": "Whether special thanks are required"
+        },
+        "reportToFunder": {
+          "type": "boolean",
+          "description": "Whether reports must be sent to funders"
+        }
+      }
+    },
+    "documents": {
+      "type": "array",
+      "description": "Associated documents",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["agreement", "policy", "report", "proposal", "other"]
+          },
+          "name": { "type": "string" },
+          "url": { "type": "string", "format": "uri" },
+          "date": { "type": "string", "format": "date" }
+        }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Fund tags or labels"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Internal notes about the fund"
+    },
+    "createdBy": {
+      "type": "string",
+      "description": "Who created the fund"
+    },
+    "managedBy": {
+      "type": "string",
+      "description": "Current fund manager"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When fund was created"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When fund was last updated"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "System-specific metadata",
+      "properties": {
+        "sourceSystem": {
+          "type": "string",
+          "description": "Origin system"
+        },
+        "externalId": {
+          "type": "string",
+          "description": "ID in source system"
+        },
+        "syncStatus": {
+          "type": "string",
+          "description": "Data sync status"
+        },
+        "lastAuditDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Last audit date"
+        },
+        "complianceStatus": {
+          "type": "string",
+          "enum": ["compliant", "under_review", "non_compliant"],
+          "description": "Compliance status"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,270 @@
+[
+  {
+    "id": "exc_001",
+    "type": "price_mismatch",
+    "skuId": "KB-002",
+    "skuName": "Mechanical Keyboard - RGB",
+    "channel": "amazon",
+    "description": "Price mismatch between ERP and Amazon",
+    "expected": {
+      "price": 17999,
+      "currency": "USD",
+      "lastUpdated": "2024-12-05T16:00:00Z"
+    },
+    "actual": {
+      "price": 15999,
+      "currency": "USD",
+      "lastUpdated": "2024-12-02T10:00:00Z"
+    },
+    "discrepancy": "price_lower_than_expected",
+    "impactAmount": 2000,
+    "impactType": "revenue_loss",
+    "severity": "medium",
+    "status": "open",
+    "reason": "Amazon price not updated after recent cost increase",
+    "recommendedAction": "Update Amazon price to match ERP list price",
+    "estimatedRevenueLoss": 4000,
+    "affectedOrders": 2,
+    "createdDate": "2024-12-06T09:00:00Z",
+    "metadata": {
+      "channelSku": "ASIN-B08ABC456",
+      "syncAttempts": 3,
+      "lastSyncError": "price_update_failed",
+      "competitorPrices": [
+        {"competitor": "CompetitorA", "price": 16999},
+        {"competitor": "CompetitorB", "price": 17499}
+      ]
+    }
+  },
+  {
+    "id": "exc_002",
+    "type": "inventory_mismatch",
+    "skuId": "WH-001",
+    "skuName": "Wireless Headphones - Black",
+    "channel": "shopify",
+    "description": "Inventory quantity mismatch between ERP and Shopify",
+    "expected": {
+      "quantity": 45,
+      "location": "main_warehouse",
+      "lastUpdated": "2024-12-06T07:30:00Z"
+    },
+    "actual": {
+      "quantity": 52,
+      "location": "shopify_inventory",
+      "lastUpdated": "2024-12-05T14:00:00Z"
+    },
+    "discrepancy": "channel_shows_more_stock",
+    "impactQuantity": 7,
+    "severity": "low",
+    "status": "open",
+    "reason": "Shopify inventory not updated after recent return processing",
+    "recommendedAction": "Sync correct inventory quantity to Shopify",
+    "oversellRisk": "low",
+    "createdDate": "2024-12-06T09:15:00Z",
+    "metadata": {
+      "channelSku": "WH-001",
+      "lastMovements": [
+        {"type": "return", "quantity": -7, "date": "2024-12-05T16:00:00Z"}
+      ],
+      "reservedQuantity": 5
+    }
+  },
+  {
+    "id": "exc_003",
+    "type": "missing_sku",
+    "skuId": "MS-003",
+    "skuName": "Wireless Mouse - Ergonomic",
+    "channel": "amazon",
+    "description": "SKU exists in ERP but missing from Amazon channel",
+    "expected": {
+      "present": true,
+      "status": "active",
+      "price": 6999
+    },
+    "actual": {
+      "present": false,
+      "status": null,
+      "price": null
+    },
+    "discrepancy": "sku_missing_from_channel",
+    "severity": "high",
+    "status": "open",
+    "reason": "New SKU not yet listed on Amazon",
+    "recommendedAction": "Create Amazon listing for MS-003",
+    "potentialRevenueLoss": 35000,
+    "daysOffline": 28,
+    "createdDate": "2024-12-06T09:30:00Z",
+    "metadata": {
+      "erpStatus": "active",
+      "inventoryAvailable": 150,
+      "competingListings": 3,
+      "categoryRank": "Electronics > Computer Accessories"
+    }
+  },
+  {
+    "id": "exc_004",
+    "type": "negative_inventory",
+    "skuId": "SPK-005",
+    "skuName": "Bluetooth Speaker - Portable",
+    "channel": "shopify",
+    "description": "Negative inventory quantity indicating oversell situation",
+    "expected": {
+      "quantity": 0,
+      "minimumQuantity": 0
+    },
+    "actual": {
+      "quantity": -3,
+      "availableToSell": -3
+    },
+    "discrepancy": "oversold_inventory",
+    "impactQuantity": 3,
+    "severity": "critical",
+    "status": "urgent",
+    "reason": "Orders processed before inventory sync completed",
+    "recommendedAction": "Contact customers about backorder or expedite shipment",
+    "affectedOrders": 3,
+    "customerImpact": "high",
+    "createdDate": "2024-12-06T10:00:00Z",
+    "metadata": {
+      "oversoldOrders": ["ORD-1001", "ORD-1002", "ORD-1003"],
+      "expectedDelivery": "2024-12-10",
+      "supplierStatus": "shipment_pending",
+      "customerNotified": false
+    }
+  },
+  {
+    "id": "exc_005",
+    "type": "price_below_cost",
+    "skuId": "KB-002",
+    "skuName": "Mechanical Keyboard - RGB", 
+    "channel": "shopify",
+    "description": "Current price is below product cost",
+    "expected": {
+      "price": 17999,
+      "minimumPrice": 7800,
+      "cost": 6500
+    },
+    "actual": {
+      "price": 5999,
+      "margin": -7.7
+    },
+    "discrepancy": "price_below_cost",
+    "impactAmount": 500,
+    "severity": "high",
+    "status": "open",
+    "reason": "Promotional price not updated after cost increase",
+    "recommendedAction": "Update price or review cost structure",
+    "lossPerUnit": 500,
+    "unitsAtRisk": 25,
+    "totalLossExposure": 12500,
+    "createdDate": "2024-12-06T10:15:00Z",
+    "metadata": {
+      "promotionActive": true,
+      "promotionEndDate": "2024-12-07",
+      "lastCostUpdate": "2024-12-01T10:00:00Z",
+      "competitorPrices": [16999, 17499, 15999]
+    }
+  },
+  {
+    "id": "exc_006",
+    "type": "stale_data",
+    "skuId": "CAM-004",
+    "skuName": "4K Webcam - Professional",
+    "channel": "shopify",
+    "description": "Product data hasn't been synced in over 30 days",
+    "expected": {
+      "lastSyncDate": "within_24_hours",
+      "syncStatus": "current"
+    },
+    "actual": {
+      "lastSyncDate": "2024-10-15T10:00:00Z",
+      "syncStatus": "stale",
+      "daysSinceSync": 52
+    },
+    "discrepancy": "stale_data",
+    "severity": "medium",
+    "status": "open",
+    "reason": "Product discontinued but not removed from channel",
+    "recommendedAction": "Update product status or remove from active listings",
+    "inventoryValue": 160000,
+    "clearanceRequired": true,
+    "createdDate": "2024-12-06T10:30:00Z",
+    "metadata": {
+      "productStatus": "discontinued",
+      "remainingInventory": 8,
+      "lastSaleDate": "2024-10-01",
+      "clearancePriceRecommended": 9999
+    }
+  },
+  {
+    "id": "exc_007", 
+    "type": "sync_failure",
+    "skuId": "SPK-005",
+    "skuName": "Bluetooth Speaker - Portable",
+    "channel": "amazon",
+    "description": "Repeated sync failures preventing data updates",
+    "expected": {
+      "syncStatus": "success",
+      "lastSync": "within_6_hours"
+    },
+    "actual": {
+      "syncStatus": "error",
+      "lastSync": "2024-12-01T10:00:00Z",
+      "errorCount": 15
+    },
+    "discrepancy": "sync_failure",
+    "severity": "medium",
+    "status": "open",
+    "reason": "Amazon API timeout during inventory sync",
+    "recommendedAction": "Investigate API connection and retry sync",
+    "daysSinceLastSync": 5,
+    "dataFreshness": "stale",
+    "createdDate": "2024-12-06T11:00:00Z",
+    "metadata": {
+      "errorType": "timeout",
+      "apiEndpoint": "/inventory/update",
+      "retryAttempts": 15,
+      "maxRetries": 20,
+      "nextRetryDate": "2024-12-06T12:00:00Z"
+    }
+  },
+  {
+    "id": "rollup_summary",
+    "type": "summary",
+    "period": "2024-12-06",
+    "totalSKUs": 5,
+    "channelsChecked": 2,
+    "exceptionsFound": 7,
+    "syncAccuracy": 65.0,
+    "revenueExposure": 51500,
+    "oversellRisk": 1,
+    "criticalIssues": 1,
+    "highPriorityIssues": 2,
+    "mediumPriorityIssues": 3,
+    "lowPriorityIssues": 1,
+    "byType": {
+      "price_mismatch": 2,
+      "inventory_mismatch": 1,
+      "missing_sku": 1,
+      "negative_inventory": 1,
+      "stale_data": 1,
+      "sync_failure": 1
+    },
+    "byChannel": {
+      "shopify": 4,
+      "amazon": 3
+    },
+    "topImpactSKUs": [
+      {"skuId": "MS-003", "impact": 35000, "issue": "missing_sku"},
+      {"skuId": "KB-002", "impact": 12500, "issue": "price_below_cost"},
+      {"skuId": "CAM-004", "impact": 160000, "issue": "stale_inventory_value"}
+    ],
+    "recommendations": [
+      "Create Amazon listing for MS-003 (potential $35k revenue)",
+      "Review promotional pricing for KB-002 below cost",
+      "Resolve Amazon sync failures for SPK-005",
+      "Update discontinued product status for CAM-004"
+    ],
+    "createdAt": "2024-12-06T11:30:00Z"
+  }
+]

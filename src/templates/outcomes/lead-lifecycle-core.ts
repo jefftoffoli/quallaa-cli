@@ -26,11 +26,10 @@ export const leadLifecycleCoreTemplate: OutcomeTemplateDefinition = {
       deployment: 'railway'
     }
   ],
-  dataContracts: [
-    {
-      name: 'Lead',
+  dataContracts: {
+    'Lead': {
       description: 'Core lead data structure with enrichment fields',
-      schema: {
+      schema: JSON.stringify({
         type: 'object',
         properties: {
           id: { type: 'string', description: 'Unique lead identifier' },
@@ -74,12 +73,11 @@ export const leadLifecycleCoreTemplate: OutcomeTemplateDefinition = {
           lastContactedAt: { type: 'string', format: 'date-time', nullable: true }
         },
         required: ['id', 'email', 'source', 'status', 'createdAt']
-      }
+      })
     },
-    {
-      name: 'Activity',
+    'Activity': {
       description: 'Lead activity tracking data structure',
-      schema: {
+      schema: JSON.stringify({
         type: 'object',
         properties: {
           id: { type: 'string', description: 'Activity ID' },
@@ -98,12 +96,11 @@ export const leadLifecycleCoreTemplate: OutcomeTemplateDefinition = {
           createdAt: { type: 'string', format: 'date-time' }
         },
         required: ['id', 'leadId', 'type', 'createdAt']
-      }
+      })
     },
-    {
-      name: 'RoutingRule',
+    'RoutingRule': {
       description: 'Lead routing and assignment rules',
-      schema: {
+      schema: JSON.stringify({
         type: 'object',
         properties: {
           id: { type: 'string', description: 'Rule ID' },
@@ -144,12 +141,11 @@ export const leadLifecycleCoreTemplate: OutcomeTemplateDefinition = {
           createdAt: { type: 'string', format: 'date-time' }
         },
         required: ['id', 'name', 'priority', 'conditions', 'actions', 'isActive']
-      }
+      })
     },
-    {
-      name: 'SlaTarget',
+    'SlaTarget': {
       description: 'Service level agreement targets and tracking',
-      schema: {
+      schema: JSON.stringify({
         type: 'object',
         properties: {
           id: { type: 'string', description: 'SLA target ID' },
@@ -170,9 +166,9 @@ export const leadLifecycleCoreTemplate: OutcomeTemplateDefinition = {
           createdAt: { type: 'string', format: 'date-time' }
         },
         required: ['id', 'name', 'targetTime', 'metric', 'isActive']
-      }
+      })
     }
-  ],
+  },
   connectors: [
     {
       name: 'HubSpot Connector',

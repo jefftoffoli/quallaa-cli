@@ -1,0 +1,271 @@
+[
+  {
+    "id": "don_001",
+    "donorId": "donor_12345",
+    "donorEmail": "john.smith@email.com",
+    "donorName": "John Smith",
+    "amount": 25000,
+    "currency": "USD",
+    "fund": "general_fund",
+    "fundType": "unrestricted",
+    "date": "2024-12-01",
+    "processingDate": "2024-12-01T10:30:00Z",
+    "source": "stripe",
+    "channel": "online",
+    "campaign": "year_end_2024",
+    "appeal": "email_campaign_001",
+    "paymentMethod": "credit_card",
+    "transactionId": "ch_3OKMzOJYm2JQxWaV1RqWoHF8",
+    "fees": 752,
+    "netAmount": 24248,
+    "recurring": false,
+    "isAnonymous": false,
+    "isTaxDeductible": true,
+    "acknowledgmentSent": true,
+    "acknowledgmentDate": "2024-12-02",
+    "accountingEntry": {
+      "journalEntryId": "je_001",
+      "account": "4100",
+      "posted": true,
+      "postedDate": "2024-12-01"
+    },
+    "donorData": {
+      "address": {
+        "street": "123 Main St",
+        "city": "Springfield",
+        "state": "IL",
+        "zipCode": "62701",
+        "country": "USA"
+      },
+      "phone": "555-123-4567",
+      "donorType": "individual",
+      "lifetimeGiving": 125000,
+      "firstGiftDate": "2019-03-15"
+    },
+    "createdAt": "2024-12-01T10:30:00Z",
+    "updatedAt": "2024-12-02T09:00:00Z",
+    "metadata": {
+      "sourceSystem": "stripe",
+      "externalId": "ch_3OKMzOJYm2JQxWaV1RqWoHF8",
+      "importBatch": "batch_2024120101"
+    }
+  },
+  {
+    "id": "don_002",
+    "donorId": "donor_23456",
+    "donorEmail": "mary.jones@email.com",
+    "donorName": "Mary Jones",
+    "amount": 5000,
+    "currency": "USD",
+    "fund": "scholarship_fund",
+    "fundType": "restricted",
+    "date": "2024-12-02",
+    "processingDate": "2024-12-02T14:20:00Z",
+    "source": "paypal",
+    "channel": "online",
+    "campaign": "scholarship_drive",
+    "paymentMethod": "paypal",
+    "transactionId": "PAYID-M2QXGBI9KL12345",
+    "fees": 175,
+    "netAmount": 4825,
+    "recurring": true,
+    "recurringSchedule": "monthly",
+    "isAnonymous": false,
+    "isTaxDeductible": true,
+    "acknowledgmentSent": false,
+    "accountingEntry": {
+      "journalEntryId": null,
+      "account": null,
+      "posted": false,
+      "postedDate": null
+    },
+    "donorData": {
+      "donorType": "individual",
+      "lifetimeGiving": 15000,
+      "firstGiftDate": "2022-01-10"
+    },
+    "createdAt": "2024-12-02T14:20:00Z",
+    "updatedAt": "2024-12-02T14:20:00Z",
+    "metadata": {
+      "sourceSystem": "paypal",
+      "externalId": "PAYID-M2QXGBI9KL12345",
+      "importBatch": "batch_2024120201"
+    }
+  },
+  {
+    "id": "don_003",
+    "donorId": "donor_34567",
+    "donorEmail": "robert.wilson@company.com",
+    "donorName": "Wilson Foundation",
+    "amount": 100000,
+    "currency": "USD",
+    "fund": "building_fund",
+    "fundType": "restricted",
+    "date": "2024-11-30",
+    "processingDate": "2024-11-30T16:45:00Z",
+    "source": "check",
+    "channel": "direct_mail",
+    "campaign": "capital_campaign",
+    "paymentMethod": "check",
+    "transactionId": "CHK-2024-001",
+    "fees": 0,
+    "netAmount": 100000,
+    "recurring": false,
+    "isAnonymous": false,
+    "isTaxDeductible": true,
+    "acknowledgmentSent": true,
+    "acknowledgmentDate": "2024-12-01",
+    "accountingEntry": {
+      "journalEntryId": "je_003",
+      "account": "4200",
+      "posted": true,
+      "postedDate": "2024-11-30"
+    },
+    "donorData": {
+      "donorType": "foundation",
+      "lifetimeGiving": 500000,
+      "firstGiftDate": "2018-06-01"
+    },
+    "grantInfo": {
+      "grantNumber": "WF-2024-001",
+      "grantPeriod": "2024-2026",
+      "restrictions": "Building construction only"
+    },
+    "createdAt": "2024-11-30T16:45:00Z",
+    "updatedAt": "2024-12-01T09:00:00Z",
+    "metadata": {
+      "sourceSystem": "manual_entry",
+      "externalId": "CHK-2024-001",
+      "importBatch": "batch_2024113001"
+    }
+  },
+  {
+    "id": "don_004",
+    "donorId": "donor_45678",
+    "donorEmail": "susan.davis@email.com",
+    "donorName": "Susan Davis",
+    "amount": 1000,
+    "currency": "USD",
+    "fund": "general_fund",
+    "fundType": "unrestricted",
+    "date": "2024-12-03",
+    "processingDate": "2024-12-03T11:15:00Z",
+    "source": "stripe",
+    "channel": "event",
+    "campaign": "gala_2024",
+    "paymentMethod": "credit_card",
+    "transactionId": "ch_3OKNzPJYm2JQxWaV1RqWoHF9",
+    "fees": 59,
+    "netAmount": 941,
+    "recurring": false,
+    "isAnonymous": false,
+    "isTaxDeductible": true,
+    "acknowledgmentSent": true,
+    "acknowledgmentDate": "2024-12-03",
+    "accountingEntry": {
+      "journalEntryId": "je_004",
+      "account": "4100",
+      "posted": true,
+      "postedDate": "2024-12-03"
+    },
+    "donorData": {
+      "donorType": "individual",
+      "lifetimeGiving": 8500,
+      "firstGiftDate": "2021-05-20"
+    },
+    "createdAt": "2024-12-03T11:15:00Z",
+    "updatedAt": "2024-12-03T15:30:00Z",
+    "metadata": {
+      "sourceSystem": "stripe",
+      "externalId": "ch_3OKNzPJYm2JQxWaV1RqWoHF9",
+      "importBatch": "batch_2024120301"
+    }
+  },
+  {
+    "id": "don_005",
+    "donorId": "donor_56789",
+    "donorEmail": "anonymous@donor.org",
+    "donorName": "Anonymous Donor",
+    "amount": 75000,
+    "currency": "USD",
+    "fund": "emergency_fund",
+    "fundType": "restricted",
+    "date": "2024-12-04",
+    "processingDate": "2024-12-04T09:00:00Z",
+    "source": "other",
+    "channel": "direct_mail",
+    "paymentMethod": "bank_transfer",
+    "transactionId": "WIRE-2024-005",
+    "fees": 25,
+    "netAmount": 74975,
+    "recurring": false,
+    "isAnonymous": true,
+    "isTaxDeductible": true,
+    "acknowledgmentSent": false,
+    "accountingEntry": {
+      "journalEntryId": "je_005",
+      "account": "4300",
+      "posted": true,
+      "postedDate": "2024-12-04"
+    },
+    "donorData": {
+      "donorType": "individual",
+      "lifetimeGiving": 150000,
+      "firstGiftDate": "2020-12-01"
+    },
+    "createdAt": "2024-12-04T09:00:00Z",
+    "updatedAt": "2024-12-04T16:00:00Z",
+    "metadata": {
+      "sourceSystem": "bank_import",
+      "externalId": "WIRE-2024-005",
+      "importBatch": "batch_2024120401"
+    }
+  },
+  {
+    "id": "don_006",
+    "donorId": "donor_67890",
+    "donorEmail": "thomas.brown@email.com",
+    "donorName": "Thomas Brown",
+    "amount": 500,
+    "currency": "USD",
+    "fund": "general_fund",
+    "fundType": "unrestricted",
+    "date": "2024-12-05",
+    "processingDate": "2024-12-05T12:30:00Z",
+    "source": "stripe",
+    "channel": "online",
+    "campaign": "giving_tuesday",
+    "paymentMethod": "credit_card",
+    "transactionId": "ch_3OKOzQJYm2JQxWaV1RqWoHG0",
+    "fees": 45,
+    "netAmount": 455,
+    "recurring": true,
+    "recurringSchedule": "monthly",
+    "isAnonymous": false,
+    "isTaxDeductible": true,
+    "acknowledgmentSent": false,
+    "accountingEntry": {
+      "journalEntryId": null,
+      "account": null,
+      "posted": false,
+      "postedDate": null
+    },
+    "donorData": {
+      "donorType": "individual",
+      "lifetimeGiving": 2400,
+      "firstGiftDate": "2023-11-15"
+    },
+    "createdAt": "2024-12-05T12:30:00Z",
+    "updatedAt": "2024-12-05T12:30:00Z",
+    "metadata": {
+      "sourceSystem": "stripe",
+      "externalId": "ch_3OKOzQJYm2JQxWaV1RqWoHG0",
+      "importBatch": "batch_2024120501",
+      "dataQuality": {
+        "completeness": 95,
+        "confidence": 100,
+        "flags": ["missing_acknowledgment"]
+      }
+    }
+  }
+]

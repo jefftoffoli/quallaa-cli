@@ -1,0 +1,160 @@
+[
+  {
+    "id": "proj_website_redesign",
+    "name": "Corporate Website Redesign",
+    "code": "WEB-2024-001",
+    "clientId": "client_acme_corp",
+    "clientName": "Acme Corporation",
+    "managerId": "emp_mgr_001",
+    "managerName": "Jennifer Martinez",
+    "status": "active",
+    "startDate": "2024-11-15",
+    "endDate": "2024-12-31",
+    "budget": {
+      "totalAmount": 50000.00,
+      "hoursAllocated": 400,
+      "hoursUsed": 95.5,
+      "amountInvoiced": 8000.00,
+      "amountPaid": 5000.00
+    },
+    "contractType": "fixed_fee",
+    "billingFrequency": "milestone",
+    "currency": "USD",
+    "teamMembers": [
+      {
+        "employeeId": "emp_001",
+        "name": "Sarah Johnson",
+        "role": "Senior UI/UX Designer",
+        "rate": 125.00,
+        "allocatedHours": 120
+      },
+      {
+        "employeeId": "emp_002",
+        "name": "Mike Chen",
+        "role": "Frontend Developer",
+        "rate": 100.00,
+        "allocatedHours": 160
+      },
+      {
+        "employeeId": "emp_004",
+        "name": "David Smith",
+        "role": "Project Manager",
+        "rate": 150.00,
+        "allocatedHours": 60
+      },
+      {
+        "employeeId": "emp_005",
+        "name": "Rachel Green",
+        "role": "Content Strategist",
+        "rate": 80.00,
+        "allocatedHours": 60
+      }
+    ],
+    "tags": ["web_development", "design", "corporate"],
+    "createdAt": "2024-11-01T10:00:00Z",
+    "updatedAt": "2024-12-05T15:30:00Z",
+    "metadata": {
+      "sourceSystem": "netsuite",
+      "externalId": "ns_proj_001",
+      "department": "Digital Services",
+      "location": "New York Office",
+      "priority": "high"
+    }
+  },
+  {
+    "id": "proj_mobile_app",
+    "name": "iOS/Android Mobile App Development",
+    "code": "MOB-2024-002",
+    "clientId": "client_startup_inc",
+    "clientName": "Startup Inc",
+    "managerId": "emp_mgr_002",
+    "managerName": "Robert Taylor",
+    "status": "active",
+    "startDate": "2024-12-01",
+    "endDate": "2025-03-31",
+    "budget": {
+      "totalAmount": 120000.00,
+      "hoursAllocated": 800,
+      "hoursUsed": 12.0,
+      "amountInvoiced": 500.00,
+      "amountPaid": 0.00
+    },
+    "contractType": "time_materials",
+    "billingFrequency": "bi_weekly",
+    "currency": "USD",
+    "teamMembers": [
+      {
+        "employeeId": "emp_001",
+        "name": "Sarah Johnson",
+        "role": "UI/UX Designer",
+        "rate": 125.00,
+        "allocatedHours": 200
+      },
+      {
+        "employeeId": "emp_003",
+        "name": "Lisa Wang",
+        "role": "Mobile Developer",
+        "rate": 110.00,
+        "allocatedHours": 400
+      }
+    ],
+    "tags": ["mobile_development", "ios", "android", "startup"],
+    "createdAt": "2024-11-20T14:30:00Z",
+    "updatedAt": "2024-12-02T11:15:00Z",
+    "metadata": {
+      "sourceSystem": "quickbooks",
+      "externalId": "qb_proj_002",
+      "department": "Mobile Team",
+      "location": "San Francisco Office",
+      "priority": "medium"
+    }
+  },
+  {
+    "id": "proj_crm_integration",
+    "name": "Salesforce CRM Integration",
+    "code": "CRM-2024-003",
+    "clientId": "client_enterprise_co",
+    "clientName": "Enterprise Co",
+    "managerId": "emp_mgr_002",
+    "managerName": "Robert Taylor",
+    "status": "active",
+    "startDate": "2024-11-20",
+    "endDate": "2024-12-15",
+    "budget": {
+      "totalAmount": 25000.00,
+      "hoursAllocated": 200,
+      "hoursUsed": 22.0,
+      "amountInvoiced": 0.00,
+      "amountPaid": 0.00
+    },
+    "contractType": "fixed_fee",
+    "billingFrequency": "completion",
+    "currency": "USD",
+    "teamMembers": [
+      {
+        "employeeId": "emp_002",
+        "name": "Mike Chen",
+        "role": "Integration Developer",
+        "rate": 100.00,
+        "allocatedHours": 80
+      },
+      {
+        "employeeId": "emp_003",
+        "name": "Lisa Wang",
+        "role": "Backend Developer",
+        "rate": 110.00,
+        "allocatedHours": 120
+      }
+    ],
+    "tags": ["integration", "salesforce", "crm", "enterprise"],
+    "createdAt": "2024-11-10T09:00:00Z",
+    "updatedAt": "2024-12-04T16:45:00Z",
+    "metadata": {
+      "sourceSystem": "netsuite",
+      "externalId": "ns_proj_003",
+      "department": "Integration Services",
+      "location": "Austin Office",
+      "priority": "high"
+    }
+  }
+]

@@ -1,0 +1,348 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Journal Entry",
+  "description": "Accounting journal entry for donations and membership revenue",
+  "required": ["id", "entryNumber", "date", "lines", "totalDebits", "totalCredits"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique journal entry identifier"
+    },
+    "entryNumber": {
+      "type": "string",
+      "description": "Journal entry number"
+    },
+    "reference": {
+      "type": "string",
+      "description": "External reference number"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Entry date"
+    },
+    "postingDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date entry was posted to GL"
+    },
+    "period": {
+      "type": "string",
+      "description": "Accounting period (YYYY-MM)"
+    },
+    "description": {
+      "type": "string",
+      "description": "Entry description"
+    },
+    "source": {
+      "type": "string",
+      "enum": ["donations", "membership_dues", "events", "grants", "investment_income", "program_revenue", "other"],
+      "description": "Revenue source type"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["operating", "restricted", "capital", "endowment", "adjustment", "reclassification"],
+      "description": "Entry category"
+    },
+    "lines": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["lineNumber", "account", "amount", "type"],
+        "properties": {
+          "lineNumber": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Line number within entry"
+          },
+          "account": {
+            "type": "string",
+            "description": "General ledger account number"
+          },
+          "accountName": {
+            "type": "string",
+            "description": "Account name"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Line amount in cents (positive for debits, negative for credits)"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["debit", "credit"],
+            "description": "Debit or credit"
+          },
+          "description": {
+            "type": "string",
+            "description": "Line description"
+          },
+          "fund": {
+            "type": "string",
+            "description": "Fund code or identifier"
+          },
+          "fundName": {
+            "type": "string",
+            "description": "Fund name"
+          },
+          "department": {
+            "type": "string",
+            "description": "Department code"
+          },
+          "costCenter": {
+            "type": "string",
+            "description": "Cost center code"
+          },
+          "grant": {
+            "type": "string",
+            "description": "Grant tracking code"
+          },
+          "program": {
+            "type": "string",
+            "description": "Program code"
+          },
+          "donorId": {
+            "type": "string",
+            "description": "Associated donor ID"
+          },
+          "memberId": {
+            "type": "string",
+            "description": "Associated member ID"
+          },
+          "donationId": {
+            "type": "string",
+            "description": "Associated donation record ID"
+          },
+          "membershipPaymentId": {
+            "type": "string",
+            "description": "Associated membership payment ID"
+          },
+          "taxDeductible": {
+            "type": "boolean",
+            "description": "Whether this portion is tax deductible"
+          },
+          "restrictionType": {
+            "type": "string",
+            "enum": ["unrestricted", "temporarily_restricted", "permanently_restricted"],
+            "description": "Net asset restriction type"
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Line-specific metadata",
+            "properties": {
+              "originalAmount": {
+                "type": "number",
+                "description": "Original amount before adjustments"
+              },
+              "exchangeRate": {
+                "type": "number",
+                "description": "Exchange rate if foreign currency"
+              },
+              "sourceCurrency": {
+                "type": "string",
+                "description": "Original currency"
+              }
+            }
+          }
+        }
+      }
+    },
+    "totalDebits": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Total debit amount in cents"
+    },
+    "totalCredits": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Total credit amount in cents"
+    },
+    "currency": {
+      "type": "string",
+      "default": "USD",
+      "description": "Entry currency"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "pending_approval", "approved", "posted", "reversed", "adjusted"],
+      "description": "Entry status"
+    },
+    "isReversing": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this is a reversing entry"
+    },
+    "reversalDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date entry should auto-reverse"
+    },
+    "reversedBy": {
+      "type": "string",
+      "description": "Entry that reversed this one"
+    },
+    "reversalOf": {
+      "type": "string",
+      "description": "Entry this reverses"
+    },
+    "approvalWorkflow": {
+      "type": "object",
+      "description": "Approval workflow information",
+      "properties": {
+        "approvalRequired": {
+          "type": "boolean",
+          "description": "Whether approval is required"
+        },
+        "approvedBy": {
+          "type": "string",
+          "description": "Who approved the entry"
+        },
+        "approvedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When entry was approved"
+        },
+        "approvalLevel": {
+          "type": "string",
+          "description": "Level of approval received"
+        },
+        "approvalNotes": {
+          "type": "string",
+          "description": "Approval notes or comments"
+        }
+      }
+    },
+    "reconciliation": {
+      "type": "object",
+      "description": "Reconciliation information",
+      "properties": {
+        "bankReconciled": {
+          "type": "boolean",
+          "description": "Whether reconciled to bank statement"
+        },
+        "bankReconDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Bank reconciliation date"
+        },
+        "donorReconciled": {
+          "type": "boolean",
+          "description": "Whether reconciled to donor records"
+        },
+        "memberReconciled": {
+          "type": "boolean",
+          "description": "Whether reconciled to member records"
+        },
+        "exceptions": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Reconciliation exceptions"
+        }
+      }
+    },
+    "audit": {
+      "type": "object",
+      "description": "Audit information",
+      "properties": {
+        "auditTrail": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "action": { "type": "string" },
+              "user": { "type": "string" },
+              "timestamp": { "type": "string", "format": "date-time" },
+              "changes": { "type": "object" }
+            }
+          }
+        },
+        "supportingDocuments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": { "type": "string" },
+              "name": { "type": "string" },
+              "url": { "type": "string", "format": "uri" },
+              "uploadDate": { "type": "string", "format": "date-time" }
+            }
+          }
+        }
+      }
+    },
+    "dataSource": {
+      "type": "object",
+      "description": "Source data information",
+      "properties": {
+        "sourceSystem": {
+          "type": "string",
+          "description": "System that originated the data"
+        },
+        "sourceTransactionId": {
+          "type": "string",
+          "description": "Transaction ID in source system"
+        },
+        "batchId": {
+          "type": "string",
+          "description": "Import batch ID"
+        },
+        "importDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When data was imported"
+        },
+        "autoGenerated": {
+          "type": "boolean",
+          "description": "Whether entry was auto-generated"
+        }
+      }
+    },
+    "createdBy": {
+      "type": "string",
+      "description": "User who created the entry"
+    },
+    "lastModifiedBy": {
+      "type": "string",
+      "description": "User who last modified the entry"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When entry was created"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When entry was last updated"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "System-specific metadata",
+      "properties": {
+        "sourceSystem": {
+          "type": "string",
+          "description": "Origin accounting system"
+        },
+        "externalId": {
+          "type": "string",
+          "description": "ID in source system"
+        },
+        "syncToken": {
+          "type": "string",
+          "description": "Sync token for updates"
+        },
+        "lastSyncDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last sync date"
+        },
+        "complianceFlags": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Compliance-related flags"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,293 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Statement of Work",
+  "description": "Contract terms and scope for a project",
+  "required": ["id", "projectId", "contractType", "totalValue"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique SOW identifier"
+    },
+    "sowNumber": {
+      "type": "string",
+      "description": "SOW number or reference"
+    },
+    "projectId": {
+      "type": "string",
+      "description": "Associated project identifier"
+    },
+    "clientId": {
+      "type": "string",
+      "description": "Client identifier"
+    },
+    "title": {
+      "type": "string",
+      "description": "SOW title or description"
+    },
+    "contractType": {
+      "type": "string",
+      "enum": ["fixed_fee", "time_materials", "milestone", "retainer", "mixed"],
+      "description": "Type of contract arrangement"
+    },
+    "totalValue": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Total contract value in base currency"
+    },
+    "currency": {
+      "type": "string",
+      "description": "Currency code (USD, EUR, etc.)"
+    },
+    "startDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Contract start date"
+    },
+    "endDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Contract end date"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "pending_approval", "approved", "active", "completed", "terminated", "cancelled"],
+      "description": "Current SOW status"
+    },
+    "approvalDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date when SOW was approved"
+    },
+    "milestones": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "amount", "dueDate"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Milestone identifier"
+          },
+          "name": {
+            "type": "string",
+            "description": "Milestone name or description"
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed milestone description"
+          },
+          "amount": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Milestone value"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Milestone due date"
+          },
+          "completedDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Date milestone was completed"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["pending", "in_progress", "completed", "approved", "invoiced", "paid"],
+            "description": "Milestone status"
+          },
+          "invoiceId": {
+            "type": "string",
+            "description": "Invoice ID if milestone has been billed"
+          },
+          "dependencies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of prerequisite milestone IDs"
+          }
+        }
+      }
+    },
+    "deliverables": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Deliverable identifier"
+          },
+          "name": {
+            "type": "string",
+            "description": "Deliverable name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed description"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Deliverable due date"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["pending", "in_progress", "completed", "approved", "rejected"],
+            "description": "Deliverable status"
+          },
+          "associatedMilestone": {
+            "type": "string",
+            "description": "Associated milestone ID"
+          }
+        }
+      }
+    },
+    "rateStructure": {
+      "type": "object",
+      "description": "Billing rates and structure",
+      "properties": {
+        "defaultRate": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Default hourly rate"
+        },
+        "roleRates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "role": {
+                "type": "string",
+                "description": "Role name (e.g., Senior Consultant, Project Manager)"
+              },
+              "rate": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Hourly rate for this role"
+              },
+              "maxHours": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Maximum billable hours for this role"
+              }
+            }
+          }
+        },
+        "expenseMultiplier": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Multiplier for reimbursable expenses"
+        }
+      }
+    },
+    "caps": {
+      "type": "object",
+      "description": "Contract caps and limits",
+      "properties": {
+        "totalHoursCap": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Maximum billable hours"
+        },
+        "monthlyHoursCap": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Maximum hours per month"
+        },
+        "budgetCap": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Maximum budget"
+        },
+        "expenseCap": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Maximum reimbursable expenses"
+        }
+      }
+    },
+    "terms": {
+      "type": "object",
+      "description": "Contract terms and conditions",
+      "properties": {
+        "paymentTerms": {
+          "type": "string",
+          "description": "Payment terms (Net 30, etc.)"
+        },
+        "invoiceFrequency": {
+          "type": "string",
+          "enum": ["weekly", "bi_weekly", "monthly", "milestone", "completion"],
+          "description": "How often invoices are generated"
+        },
+        "autoRenewal": {
+          "type": "boolean",
+          "description": "Whether contract auto-renews"
+        },
+        "renewalTerms": {
+          "type": "string",
+          "description": "Auto-renewal terms"
+        }
+      }
+    },
+    "revenueRecognition": {
+      "type": "object",
+      "description": "Revenue recognition rules",
+      "properties": {
+        "method": {
+          "type": "string",
+          "enum": ["percentage_completion", "milestone", "time_based", "completion"],
+          "description": "Revenue recognition method"
+        },
+        "recognitionTrigger": {
+          "type": "string",
+          "description": "What triggers revenue recognition"
+        },
+        "deferralAccount": {
+          "type": "string",
+          "description": "Account for deferred revenue"
+        }
+      }
+    },
+    "signedDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date SOW was signed"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When SOW was created"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When SOW was last updated"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional SOW metadata",
+      "properties": {
+        "sourceSystem": {
+          "type": "string",
+          "description": "Origin system"
+        },
+        "externalId": {
+          "type": "string",
+          "description": "ID in source system"
+        },
+        "documentUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to SOW document"
+        },
+        "version": {
+          "type": "string",
+          "description": "SOW version number"
+        }
+      }
+    }
+  }
+}

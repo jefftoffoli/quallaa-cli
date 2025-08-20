@@ -55,8 +55,8 @@ export const outcomeCommand = new Command('outcome')
       const role = options.role || await askRole();
       
       // Services are automatically selected based on stack variant
-      const services = [...stackVariant.requiredServices];
-      const optionalServices = await askOptionalServices(stackVariant.optionalServices);
+      const services = [...(stackVariant.requiredServices || [])];
+      const optionalServices = await askOptionalServices(stackVariant.optionalServices || []);
       services.push(...optionalServices);
 
       // Initialize outcome config
@@ -100,8 +100,8 @@ export const outcomeCommand = new Command('outcome')
       console.log(chalk.gray(`\nArchitecture: ${stackVariant.architecture}`));
       console.log(chalk.gray(`Deployment: ${stackVariant.deployment}`));
       console.log(chalk.gray(`\nYour ${templateDef.name} system includes:`));
-      console.log(chalk.gray(`  • ${templateDef.dataContracts.length} data contracts in /${stackVariant.isMinimal ? 'contracts' : 'contracts'}`));
-      console.log(chalk.gray(`  • ${templateDef.connectors.length} service connectors in /${stackVariant.isMinimal ? 'integrations' : 'connectors'}`));
+      console.log(chalk.gray(`  • ${templateDef.dataContracts ? Object.keys(templateDef.dataContracts).length : 0} data contracts in /${stackVariant.isMinimal ? 'contracts' : 'contracts'}`));
+      console.log(chalk.gray(`  • ${templateDef.connectors ? templateDef.connectors.length : 0} service connectors in /${stackVariant.isMinimal ? 'integrations' : 'connectors'}`));
       console.log(chalk.gray(`  • Evaluator framework in /evaluators`));
       if (!stackVariant.isMinimal) {
         console.log(chalk.gray(`  • Exception handling in /exceptions`));
@@ -150,9 +150,12 @@ async function askTemplate(): Promise<OutcomeTemplate> {
 }
 
 async function askProjectName(template: OutcomeTemplate): Promise<string> {
-  const defaultNames = {
+  const defaultNames: Record<string, string> = {
     'order-cash-reco': 'order-cash-reconciliation',
     'lead-lifecycle-core': 'lead-lifecycle-system',
+    'project-invoice-guardrails': 'project-invoice-guardrails',
+    'donor-member-rollups': 'donor-member-rollups', 
+    'inventory-pricing-sync': 'inventory-pricing-sync',
   };
 
   const { projectName } = await inquirer.prompt([

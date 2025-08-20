@@ -1,0 +1,397 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Price",
+  "description": "Pricing information for products across channels and customer segments",
+  "required": ["id", "skuId", "currency", "price"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique price record identifier"
+    },
+    "skuId": {
+      "type": "string",
+      "description": "Product SKU identifier"
+    },
+    "variantId": {
+      "type": "string",
+      "description": "Product variant identifier (if applicable)"
+    },
+    "priceType": {
+      "type": "string",
+      "enum": ["base", "sale", "wholesale", "retail", "msrp", "cost", "promotional", "tier"],
+      "description": "Type of price"
+    },
+    "currency": {
+      "type": "string",
+      "description": "Price currency (ISO 4217)"
+    },
+    "price": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Price amount in cents"
+    },
+    "originalPrice": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Original price (if this is a sale price) in cents"
+    },
+    "compareAtPrice": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Compare at price for discount display in cents"
+    },
+    "cost": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Product cost in cents"
+    },
+    "margin": {
+      "type": "number",
+      "description": "Profit margin as percentage"
+    },
+    "markup": {
+      "type": "number",
+      "description": "Markup percentage over cost"
+    },
+    "channel": {
+      "type": "string",
+      "description": "Sales channel (shopify, amazon, wholesale, retail)"
+    },
+    "location": {
+      "type": "string",
+      "description": "Location or market (US, EU, West Coast, etc.)"
+    },
+    "customerSegment": {
+      "type": "string",
+      "description": "Customer segment or tier"
+    },
+    "minimumQuantity": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Minimum quantity for this price"
+    },
+    "maximumQuantity": {
+      "type": "integer",
+      "description": "Maximum quantity for this price"
+    },
+    "effectiveDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date when price becomes effective"
+    },
+    "expirationDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date when price expires"
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether price is currently active"
+    },
+    "tieredPricing": {
+      "type": "array",
+      "description": "Quantity-based pricing tiers",
+      "items": {
+        "type": "object",
+        "properties": {
+          "minimumQuantity": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Minimum quantity for tier"
+          },
+          "maximumQuantity": {
+            "type": "integer",
+            "description": "Maximum quantity for tier"
+          },
+          "price": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Price for this tier in cents"
+          },
+          "discount": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "description": "Discount percentage for this tier"
+          }
+        }
+      }
+    },
+    "promotional": {
+      "type": "object",
+      "description": "Promotional pricing information",
+      "properties": {
+        "isPromotional": {
+          "type": "boolean",
+          "description": "Whether this is promotional pricing"
+        },
+        "promotionName": {
+          "type": "string",
+          "description": "Name of promotion"
+        },
+        "promotionCode": {
+          "type": "string",
+          "description": "Promotion code or ID"
+        },
+        "discountType": {
+          "type": "string",
+          "enum": ["percentage", "fixed_amount", "buy_x_get_y"],
+          "description": "Type of discount"
+        },
+        "discountValue": {
+          "type": "number",
+          "description": "Discount value (percentage or amount)"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Promotion start date"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Promotion end date"
+        },
+        "conditions": {
+          "type": "object",
+          "description": "Promotion conditions",
+          "additionalProperties": true
+        }
+      }
+    },
+    "competitorPricing": {
+      "type": "array",
+      "description": "Competitor pricing intelligence",
+      "items": {
+        "type": "object",
+        "properties": {
+          "competitor": { "type": "string" },
+          "price": { "type": "number" },
+          "currency": { "type": "string" },
+          "lastUpdated": { "type": "string", "format": "date-time" },
+          "source": { "type": "string" },
+          "url": { "type": "string", "format": "uri" }
+        }
+      }
+    },
+    "channelPricing": {
+      "type": "array",
+      "description": "Pricing across different channels",
+      "items": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "type": "string",
+            "description": "Channel name"
+          },
+          "channelPriceId": {
+            "type": "string",
+            "description": "Price ID in channel system"
+          },
+          "price": {
+            "type": "number",
+            "description": "Price in channel"
+          },
+          "currency": { "type": "string" },
+          "lastSyncDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last sync with channel"
+          },
+          "syncStatus": {
+            "type": "string",
+            "enum": ["synced", "pending", "error"],
+            "description": "Sync status"
+          },
+          "discrepancy": {
+            "type": "number",
+            "description": "Price difference from master"
+          },
+          "channelFees": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": { "type": "string" },
+                "rate": { "type": "number" },
+                "amount": { "type": "number" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "priceHistory": {
+      "type": "array",
+      "description": "Price change history",
+      "items": {
+        "type": "object",
+        "properties": {
+          "previousPrice": { "type": "number" },
+          "newPrice": { "type": "number" },
+          "changeDate": { "type": "string", "format": "date-time" },
+          "changeReason": { "type": "string" },
+          "changedBy": { "type": "string" },
+          "approvedBy": { "type": "string" }
+        }
+      }
+    },
+    "rules": {
+      "type": "object",
+      "description": "Pricing rules and constraints",
+      "properties": {
+        "minimumMargin": {
+          "type": "number",
+          "description": "Minimum margin percentage"
+        },
+        "maximumDiscount": {
+          "type": "number",
+          "description": "Maximum discount percentage"
+        },
+        "priceFloor": {
+          "type": "number",
+          "description": "Minimum price floor in cents"
+        },
+        "priceCeiling": {
+          "type": "number",
+          "description": "Maximum price ceiling in cents"
+        },
+        "competitorPriceMatch": {
+          "type": "boolean",
+          "description": "Whether to match competitor prices"
+        },
+        "autoAdjust": {
+          "type": "boolean",
+          "description": "Whether price adjusts automatically"
+        }
+      }
+    },
+    "approvalWorkflow": {
+      "type": "object",
+      "description": "Price approval workflow",
+      "properties": {
+        "requiresApproval": {
+          "type": "boolean",
+          "description": "Whether price change requires approval"
+        },
+        "approvalThreshold": {
+          "type": "number",
+          "description": "Price change threshold requiring approval"
+        },
+        "approvedBy": {
+          "type": "string",
+          "description": "Who approved the price"
+        },
+        "approvedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When price was approved"
+        },
+        "approvalNotes": {
+          "type": "string",
+          "description": "Approval notes or comments"
+        },
+        "pendingApproval": {
+          "type": "boolean",
+          "description": "Whether price is pending approval"
+        }
+      }
+    },
+    "analytics": {
+      "type": "object",
+      "description": "Price performance analytics",
+      "properties": {
+        "elasticity": {
+          "type": "number",
+          "description": "Price elasticity of demand"
+        },
+        "conversionRate": {
+          "type": "number",
+          "description": "Conversion rate at this price"
+        },
+        "salesVelocity": {
+          "type": "number",
+          "description": "Sales velocity at this price"
+        },
+        "revenueImpact": {
+          "type": "number",
+          "description": "Revenue impact of price changes"
+        },
+        "lastOptimized": {
+          "type": "string",
+          "format": "date",
+          "description": "Last price optimization date"
+        }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Price tags or categories"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes about pricing"
+    },
+    "createdBy": {
+      "type": "string",
+      "description": "User who created the price"
+    },
+    "lastModifiedBy": {
+      "type": "string",
+      "description": "User who last modified the price"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When price was created"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When price was last updated"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "System-specific metadata",
+      "properties": {
+        "sourceSystem": {
+          "type": "string",
+          "description": "Origin system"
+        },
+        "externalId": {
+          "type": "string",
+          "description": "ID in source system"
+        },
+        "syncToken": {
+          "type": "string",
+          "description": "Token for incremental sync"
+        },
+        "lastSyncDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last successful sync"
+        },
+        "reconciliationStatus": {
+          "type": "string",
+          "enum": ["reconciled", "pending", "discrepancy", "error"],
+          "description": "Cross-system reconciliation status"
+        },
+        "dataQuality": {
+          "type": "object",
+          "properties": {
+            "accuracy": { "type": "number", "minimum": 0, "maximum": 100 },
+            "consistency": { "type": "number", "minimum": 0, "maximum": 100 },
+            "completeness": { "type": "number", "minimum": 0, "maximum": 100 },
+            "issues": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

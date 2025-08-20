@@ -66,7 +66,7 @@ export interface ServiceSetupResult {
   credentials?: Partial<ServiceCredentials>;
 }
 
-export type OutcomeTemplate = 'order-cash-reco' | 'lead-lifecycle-core';
+export type OutcomeTemplate = 'order-cash-reco' | 'lead-lifecycle-core' | 'project-invoice-guardrails' | 'donor-member-rollups' | 'inventory-pricing-sync';
 
 export interface OutcomeConfig extends ProjectConfig {
   template: OutcomeTemplate;
@@ -91,22 +91,113 @@ export interface ServiceConnector {
 export interface StackVariant {
   name: string;
   description: string;
-  isMinimal: boolean;
-  requiredServices: string[];
-  optionalServices: string[];
-  architecture: 'web-jobs' | 'headless-worker';
-  deployment: 'vercel' | 'fly' | 'railway';
+  isMinimal?: boolean;
+  requiredServices?: string[];
+  optionalServices?: string[];
+  architecture: 'web-jobs' | 'headless-worker' | {
+    framework: string;
+    database: string;
+    queue?: string;
+    deployment: string;
+  };
+  deployment: 'vercel' | 'fly' | 'railway' | {
+    frontend?: string;
+    database?: string;
+    jobs?: string;
+  };
+  features?: string[];
 }
 
 export interface OutcomeTemplateDefinition {
   name: string;
   description: string;
-  domain: string;
-  requiredServices: string[];
-  optionalServices: string[];
+  category?: string;
+  domain?: string;
+  tags?: string[];
+  estimatedSetupTime?: string;
+  
   stackVariants: StackVariant[];
-  dataContracts: DataContract[];
-  connectors: ServiceConnector[];
-  evaluatorMetrics: string[];
-  claudeSections: string[];
+  
+  services?: {
+    required?: string[];
+    optional?: string[];
+    integrations?: Record<string, string[]>;
+  };
+  
+  outcomes?: {
+    primary: string;
+    metrics: string[];
+    businessValue: string;
+  };
+  
+  dataContracts?: Record<string, {
+    description: string;
+    schema: string;
+    sampleData?: string | null;
+  }>;
+  
+  integrations?: Record<string, {
+    description: string;
+    implementation: string;
+    configRequired: string[];
+    capabilities: string[];
+  }>;
+  
+  jobs?: Array<{
+    name: string;
+    description: string;
+    schedule: string;
+    timeout: string;
+  }>;
+  
+  evaluators?: Record<string, {
+    description: string;
+    goldDataset: string;
+    metrics: string[];
+    thresholds: Record<string, { min?: number; max?: number; target: number }>;
+  }>;
+  
+  reports?: Array<{
+    name: string;
+    description: string;
+    format: string;
+    schedule: string;
+    path: string;
+  }>;
+  
+  webInterface?: {
+    enabled: boolean;
+    description: string;
+    routes: Array<{
+      path: string;
+      description: string;
+    }>;
+  };
+  
+  compliance?: {
+    frameworks: string[];
+    features: string[];
+  };
+  
+  idealCustomerProfile?: {
+    industry: string[];
+    companySize: string;
+    painPoints: string[];
+    triggers: string[];
+  };
+  
+  demoScenarios?: Array<{
+    name: string;
+    description: string;
+  }>;
+  
+  generatedFiles?: string[];
+
+  // Legacy fields for backward compatibility
+  requiredServices?: string[];
+  optionalServices?: string[];
+  legacyDataContracts?: DataContract[];
+  connectors?: ServiceConnector[];
+  evaluatorMetrics?: string[];
+  claudeSections?: string[];
 }

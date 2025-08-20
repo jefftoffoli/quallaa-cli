@@ -1,0 +1,395 @@
+[
+  {
+    "id": "mem_001",
+    "memberId": "M12345",
+    "memberNumber": "2024-001",
+    "status": "active",
+    "membershipType": "Professional",
+    "membershipCategory": "individual",
+    "joinDate": "2022-01-15",
+    "startDate": "2024-01-01",
+    "endDate": "2024-12-31",
+    "renewalDate": "2024-12-01",
+    "lastRenewalDate": "2023-12-01",
+    "duesAmount": 15000,
+    "proRatedAmount": 15000,
+    "paidAmount": 15000,
+    "balanceDue": 0,
+    "lastPaymentDate": "2023-11-15",
+    "paymentMethod": "auto_renew",
+    "autoRenewal": true,
+    "personalInfo": {
+      "firstName": "Alice",
+      "lastName": "Johnson",
+      "jobTitle": "Senior Engineer",
+      "company": "Tech Corp",
+      "department": "Engineering",
+      "industry": "Technology"
+    },
+    "contactInfo": {
+      "email": "alice.johnson@techcorp.com",
+      "phone": "555-123-4567",
+      "preferredContact": "email"
+    },
+    "address": {
+      "street": "456 Oak Ave",
+      "city": "San Francisco",
+      "state": "CA",
+      "zipCode": "94102",
+      "country": "USA",
+      "type": "work"
+    },
+    "membershipHistory": [
+      {
+        "year": 2024,
+        "membershipType": "Professional",
+        "status": "active",
+        "duesAmount": 15000,
+        "paidAmount": 15000,
+        "startDate": "2024-01-01",
+        "endDate": "2024-12-31"
+      },
+      {
+        "year": 2023,
+        "membershipType": "Professional",
+        "status": "active",
+        "duesAmount": 14000,
+        "paidAmount": 14000,
+        "startDate": "2023-01-01",
+        "endDate": "2023-12-31"
+      }
+    ],
+    "committees": [
+      {
+        "committeeId": "tech_comm",
+        "committeeName": "Technology Committee",
+        "role": "Chair",
+        "startDate": "2023-06-01",
+        "status": "active"
+      }
+    ],
+    "accountingInfo": {
+      "customerId": "qbo_cust_001",
+      "accountBalance": 0,
+      "lastInvoiceId": "INV-2024-001",
+      "lastInvoiceDate": "2023-11-01"
+    },
+    "engagementScore": 85,
+    "lifetimeValue": 43000,
+    "acquisitionSource": "referral",
+    "referredBy": "M11111",
+    "tags": ["committee_chair", "auto_renew", "high_engagement"],
+    "createdAt": "2022-01-15T10:00:00Z",
+    "updatedAt": "2024-11-15T14:30:00Z",
+    "metadata": {
+      "sourceSystem": "neoncrm",
+      "externalId": "neon_12345",
+      "syncStatus": "synced",
+      "lastSyncDate": "2024-12-05T08:00:00Z"
+    }
+  },
+  {
+    "id": "mem_002",
+    "memberId": "M23456", 
+    "memberNumber": "2024-002",
+    "status": "lapsed",
+    "membershipType": "Associate",
+    "membershipCategory": "individual",
+    "joinDate": "2021-03-01",
+    "startDate": "2023-01-01",
+    "endDate": "2023-12-31",
+    "renewalDate": "2023-12-01",
+    "lastRenewalDate": "2022-12-01",
+    "graceUntil": "2024-03-31",
+    "duesAmount": 10000,
+    "proRatedAmount": 10000,
+    "paidAmount": 0,
+    "balanceDue": 10000,
+    "lastPaymentDate": "2022-11-30",
+    "paymentMethod": "credit_card",
+    "autoRenewal": false,
+    "personalInfo": {
+      "firstName": "Bob",
+      "lastName": "Smith",
+      "jobTitle": "Project Manager",
+      "company": "Consulting Inc",
+      "industry": "Consulting"
+    },
+    "contactInfo": {
+      "email": "bob.smith@consulting.com",
+      "alternateEmail": "bob.personal@email.com",
+      "phone": "555-234-5678",
+      "preferredContact": "email"
+    },
+    "address": {
+      "street": "789 Pine St",
+      "city": "Austin",
+      "state": "TX",
+      "zipCode": "73301",
+      "country": "USA",
+      "type": "work"
+    },
+    "membershipHistory": [
+      {
+        "year": 2023,
+        "membershipType": "Associate",
+        "status": "lapsed",
+        "duesAmount": 10000,
+        "paidAmount": 0,
+        "startDate": "2023-01-01",
+        "endDate": "2023-12-31"
+      },
+      {
+        "year": 2022,
+        "membershipType": "Associate", 
+        "status": "active",
+        "duesAmount": 9500,
+        "paidAmount": 9500,
+        "startDate": "2022-01-01",
+        "endDate": "2022-12-31"
+      }
+    ],
+    "accountingInfo": {
+      "customerId": "qbo_cust_002",
+      "accountBalance": 10000,
+      "lastInvoiceId": "INV-2023-002",
+      "lastInvoiceDate": "2023-11-01"
+    },
+    "engagementScore": 25,
+    "lifetimeValue": 28500,
+    "acquisitionSource": "website",
+    "tags": ["lapsed", "renewal_needed", "grace_period"],
+    "createdAt": "2021-03-01T12:00:00Z",
+    "updatedAt": "2024-03-01T10:00:00Z",
+    "metadata": {
+      "sourceSystem": "neoncrm",
+      "externalId": "neon_23456",
+      "syncStatus": "synced",
+      "lastSyncDate": "2024-12-05T08:00:00Z",
+      "dataQuality": {
+        "completeness": 85,
+        "accuracy": 90,
+        "issues": ["payment_overdue", "contact_info_stale"]
+      }
+    }
+  },
+  {
+    "id": "mem_003",
+    "memberId": "M34567",
+    "memberNumber": "2024-003", 
+    "status": "active",
+    "membershipType": "Corporate",
+    "membershipCategory": "corporate",
+    "joinDate": "2023-06-01",
+    "startDate": "2024-06-01",
+    "endDate": "2025-05-31",
+    "renewalDate": "2024-05-01",
+    "lastRenewalDate": "2023-05-01",
+    "duesAmount": 50000,
+    "proRatedAmount": 50000,
+    "paidAmount": 50000,
+    "balanceDue": 0,
+    "lastPaymentDate": "2024-04-15",
+    "paymentMethod": "invoice",
+    "autoRenewal": false,
+    "personalInfo": {
+      "firstName": "Corporate",
+      "lastName": "Contact",
+      "jobTitle": "Membership Coordinator",
+      "company": "Big Enterprise LLC",
+      "department": "HR",
+      "industry": "Manufacturing"
+    },
+    "contactInfo": {
+      "email": "membership@bigenterprise.com",
+      "phone": "555-345-6789",
+      "preferredContact": "email"
+    },
+    "address": {
+      "street": "1000 Corporate Blvd",
+      "city": "Chicago",
+      "state": "IL",
+      "zipCode": "60601",
+      "country": "USA",
+      "type": "work"
+    },
+    "membershipHistory": [
+      {
+        "year": 2024,
+        "membershipType": "Corporate",
+        "status": "active",
+        "duesAmount": 50000,
+        "paidAmount": 50000,
+        "startDate": "2024-06-01",
+        "endDate": "2025-05-31"
+      }
+    ],
+    "accountingInfo": {
+      "customerId": "qbo_cust_003",
+      "accountBalance": 0,
+      "lastInvoiceId": "INV-2024-003",
+      "lastInvoiceDate": "2024-04-01",
+      "creditLimit": 100000
+    },
+    "engagementScore": 65,
+    "lifetimeValue": 75000,
+    "acquisitionSource": "sales_team",
+    "tags": ["corporate", "high_value", "invoice_payment"],
+    "createdAt": "2023-06-01T09:00:00Z",
+    "updatedAt": "2024-04-15T16:00:00Z",
+    "metadata": {
+      "sourceSystem": "neoncrm",
+      "externalId": "neon_34567",
+      "syncStatus": "synced",
+      "lastSyncDate": "2024-12-05T08:00:00Z"
+    }
+  },
+  {
+    "id": "mem_004",
+    "memberId": "M45678",
+    "memberNumber": "2024-004",
+    "status": "pending",
+    "membershipType": "Student",
+    "membershipCategory": "student",
+    "joinDate": "2024-09-01",
+    "startDate": "2024-09-01",
+    "endDate": "2025-08-31",
+    "renewalDate": "2024-08-01",
+    "duesAmount": 2500,
+    "proRatedAmount": 833,
+    "paidAmount": 0,
+    "balanceDue": 833,
+    "paymentMethod": "credit_card",
+    "autoRenewal": false,
+    "personalInfo": {
+      "firstName": "Sarah",
+      "lastName": "Williams",
+      "company": "State University",
+      "department": "Computer Science",
+      "industry": "Education"
+    },
+    "contactInfo": {
+      "email": "sarah.williams@university.edu",
+      "phone": "555-456-7890",
+      "preferredContact": "email"
+    },
+    "address": {
+      "street": "100 University Dr",
+      "city": "College Town",
+      "state": "OH",
+      "zipCode": "43210",
+      "country": "USA",
+      "type": "other"
+    },
+    "demographics": {
+      "birthDate": "2000-05-15",
+      "interests": ["machine_learning", "software_development"]
+    },
+    "accountingInfo": {
+      "customerId": "qbo_cust_004",
+      "accountBalance": 833,
+      "lastInvoiceId": "INV-2024-004",
+      "lastInvoiceDate": "2024-09-01"
+    },
+    "engagementScore": 40,
+    "lifetimeValue": 0,
+    "acquisitionSource": "university_partnership",
+    "tags": ["student", "new_member", "payment_pending"],
+    "createdAt": "2024-09-01T11:00:00Z",
+    "updatedAt": "2024-09-01T11:00:00Z",
+    "metadata": {
+      "sourceSystem": "neoncrm",
+      "externalId": "neon_45678",
+      "syncStatus": "pending",
+      "lastSyncDate": "2024-12-05T08:00:00Z",
+      "dataQuality": {
+        "completeness": 70,
+        "accuracy": 95,
+        "issues": ["payment_not_received"]
+      }
+    }
+  },
+  {
+    "id": "mem_005",
+    "memberId": "M56789",
+    "memberNumber": "2024-005",
+    "status": "active",
+    "membershipType": "Senior",
+    "membershipCategory": "senior",
+    "joinDate": "2015-01-01",
+    "startDate": "2024-01-01", 
+    "endDate": "2024-12-31",
+    "renewalDate": "2024-12-01",
+    "lastRenewalDate": "2023-12-01",
+    "duesAmount": 7500,
+    "proRatedAmount": 7500,
+    "paidAmount": 7500,
+    "balanceDue": 0,
+    "lastPaymentDate": "2023-11-20",
+    "paymentMethod": "check",
+    "autoRenewal": false,
+    "personalInfo": {
+      "firstName": "Robert",
+      "lastName": "Davis",
+      "prefix": "Dr.",
+      "jobTitle": "Retired Professor",
+      "company": "Retired",
+      "industry": "Education"
+    },
+    "contactInfo": {
+      "email": "robert.davis@email.com",
+      "phone": "555-567-8901",
+      "preferredContact": "phone"
+    },
+    "address": {
+      "street": "200 Retirement St",
+      "city": "Phoenix",
+      "state": "AZ", 
+      "zipCode": "85001",
+      "country": "USA",
+      "type": "home"
+    },
+    "demographics": {
+      "birthDate": "1955-08-20",
+      "interests": ["research", "mentoring", "writing"]
+    },
+    "membershipHistory": [
+      {
+        "year": 2024,
+        "membershipType": "Senior",
+        "status": "active",
+        "duesAmount": 7500,
+        "paidAmount": 7500,
+        "startDate": "2024-01-01",
+        "endDate": "2024-12-31"
+      }
+    ],
+    "committees": [
+      {
+        "committeeId": "awards_comm",
+        "committeeName": "Awards Committee",
+        "role": "Member",
+        "startDate": "2015-01-01",
+        "status": "active"
+      }
+    ],
+    "accountingInfo": {
+      "customerId": "qbo_cust_005",
+      "accountBalance": 0,
+      "lastInvoiceId": "INV-2023-005",
+      "lastInvoiceDate": "2023-11-01"
+    },
+    "engagementScore": 70,
+    "lifetimeValue": 95000,
+    "acquisitionSource": "professional_network",
+    "tags": ["senior", "long_term_member", "committee_member", "check_payment"],
+    "createdAt": "2015-01-01T10:00:00Z",
+    "updatedAt": "2023-11-20T15:00:00Z",
+    "metadata": {
+      "sourceSystem": "neoncrm",
+      "externalId": "neon_56789",
+      "syncStatus": "synced", 
+      "lastSyncDate": "2024-12-05T08:00:00Z"
+    }
+  }
+]

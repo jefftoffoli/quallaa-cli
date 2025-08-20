@@ -1,0 +1,235 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Invoice",
+  "description": "Invoice record with line items and billing details",
+  "required": ["id", "projectId", "clientId", "lineItems", "total", "status"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique invoice identifier"
+    },
+    "invoiceNumber": {
+      "type": "string",
+      "description": "Invoice number or reference"
+    },
+    "projectId": {
+      "type": "string",
+      "description": "Associated project identifier"
+    },
+    "sowId": {
+      "type": "string",
+      "description": "Associated SOW identifier"
+    },
+    "clientId": {
+      "type": "string",
+      "description": "Client identifier"
+    },
+    "clientName": {
+      "type": "string",
+      "description": "Client name"
+    },
+    "issueDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Invoice issue date"
+    },
+    "dueDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Invoice due date"
+    },
+    "periodStart": {
+      "type": "string",
+      "format": "date",
+      "description": "Billing period start date"
+    },
+    "periodEnd": {
+      "type": "string",
+      "format": "date",
+      "description": "Billing period end date"
+    },
+    "lineItems": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["description", "amount"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Line item identifier"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["time", "expense", "milestone", "fixed_fee", "adjustment"],
+            "description": "Type of line item"
+          },
+          "description": {
+            "type": "string",
+            "description": "Line item description"
+          },
+          "quantity": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Quantity (hours, units, etc.)"
+          },
+          "unitPrice": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Price per unit"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Line item total amount"
+          },
+          "taxAmount": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Tax amount for this line item"
+          },
+          "employeeId": {
+            "type": "string",
+            "description": "Employee associated with this line item"
+          },
+          "employeeName": {
+            "type": "string",
+            "description": "Employee name"
+          },
+          "timeEntryIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Time entry IDs included in this line item"
+          },
+          "milestoneId": {
+            "type": "string",
+            "description": "Milestone ID if this is milestone billing"
+          },
+          "billingDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Date range for time entries"
+          }
+        }
+      }
+    },
+    "subtotal": {
+      "type": "number",
+      "description": "Invoice subtotal (before tax)"
+    },
+    "taxAmount": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Total tax amount"
+    },
+    "discountAmount": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Total discount amount"
+    },
+    "total": {
+      "type": "number",
+      "description": "Invoice total amount"
+    },
+    "currency": {
+      "type": "string",
+      "description": "Invoice currency"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "pending_review", "approved", "sent", "viewed", "partial_payment", "paid", "overdue", "cancelled", "disputed"],
+      "description": "Current invoice status"
+    },
+    "sentDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date invoice was sent to client"
+    },
+    "paidDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date invoice was paid"
+    },
+    "paidAmount": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Amount paid by client"
+    },
+    "paymentTerms": {
+      "type": "string",
+      "description": "Payment terms (Net 30, etc.)"
+    },
+    "paymentMethod": {
+      "type": "string",
+      "description": "Payment method used"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Invoice notes or comments"
+    },
+    "approvalHistory": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "approver": {
+            "type": "string",
+            "description": "Who approved/rejected"
+          },
+          "action": {
+            "type": "string",
+            "enum": ["submitted", "approved", "rejected", "revision_requested"],
+            "description": "Action taken"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When action was taken"
+          },
+          "comments": {
+            "type": "string",
+            "description": "Approval comments"
+          }
+        }
+      }
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When invoice was created"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When invoice was last updated"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional invoice metadata",
+      "properties": {
+        "sourceSystem": {
+          "type": "string",
+          "description": "Origin system (netsuite, qbo, etc.)"
+        },
+        "externalId": {
+          "type": "string",
+          "description": "ID in source system"
+        },
+        "generatedBy": {
+          "type": "string",
+          "description": "System or user that generated invoice"
+        },
+        "billingAddress": {
+          "type": "object",
+          "description": "Client billing address"
+        },
+        "recurringInvoiceId": {
+          "type": "string",
+          "description": "ID if this is a recurring invoice"
+        }
+      }
+    }
+  }
+}

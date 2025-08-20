@@ -1,0 +1,394 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "SKU",
+  "description": "Product SKU master record with variants and attributes",
+  "required": ["id", "skuId", "name"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique record identifier"
+    },
+    "skuId": {
+      "type": "string",
+      "description": "Stock keeping unit identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "Product name or title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed product description"
+    },
+    "barcode": {
+      "type": "string",
+      "description": "UPC, EAN, or other barcode identifier"
+    },
+    "gtin": {
+      "type": "string",
+      "description": "Global Trade Item Number"
+    },
+    "mpn": {
+      "type": "string",
+      "description": "Manufacturer Part Number"
+    },
+    "brand": {
+      "type": "string",
+      "description": "Product brand"
+    },
+    "manufacturer": {
+      "type": "string",
+      "description": "Manufacturer name"
+    },
+    "category": {
+      "type": "string",
+      "description": "Product category"
+    },
+    "subcategory": {
+      "type": "string",
+      "description": "Product subcategory"
+    },
+    "productType": {
+      "type": "string",
+      "enum": ["physical", "digital", "service", "gift_card", "subscription"],
+      "description": "Type of product"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "inactive", "discontinued", "draft"],
+      "description": "Product status"
+    },
+    "uom": {
+      "type": "string",
+      "description": "Unit of measure (each, lb, kg, etc.)"
+    },
+    "weight": {
+      "type": "object",
+      "description": "Product weight",
+      "properties": {
+        "value": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Weight value"
+        },
+        "unit": {
+          "type": "string",
+          "enum": ["oz", "lb", "g", "kg"],
+          "description": "Weight unit"
+        }
+      }
+    },
+    "dimensions": {
+      "type": "object",
+      "description": "Product dimensions",
+      "properties": {
+        "length": { "type": "number", "minimum": 0 },
+        "width": { "type": "number", "minimum": 0 },
+        "height": { "type": "number", "minimum": 0 },
+        "unit": {
+          "type": "string",
+          "enum": ["in", "ft", "cm", "m"],
+          "description": "Dimension unit"
+        }
+      }
+    },
+    "costs": {
+      "type": "object",
+      "description": "Cost information",
+      "properties": {
+        "cost": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Product cost in cents"
+        },
+        "averageCost": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Average cost in cents"
+        },
+        "standardCost": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Standard cost in cents"
+        },
+        "lastCost": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Most recent cost in cents"
+        },
+        "currency": {
+          "type": "string",
+          "description": "Cost currency"
+        }
+      }
+    },
+    "pricing": {
+      "type": "object",
+      "description": "Base pricing information",
+      "properties": {
+        "msrp": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Manufacturer's suggested retail price in cents"
+        },
+        "listPrice": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Standard list price in cents"
+        },
+        "minPrice": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Minimum allowed price in cents"
+        },
+        "currency": {
+          "type": "string",
+          "description": "Price currency"
+        }
+      }
+    },
+    "variants": {
+      "type": "array",
+      "description": "Product variants",
+      "items": {
+        "type": "object",
+        "properties": {
+          "variantId": {
+            "type": "string",
+            "description": "Variant SKU identifier"
+          },
+          "name": {
+            "type": "string",
+            "description": "Variant name"
+          },
+          "attributes": {
+            "type": "object",
+            "description": "Variant attributes (size, color, etc.)",
+            "additionalProperties": { "type": "string" }
+          },
+          "barcode": {
+            "type": "string",
+            "description": "Variant barcode"
+          },
+          "cost": {
+            "type": "number",
+            "description": "Variant cost in cents"
+          },
+          "price": {
+            "type": "number",
+            "description": "Variant price in cents"
+          },
+          "weight": { "type": "number" },
+          "status": {
+            "type": "string",
+            "enum": ["active", "inactive"]
+          }
+        }
+      }
+    },
+    "attributes": {
+      "type": "object",
+      "description": "Custom product attributes",
+      "additionalProperties": {
+        "type": ["string", "number", "boolean"]
+      }
+    },
+    "images": {
+      "type": "array",
+      "description": "Product images",
+      "items": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Image URL"
+          },
+          "altText": {
+            "type": "string",
+            "description": "Image alt text"
+          },
+          "isPrimary": {
+            "type": "boolean",
+            "description": "Whether this is the primary image"
+          },
+          "position": {
+            "type": "integer",
+            "description": "Image position/order"
+          }
+        }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Product tags"
+    },
+    "vendor": {
+      "type": "object",
+      "description": "Vendor/supplier information",
+      "properties": {
+        "vendorId": { "type": "string" },
+        "vendorName": { "type": "string" },
+        "vendorSku": { "type": "string" },
+        "leadTime": {
+          "type": "integer",
+          "description": "Lead time in days"
+        },
+        "minimumOrderQuantity": {
+          "type": "integer",
+          "description": "Minimum order quantity"
+        }
+      }
+    },
+    "tracking": {
+      "type": "object",
+      "description": "Inventory tracking settings",
+      "properties": {
+        "trackInventory": {
+          "type": "boolean",
+          "description": "Whether to track inventory"
+        },
+        "allowBackorders": {
+          "type": "boolean",
+          "description": "Whether to allow backorders"
+        },
+        "continueSelling": {
+          "type": "boolean",
+          "description": "Continue selling when out of stock"
+        },
+        "lowStockThreshold": {
+          "type": "integer",
+          "description": "Low stock threshold quantity"
+        },
+        "reorderPoint": {
+          "type": "integer",
+          "description": "Reorder point quantity"
+        },
+        "reorderQuantity": {
+          "type": "integer",
+          "description": "Standard reorder quantity"
+        }
+      }
+    },
+    "shipping": {
+      "type": "object",
+      "description": "Shipping information",
+      "properties": {
+        "requiresShipping": {
+          "type": "boolean",
+          "description": "Whether product requires shipping"
+        },
+        "shippingClass": {
+          "type": "string",
+          "description": "Shipping class or category"
+        },
+        "hazardous": {
+          "type": "boolean",
+          "description": "Whether product is hazardous"
+        },
+        "oversized": {
+          "type": "boolean",
+          "description": "Whether product is oversized"
+        }
+      }
+    },
+    "tax": {
+      "type": "object",
+      "description": "Tax information",
+      "properties": {
+        "taxable": {
+          "type": "boolean",
+          "description": "Whether product is taxable"
+        },
+        "taxClass": {
+          "type": "string",
+          "description": "Tax class or category"
+        },
+        "taxCode": {
+          "type": "string",
+          "description": "Tax code"
+        }
+      }
+    },
+    "channels": {
+      "type": "array",
+      "description": "Sales channels where product is available",
+      "items": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "type": "string",
+            "description": "Channel name (shopify, amazon, etc.)"
+          },
+          "channelSku": {
+            "type": "string",
+            "description": "SKU in channel system"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["active", "inactive", "pending"],
+            "description": "Status in channel"
+          },
+          "lastSyncDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last sync date"
+          },
+          "syncErrors": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Recent sync errors"
+          }
+        }
+      }
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When SKU was created"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When SKU was last updated"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "System-specific metadata",
+      "properties": {
+        "sourceSystem": {
+          "type": "string",
+          "description": "Origin system (netsuite, shopify, etc.)"
+        },
+        "externalId": {
+          "type": "string",
+          "description": "ID in source system"
+        },
+        "syncStatus": {
+          "type": "string",
+          "enum": ["synced", "pending", "error", "draft"],
+          "description": "Sync status across channels"
+        },
+        "lastSyncDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last successful sync"
+        },
+        "dataQuality": {
+          "type": "object",
+          "properties": {
+            "completeness": { "type": "number", "minimum": 0, "maximum": 100 },
+            "accuracy": { "type": "number", "minimum": 0, "maximum": 100 },
+            "consistency": { "type": "number", "minimum": 0, "maximum": 100 },
+            "issues": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

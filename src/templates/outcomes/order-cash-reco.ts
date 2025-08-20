@@ -26,7 +26,7 @@ export const orderCashRecoTemplate: OutcomeTemplateDefinition = {
       deployment: 'fly'
     }
   ],
-  dataContracts: [
+  legacyDataContracts: [
     {
       name: 'Order',
       description: 'E-commerce order data structure',

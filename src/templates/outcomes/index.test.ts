@@ -21,7 +21,7 @@ describe('outcome templates', () => {
 
   it('should list all templates', () => {
     const templates = listOutcomeTemplates();
-    expect(templates).toHaveLength(2);
+    expect(templates).toHaveLength(5);
     
     const orderTemplate = templates.find(t => t.value === 'order-cash-reco');
     expect(orderTemplate).toBeDefined();
@@ -41,16 +41,16 @@ describe('outcome templates', () => {
     });
 
     it('should have data contracts', () => {
-      expect(orderCashRecoTemplate.dataContracts).toHaveLength(3);
+      expect(orderCashRecoTemplate.legacyDataContracts).toHaveLength(3);
       
-      const orderContract = orderCashRecoTemplate.dataContracts.find(c => c.name === 'Order');
+      const orderContract = orderCashRecoTemplate.legacyDataContracts?.find(c => c.name === 'Order');
       expect(orderContract).toBeDefined();
       expect(orderContract?.schema.properties.id).toBeDefined();
       
-      const paymentContract = orderCashRecoTemplate.dataContracts.find(c => c.name === 'Payment');
+      const paymentContract = orderCashRecoTemplate.legacyDataContracts?.find(c => c.name === 'Payment');
       expect(paymentContract).toBeDefined();
       
-      const accountingContract = orderCashRecoTemplate.dataContracts.find(c => c.name === 'AccountingEntry');
+      const accountingContract = orderCashRecoTemplate.legacyDataContracts?.find(c => c.name === 'AccountingEntry');
       expect(accountingContract).toBeDefined();
     });
 
@@ -82,20 +82,18 @@ describe('outcome templates', () => {
     });
 
     it('should have data contracts', () => {
-      expect(leadLifecycleCoreTemplate.dataContracts).toHaveLength(4);
+      expect(leadLifecycleCoreTemplate.dataContracts).toBeDefined();
+      expect(Object.keys(leadLifecycleCoreTemplate.dataContracts || {})).toHaveLength(4);
       
-      const leadContract = leadLifecycleCoreTemplate.dataContracts.find(c => c.name === 'Lead');
-      expect(leadContract).toBeDefined();
-      expect(leadContract?.schema.properties.email).toBeDefined();
+      const contracts = leadLifecycleCoreTemplate.dataContracts || {};
+      expect(contracts['Lead']).toBeDefined();
+      expect(contracts['Activity']).toBeDefined();
+      expect(contracts['RoutingRule']).toBeDefined();
+      expect(contracts['SlaTarget']).toBeDefined();
       
-      const activityContract = leadLifecycleCoreTemplate.dataContracts.find(c => c.name === 'Activity');
-      expect(activityContract).toBeDefined();
-      
-      const routingContract = leadLifecycleCoreTemplate.dataContracts.find(c => c.name === 'RoutingRule');
-      expect(routingContract).toBeDefined();
-      
-      const slaContract = leadLifecycleCoreTemplate.dataContracts.find(c => c.name === 'SlaTarget');
-      expect(slaContract).toBeDefined();
+      // Verify schema structure
+      const leadSchema = JSON.parse(contracts['Lead'].schema);
+      expect(leadSchema.properties.email).toBeDefined();
     });
 
     it('should have service connectors', () => {

@@ -51,46 +51,48 @@ async function generateOutcomeStructure(): Promise<void> {
 async function generateDataContracts(template: OutcomeTemplateDefinition): Promise<void> {
   const fs = await import('fs/promises');
   
-  for (const contract of template.dataContracts) {
+  if (!template.dataContracts) return;
+  
+  for (const [contractName, contract] of Object.entries(template.dataContracts)) {
     const contractContent = `/**
- * ${contract.name} Data Contract
+ * ${contractName} Data Contract
  * ${contract.description}
  * 
- * This schema defines the structure for ${contract.name.toLowerCase()} data
+ * This schema defines the structure for ${contractName.toLowerCase()} data
  * used throughout the ${template.name} system.
  */
 
-export const ${toCamelCase(contract.name)}Schema = ${JSON.stringify(contract.schema, null, 2)} as const;
+export const ${toCamelCase(contractName)}Schema = ${contract.schema} as const;
 
-export type ${contract.name.replace(/\s+/g, '')} = {
+export type ${contractName.replace(/\s+/g, '')} = {
 ${generateTypeFromSchema(contract.schema)}
 };
 
 /**
- * Validates ${contract.name.toLowerCase()} data against the schema
+ * Validates ${contractName.toLowerCase()} data against the schema
  */
-export function validate${contract.name.replace(/\s+/g, '')}(data: unknown): data is ${contract.name.replace(/\s+/g, '')} {
+export function validate${contractName.replace(/\s+/g, '')}(data: unknown): data is ${contractName.replace(/\s+/g, '')} {
   // TODO: Implement validation logic using Zod or similar
   return true;
 }
 
 /**
- * Example ${contract.name.toLowerCase()} data for testing
+ * Example ${contractName.toLowerCase()} data for testing
  */
-export const example${contract.name.replace(/\s+/g, '')}: ${contract.name.replace(/\s+/g, '')} = {
+export const example${contractName.replace(/\s+/g, '')}: ${contractName.replace(/\s+/g, '')} = {
 ${generateExampleFromSchema(contract.schema)}
 };
 `;
 
-    await fs.writeFile(`contracts/${contract.name.toLowerCase().replace(/\s+/g, '-')}.ts`, contractContent);
+    await fs.writeFile(`contracts/${contractName.toLowerCase().replace(/\s+/g, '-')}.ts`, contractContent);
   }
   
   // Generate contracts index
   const contractIndexContent = `// Data Contracts for ${template.name}
 // Auto-generated - do not modify
 
-${template.dataContracts.map(contract => 
-  `export * from './${contract.name.toLowerCase().replace(/\s+/g, '-')}';`
+${Object.keys(template.dataContracts).map(contractName => 
+  `export * from './${contractName.toLowerCase().replace(/\s+/g, '-')}';`
 ).join('\n')}
 `;
 
@@ -99,6 +101,8 @@ ${template.dataContracts.map(contract =>
 
 async function generateServiceConnectors(template: OutcomeTemplateDefinition): Promise<void> {
   const fs = await import('fs/promises');
+  
+  if (!template.connectors) return;
   
   for (const connector of template.connectors) {
     const connectorContent = `/**
@@ -217,7 +221,7 @@ export interface EvaluationSuite {
 
 export class ${toPascalCase(template.name.replace(/\s+/g, ''))}Evaluator {
   private readonly metrics = [
-${template.evaluatorMetrics.map(metric => `    '${metric}'`).join(',\n')}
+${template.evaluatorMetrics ? template.evaluatorMetrics.map(metric => `    '${metric}'`).join(',\n') : ''}
   ];
 
   /**
@@ -249,14 +253,14 @@ ${template.evaluatorMetrics.map(metric => `    '${metric}'`).join(',\n')}
    */
   private async evaluateMetric(metric: string): Promise<EvaluationResult> {
     switch (metric) {
-${template.evaluatorMetrics.map(metric => `      case '${metric}':
-        return await this.evaluate${toPascalCase(metric)}();`).join('\n')}
+${template.evaluatorMetrics ? template.evaluatorMetrics.map(metric => `      case '${metric}':
+        return await this.evaluate${toPascalCase(metric)}();`).join('\n') : ''}
       default:
         throw new Error(\`Unknown metric: \${metric}\`);
     }
   }
 
-${template.evaluatorMetrics.map(metric => `
+${template.evaluatorMetrics ? template.evaluatorMetrics.map(metric => `
   /**
    * Evaluate ${metric.replace(/_/g, ' ')}
    */
@@ -269,7 +273,7 @@ ${template.evaluatorMetrics.map(metric => `
       passed: false,
       details: 'Not implemented',
     };
-  }`).join('')}
+  }`).join('') : ''}
 
   /**
    * Calculate overall score from individual results
@@ -435,6 +439,8 @@ export const exceptionQueue = new ExceptionQueue();
 async function generateConnectorRoutes(template: OutcomeTemplateDefinition): Promise<void> {
   const fs = await import('fs/promises');
   
+  if (!template.connectors) return;
+  
   for (const connector of template.connectors) {
     if (connector.config.webhookEndpoints) {
       for (const endpoint of connector.config.webhookEndpoints) {
@@ -530,11 +536,11 @@ export default function ${toPascalCase(template.name.replace(/\s+/g, ''))}Dashbo
         <div className="bg-white p-6 rounded-lg shadow">
           <h3 className="text-lg font-semibold mb-4">System Status</h3>
           <div className="space-y-2">
-            ${template.connectors.map(connector => `
+            ${template.connectors ? template.connectors.map(connector => `
             <div className="flex justify-between">
               <span>${connector.name}</span>
               <span className="text-green-600">✓ Connected</span>
-            </div>`).join('')}
+            </div>`).join('') : ''}
           </div>
         </div>
       </div>

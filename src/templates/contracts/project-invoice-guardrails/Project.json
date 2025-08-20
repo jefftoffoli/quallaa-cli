@@ -1,0 +1,171 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Project",
+  "description": "Project master record with budget and contract information",
+  "required": ["id", "name", "clientId", "status"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique project identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "Project name or title"
+    },
+    "code": {
+      "type": "string",
+      "description": "Project code or number"
+    },
+    "clientId": {
+      "type": "string",
+      "description": "Client identifier"
+    },
+    "clientName": {
+      "type": "string",
+      "description": "Client name"
+    },
+    "managerId": {
+      "type": "string",
+      "description": "Project manager's employee ID"
+    },
+    "managerName": {
+      "type": "string",
+      "description": "Project manager's name"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "on_hold", "completed", "cancelled"],
+      "description": "Current project status"
+    },
+    "startDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Project start date"
+    },
+    "endDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Project end date (planned or actual)"
+    },
+    "budget": {
+      "type": "object",
+      "description": "Project budget information",
+      "properties": {
+        "totalAmount": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Total project budget in base currency"
+        },
+        "hoursAllocated": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Total hours allocated to project"
+        },
+        "hoursUsed": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Hours consumed to date"
+        },
+        "amountInvoiced": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Amount invoiced to date"
+        },
+        "amountPaid": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Amount paid by client to date"
+        }
+      }
+    },
+    "contractType": {
+      "type": "string",
+      "enum": ["fixed_fee", "time_materials", "milestone", "retainer", "mixed"],
+      "description": "Type of contract/billing arrangement"
+    },
+    "billingFrequency": {
+      "type": "string",
+      "enum": ["weekly", "bi_weekly", "monthly", "milestone", "completion"],
+      "description": "How often invoices are generated"
+    },
+    "currency": {
+      "type": "string",
+      "description": "Currency code (USD, EUR, etc.)"
+    },
+    "teamMembers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "employeeId": {
+            "type": "string",
+            "description": "Team member employee ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "Team member name"
+          },
+          "role": {
+            "type": "string",
+            "description": "Role on project"
+          },
+          "rate": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Billing rate for this team member"
+          },
+          "allocatedHours": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Hours allocated to this team member"
+          }
+        }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Project tags or categories"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the project was created"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the project was last updated"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional project metadata",
+      "properties": {
+        "sourceSystem": {
+          "type": "string",
+          "description": "Origin system (netsuite, qbo, etc.)"
+        },
+        "externalId": {
+          "type": "string",
+          "description": "ID in the source system"
+        },
+        "department": {
+          "type": "string",
+          "description": "Department or business unit"
+        },
+        "location": {
+          "type": "string",
+          "description": "Project location"
+        },
+        "priority": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "critical"],
+          "description": "Project priority level"
+        }
+      }
+    }
+  }
+}

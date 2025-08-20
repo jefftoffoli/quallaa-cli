@@ -1,0 +1,193 @@
+[
+  {
+    "type": "donation_exception",
+    "id": "exc_don_001",
+    "donationId": "don_002",
+    "donorId": "donor_23456",
+    "donorName": "Mary Jones",
+    "description": "Donation missing from accounting system",
+    "expected": {
+      "amount": 5000,
+      "fund": "scholarship_fund",
+      "journalEntryId": "should_exist",
+      "posted": true
+    },
+    "actual": {
+      "amount": 0,
+      "fund": null,
+      "journalEntryId": null,
+      "posted": false
+    },
+    "discrepancy": "missing_accounting_entry",
+    "impactAmount": 5000,
+    "status": "open",
+    "priority": "high",
+    "reason": "PayPal donation not yet recorded in QuickBooks",
+    "recommendedAction": "Create journal entry for PayPal donation",
+    "createdDate": "2024-12-06",
+    "metadata": {
+      "sourceSystem": "paypal",
+      "processingDate": "2024-12-02T14:20:00Z"
+    }
+  },
+  {
+    "type": "donation_exception",
+    "id": "exc_don_002", 
+    "donationId": "don_006",
+    "donorId": "donor_67890",
+    "donorName": "Thomas Brown",
+    "description": "Recurring donation missing acknowledgment",
+    "expected": {
+      "acknowledgmentSent": true,
+      "acknowledgmentDate": "within_48_hours"
+    },
+    "actual": {
+      "acknowledgmentSent": false,
+      "acknowledgmentDate": null
+    },
+    "discrepancy": "missing_acknowledgment",
+    "impactAmount": 500,
+    "status": "open",
+    "priority": "medium",
+    "reason": "Automated thank you email not sent",
+    "recommendedAction": "Send acknowledgment letter and update donor record",
+    "createdDate": "2024-12-06",
+    "metadata": {
+      "daysOverdue": 1,
+      "recurringDonor": true
+    }
+  },
+  {
+    "type": "member_exception",
+    "id": "exc_mem_001",
+    "memberId": "M23456",
+    "memberName": "Bob Smith",
+    "description": "Lapsed member with unpaid dues in accounting",
+    "expected": {
+      "status": "lapsed",
+      "balanceDue": 10000,
+      "accountingBalance": 10000,
+      "gracePeriodExpired": false
+    },
+    "actual": {
+      "status": "lapsed", 
+      "balanceDue": 10000,
+      "accountingBalance": 10000,
+      "gracePeriodExpired": false
+    },
+    "discrepancy": "consistent_but_action_needed",
+    "impactAmount": 10000,
+    "status": "open",
+    "priority": "medium",
+    "reason": "Member lapsed, dues unpaid, still in grace period",
+    "recommendedAction": "Send final renewal notice before grace period expires",
+    "createdDate": "2024-12-06",
+    "metadata": {
+      "graceUntil": "2024-03-31",
+      "lastContactDate": "2024-01-15",
+      "daysSinceExpiration": 340
+    }
+  },
+  {
+    "type": "member_exception",
+    "id": "exc_mem_002",
+    "memberId": "M45678",
+    "memberName": "Sarah Williams", 
+    "description": "Pending member with invoice but no payment received",
+    "expected": {
+      "status": "active",
+      "balanceDue": 0,
+      "paidAmount": 833
+    },
+    "actual": {
+      "status": "pending",
+      "balanceDue": 833,
+      "paidAmount": 0
+    },
+    "discrepancy": "payment_not_received",
+    "impactAmount": 833,
+    "status": "open",
+    "priority": "medium", 
+    "reason": "Student member application pending payment",
+    "recommendedAction": "Follow up on payment status or offer payment plan",
+    "createdDate": "2024-12-06",
+    "metadata": {
+      "daysSinceInvoice": 95,
+      "membershipType": "student",
+      "proRatedAmount": true
+    }
+  },
+  {
+    "type": "fund_reconciliation",
+    "id": "exc_fund_001",
+    "fundId": "scholarship_fund",
+    "fundName": "Scholarship Fund",
+    "description": "Fund balance mismatch between donor records and accounting",
+    "expected": {
+      "donorSystemBalance": 5000,
+      "accountingBalance": 5000
+    },
+    "actual": {
+      "donorSystemBalance": 5000,
+      "accountingBalance": 0
+    },
+    "discrepancy": "accounting_balance_missing",
+    "impactAmount": 5000,
+    "status": "open",
+    "priority": "high",
+    "reason": "PayPal donation not recorded in accounting system",
+    "recommendedAction": "Post missing journal entry to scholarship fund account",
+    "createdDate": "2024-12-06",
+    "metadata": {
+      "fundType": "restricted",
+      "affectedDonations": ["don_002"]
+    }
+  },
+  {
+    "type": "rollup_summary",
+    "id": "rollup_2024_12",
+    "period": "2024-12",
+    "periodType": "monthly",
+    "donorSummary": {
+      "totalDonations": 6,
+      "totalAmount": 206500,
+      "netAmount": 200499,
+      "totalFees": 1056,
+      "uniqueDonors": 6,
+      "newDonors": 0,
+      "recurringDonors": 2,
+      "averageGift": 34416,
+      "acknowledgmentRate": 66.67,
+      "accountingReconciliationRate": 83.33,
+      "exceptions": 2
+    },
+    "memberSummary": {
+      "totalMembers": 5,
+      "activeMembers": 3,
+      "lapsedMembers": 1,
+      "pendingMembers": 1,
+      "totalDuesAmount": 85000,
+      "totalPaidAmount": 72500,
+      "collectionRate": 85.29,
+      "averageDues": 17000,
+      "autoRenewalRate": 40.0,
+      "exceptions": 2
+    },
+    "fundSummary": {
+      "totalFunds": 4,
+      "restrictedAmount": 180000,
+      "unrestrictedAmount": 26500,
+      "reconciliationRate": 80.0,
+      "exceptions": 1
+    },
+    "overallMetrics": {
+      "totalRevenue": 272500,
+      "reconciliationRate": 82.5,
+      "exceptionCount": 5,
+      "dataQualityScore": 88.5,
+      "complianceScore": 95.0
+    },
+    "createdDate": "2024-12-06",
+    "lastUpdated": "2024-12-06T16:00:00Z"
+  }
+]

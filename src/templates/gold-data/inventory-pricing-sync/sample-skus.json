@@ -1,0 +1,291 @@
+[
+  {
+    "id": "sku_001",
+    "skuId": "WH-001",
+    "name": "Wireless Headphones - Black",
+    "description": "Premium wireless headphones with noise cancellation",
+    "barcode": "123456789012",
+    "gtin": "01234567890123",
+    "mpn": "WH-001-BLK",
+    "brand": "AudioTech",
+    "manufacturer": "AudioTech Manufacturing",
+    "category": "Electronics",
+    "subcategory": "Headphones",
+    "productType": "physical",
+    "status": "active",
+    "uom": "each",
+    "weight": {
+      "value": 0.8,
+      "unit": "lb"
+    },
+    "dimensions": {
+      "length": 8.5,
+      "width": 7.2,
+      "height": 3.1,
+      "unit": "in"
+    },
+    "costs": {
+      "cost": 4500,
+      "averageCost": 4500,
+      "standardCost": 4500,
+      "lastCost": 4500,
+      "currency": "USD"
+    },
+    "pricing": {
+      "msrp": 14999,
+      "listPrice": 12999,
+      "minPrice": 9999,
+      "currency": "USD"
+    },
+    "tracking": {
+      "trackInventory": true,
+      "allowBackorders": false,
+      "continueSelling": false,
+      "lowStockThreshold": 10,
+      "reorderPoint": 25,
+      "reorderQuantity": 100
+    },
+    "channels": [
+      {
+        "channel": "shopify",
+        "channelSku": "WH-001",
+        "status": "active",
+        "lastSyncDate": "2024-12-06T08:00:00Z"
+      },
+      {
+        "channel": "amazon",
+        "channelSku": "ASIN-B08XYZ123",
+        "status": "active", 
+        "lastSyncDate": "2024-12-06T08:00:00Z"
+      }
+    ],
+    "createdAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-12-05T14:30:00Z",
+    "metadata": {
+      "sourceSystem": "netsuite",
+      "externalId": "ns_item_001",
+      "syncStatus": "synced",
+      "lastSyncDate": "2024-12-06T08:00:00Z"
+    }
+  },
+  {
+    "id": "sku_002",
+    "skuId": "KB-002",
+    "name": "Mechanical Keyboard - RGB",
+    "description": "Gaming mechanical keyboard with RGB backlighting",
+    "barcode": "123456789013",
+    "gtin": "01234567890124",
+    "mpn": "KB-002-RGB",
+    "brand": "GameTech",
+    "manufacturer": "GameTech Corp",
+    "category": "Electronics",
+    "subcategory": "Keyboards",
+    "productType": "physical",
+    "status": "active",
+    "uom": "each",
+    "weight": {
+      "value": 2.1,
+      "unit": "lb"
+    },
+    "costs": {
+      "cost": 6000,
+      "averageCost": 6000,
+      "standardCost": 6000,
+      "lastCost": 6500,
+      "currency": "USD"
+    },
+    "pricing": {
+      "msrp": 19999,
+      "listPrice": 17999,
+      "minPrice": 13999,
+      "currency": "USD"
+    },
+    "tracking": {
+      "trackInventory": true,
+      "allowBackorders": true,
+      "continueSelling": false,
+      "lowStockThreshold": 5,
+      "reorderPoint": 15,
+      "reorderQuantity": 50
+    },
+    "channels": [
+      {
+        "channel": "shopify",
+        "channelSku": "KB-002-RGB",
+        "status": "active",
+        "lastSyncDate": "2024-12-05T16:00:00Z"
+      },
+      {
+        "channel": "amazon",
+        "channelSku": "ASIN-B08ABC456",
+        "status": "active",
+        "lastSyncDate": "2024-12-04T12:00:00Z",
+        "syncErrors": ["price_sync_failed"]
+      }
+    ],
+    "createdAt": "2024-02-01T14:00:00Z",
+    "updatedAt": "2024-12-05T16:00:00Z",
+    "metadata": {
+      "sourceSystem": "netsuite",
+      "externalId": "ns_item_002",
+      "syncStatus": "error",
+      "lastSyncDate": "2024-12-05T16:00:00Z",
+      "dataQuality": {
+        "completeness": 95,
+        "accuracy": 90,
+        "consistency": 85,
+        "issues": ["cost_outdated", "channel_price_mismatch"]
+      }
+    }
+  },
+  {
+    "id": "sku_003",
+    "skuId": "MS-003",
+    "name": "Wireless Mouse - Ergonomic",
+    "description": "Ergonomic wireless mouse with precision tracking",
+    "barcode": "123456789014",
+    "brand": "ErgoTech",
+    "category": "Electronics",
+    "subcategory": "Mice",
+    "productType": "physical",
+    "status": "active",
+    "uom": "each",
+    "costs": {
+      "cost": 2000,
+      "averageCost": 2000,
+      "standardCost": 2000,
+      "currency": "USD"
+    },
+    "pricing": {
+      "msrp": 7999,
+      "listPrice": 6999,
+      "minPrice": 4999,
+      "currency": "USD"
+    },
+    "tracking": {
+      "trackInventory": true,
+      "allowBackorders": false,
+      "lowStockThreshold": 20,
+      "reorderPoint": 50,
+      "reorderQuantity": 200
+    },
+    "channels": [
+      {
+        "channel": "shopify",
+        "channelSku": "MS-003-ERGO",
+        "status": "active",
+        "lastSyncDate": "2024-12-06T08:00:00Z"
+      }
+    ],
+    "createdAt": "2024-03-10T09:00:00Z",
+    "updatedAt": "2024-11-20T11:30:00Z",
+    "metadata": {
+      "sourceSystem": "netsuite",
+      "externalId": "ns_item_003",
+      "syncStatus": "synced",
+      "lastSyncDate": "2024-12-06T08:00:00Z"
+    }
+  },
+  {
+    "id": "sku_004",
+    "skuId": "CAM-004",
+    "name": "4K Webcam - Professional",
+    "description": "4K webcam with auto-focus and noise reduction",
+    "barcode": "123456789015",
+    "brand": "VidTech",
+    "category": "Electronics",
+    "subcategory": "Cameras",
+    "productType": "physical",
+    "status": "discontinued",
+    "uom": "each",
+    "costs": {
+      "cost": 8000,
+      "currency": "USD"
+    },
+    "pricing": {
+      "msrp": 24999,
+      "listPrice": 19999,
+      "currency": "USD"
+    },
+    "tracking": {
+      "trackInventory": true,
+      "allowBackorders": false,
+      "continueSelling": false
+    },
+    "channels": [
+      {
+        "channel": "shopify",
+        "channelSku": "CAM-004-4K",
+        "status": "inactive",
+        "lastSyncDate": "2024-10-15T10:00:00Z"
+      }
+    ],
+    "createdAt": "2024-01-01T12:00:00Z",
+    "updatedAt": "2024-10-15T10:00:00Z",
+    "metadata": {
+      "sourceSystem": "netsuite",
+      "externalId": "ns_item_004",
+      "syncStatus": "synced",
+      "dataQuality": {
+        "completeness": 80,
+        "issues": ["discontinued_product"]
+      }
+    }
+  },
+  {
+    "id": "sku_005",
+    "skuId": "SPK-005",
+    "name": "Bluetooth Speaker - Portable",
+    "description": "Waterproof Bluetooth speaker with 20-hour battery",
+    "barcode": "123456789016",
+    "brand": "SoundTech",
+    "category": "Electronics",
+    "subcategory": "Speakers",
+    "productType": "physical",
+    "status": "active",
+    "uom": "each",
+    "costs": {
+      "cost": 3500,
+      "standardCost": 3500,
+      "currency": "USD"
+    },
+    "pricing": {
+      "msrp": 11999,
+      "listPrice": 9999,
+      "currency": "USD"
+    },
+    "tracking": {
+      "trackInventory": true,
+      "allowBackorders": true,
+      "lowStockThreshold": 15,
+      "reorderPoint": 30
+    },
+    "channels": [
+      {
+        "channel": "shopify",
+        "channelSku": "SPK-005-PORT",
+        "status": "active",
+        "lastSyncDate": "2024-12-06T08:00:00Z"
+      },
+      {
+        "channel": "amazon",
+        "channelSku": "ASIN-B08DEF789",
+        "status": "pending",
+        "lastSyncDate": "2024-12-01T10:00:00Z",
+        "syncErrors": ["inventory_sync_timeout"]
+      }
+    ],
+    "createdAt": "2024-04-20T15:30:00Z",
+    "updatedAt": "2024-12-06T08:00:00Z",
+    "metadata": {
+      "sourceSystem": "netsuite", 
+      "externalId": "ns_item_005",
+      "syncStatus": "pending",
+      "dataQuality": {
+        "completeness": 90,
+        "consistency": 95,
+        "issues": ["amazon_sync_pending"]
+      }
+    }
+  }
+]

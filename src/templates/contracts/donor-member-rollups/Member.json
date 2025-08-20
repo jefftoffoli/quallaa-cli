@@ -1,0 +1,353 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Member",
+  "description": "Member record from association management systems",
+  "required": ["id", "memberId", "status", "membershipType"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique member record identifier"
+    },
+    "memberId": {
+      "type": "string",
+      "description": "Member ID number (normalized across systems)"
+    },
+    "memberNumber": {
+      "type": "string",
+      "description": "Human-readable member number"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "lapsed", "pending", "suspended", "cancelled", "deceased", "complimentary"],
+      "description": "Current membership status"
+    },
+    "membershipType": {
+      "type": "string",
+      "description": "Membership level or category"
+    },
+    "membershipCategory": {
+      "type": "string",
+      "enum": ["individual", "family", "corporate", "student", "senior", "lifetime", "honorary"],
+      "description": "Membership category"
+    },
+    "joinDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date member first joined organization"
+    },
+    "startDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Start date of current membership period"
+    },
+    "endDate": {
+      "type": "string",
+      "format": "date",
+      "description": "End date of current membership period"
+    },
+    "renewalDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Next renewal date"
+    },
+    "lastRenewalDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of last renewal"
+    },
+    "graceUntil": {
+      "type": "string",
+      "format": "date",
+      "description": "Grace period end date for lapsed members"
+    },
+    "duesAmount": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Annual dues amount in cents"
+    },
+    "proRatedAmount": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Pro-rated dues for partial year in cents"
+    },
+    "paidAmount": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Amount paid in cents"
+    },
+    "balanceDue": {
+      "type": "number",
+      "description": "Outstanding balance in cents (can be negative for overpayment)"
+    },
+    "lastPaymentDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of last payment received"
+    },
+    "paymentMethod": {
+      "type": "string",
+      "enum": ["auto_renew", "credit_card", "bank_transfer", "check", "cash", "invoice", "complimentary"],
+      "description": "Primary payment method"
+    },
+    "autoRenewal": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether membership auto-renews"
+    },
+    "personalInfo": {
+      "type": "object",
+      "description": "Member personal information",
+      "properties": {
+        "firstName": { "type": "string" },
+        "lastName": { "type": "string" },
+        "middleName": { "type": "string" },
+        "prefix": { "type": "string" },
+        "suffix": { "type": "string" },
+        "displayName": { "type": "string" },
+        "preferredName": { "type": "string" },
+        "jobTitle": { "type": "string" },
+        "company": { "type": "string" },
+        "department": { "type": "string" },
+        "industry": { "type": "string" }
+      }
+    },
+    "contactInfo": {
+      "type": "object", 
+      "description": "Contact information",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Primary email address"
+        },
+        "alternateEmail": {
+          "type": "string",
+          "format": "email",
+          "description": "Secondary email address"
+        },
+        "phone": { "type": "string" },
+        "mobilePhone": { "type": "string" },
+        "workPhone": { "type": "string" },
+        "fax": { "type": "string" },
+        "website": { "type": "string" },
+        "preferredContact": {
+          "type": "string",
+          "enum": ["email", "phone", "mail", "text"]
+        }
+      }
+    },
+    "address": {
+      "type": "object",
+      "description": "Mailing address",
+      "properties": {
+        "street": { "type": "string" },
+        "street2": { "type": "string" },
+        "city": { "type": "string" },
+        "state": { "type": "string" },
+        "zipCode": { "type": "string" },
+        "country": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": ["home", "work", "other"]
+        }
+      }
+    },
+    "demographics": {
+      "type": "object",
+      "description": "Demographic information",
+      "properties": {
+        "birthDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Date of birth"
+        },
+        "gender": { "type": "string" },
+        "ethnicity": { "type": "string" },
+        "interests": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Member interests or focus areas"
+        },
+        "skills": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Professional skills"
+        }
+      }
+    },
+    "membershipHistory": {
+      "type": "array",
+      "description": "Historical membership records",
+      "items": {
+        "type": "object",
+        "properties": {
+          "year": { "type": "integer" },
+          "membershipType": { "type": "string" },
+          "status": { "type": "string" },
+          "duesAmount": { "type": "number" },
+          "paidAmount": { "type": "number" },
+          "startDate": { "type": "string", "format": "date" },
+          "endDate": { "type": "string", "format": "date" }
+        }
+      }
+    },
+    "committees": {
+      "type": "array",
+      "description": "Committee memberships",
+      "items": {
+        "type": "object",
+        "properties": {
+          "committeeId": { "type": "string" },
+          "committeeName": { "type": "string" },
+          "role": { "type": "string" },
+          "startDate": { "type": "string", "format": "date" },
+          "endDate": { "type": "string", "format": "date" },
+          "status": { "type": "string" }
+        }
+      }
+    },
+    "certifications": {
+      "type": "array",
+      "description": "Professional certifications",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "number": { "type": "string" },
+          "issueDate": { "type": "string", "format": "date" },
+          "expirationDate": { "type": "string", "format": "date" },
+          "status": { "type": "string" }
+        }
+      }
+    },
+    "eventParticipation": {
+      "type": "array",
+      "description": "Event attendance history",
+      "items": {
+        "type": "object",
+        "properties": {
+          "eventId": { "type": "string" },
+          "eventName": { "type": "string" },
+          "eventDate": { "type": "string", "format": "date" },
+          "registrationStatus": { "type": "string" },
+          "attendanceStatus": { "type": "string" },
+          "amount": { "type": "number" }
+        }
+      }
+    },
+    "communicationPreferences": {
+      "type": "object",
+      "description": "Communication preferences",
+      "properties": {
+        "newsletter": { "type": "boolean" },
+        "eventNotifications": { "type": "boolean" },
+        "renewalReminders": { "type": "boolean" },
+        "marketingEmails": { "type": "boolean" },
+        "directMail": { "type": "boolean" },
+        "phoneContact": { "type": "boolean" },
+        "textMessages": { "type": "boolean" }
+      }
+    },
+    "accountingInfo": {
+      "type": "object",
+      "description": "Accounting system integration",
+      "properties": {
+        "customerId": {
+          "type": "string",
+          "description": "Customer ID in accounting system"
+        },
+        "accountBalance": {
+          "type": "number",
+          "description": "Current account balance in cents"
+        },
+        "lastInvoiceId": {
+          "type": "string",
+          "description": "Last invoice ID"
+        },
+        "lastInvoiceDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Date of last invoice"
+        },
+        "creditLimit": {
+          "type": "number",
+          "description": "Credit limit in cents"
+        }
+      }
+    },
+    "engagementScore": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Calculated engagement score (0-100)"
+    },
+    "lifetimeValue": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Lifetime value in cents"
+    },
+    "acquisitionSource": {
+      "type": "string",
+      "description": "How member was acquired"
+    },
+    "referredBy": {
+      "type": "string",
+      "description": "Member who referred this member"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Custom tags or categories"
+    },
+    "notes": {
+      "type": "string",
+      "description": "General notes about member"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When record was created"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When record was last updated"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "System-specific metadata",
+      "properties": {
+        "sourceSystem": {
+          "type": "string",
+          "description": "Origin system (neoncrm, wildapricot, etc.)"
+        },
+        "externalId": {
+          "type": "string",
+          "description": "ID in source system"
+        },
+        "syncStatus": {
+          "type": "string",
+          "enum": ["synced", "pending", "error", "manual"],
+          "description": "Data synchronization status"
+        },
+        "lastSyncDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last successful sync"
+        },
+        "dataQuality": {
+          "type": "object",
+          "properties": {
+            "completeness": { "type": "number", "minimum": 0, "maximum": 100 },
+            "accuracy": { "type": "number", "minimum": 0, "maximum": 100 },
+            "issues": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

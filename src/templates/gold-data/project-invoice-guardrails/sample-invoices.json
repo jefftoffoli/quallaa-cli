@@ -1,0 +1,192 @@
+[
+  {
+    "id": "inv_draft_001",
+    "invoiceNumber": "INV-2024-001",
+    "projectId": "proj_mobile_app",
+    "sowId": "sow_mobile_app_001",
+    "clientId": "client_startup_inc",
+    "clientName": "Startup Inc",
+    "issueDate": "2024-12-05",
+    "dueDate": "2025-01-04",
+    "periodStart": "2024-12-01",
+    "periodEnd": "2024-12-05",
+    "lineItems": [
+      {
+        "id": "li_001",
+        "type": "time",
+        "description": "UI/UX Design - User Research",
+        "quantity": 4.0,
+        "unitPrice": 125.00,
+        "amount": 500.00,
+        "taxAmount": 0.00,
+        "employeeId": "emp_001",
+        "employeeName": "Sarah Johnson",
+        "timeEntryIds": ["te_003"],
+        "billingDate": "2024-12-02"
+      }
+    ],
+    "subtotal": 500.00,
+    "taxAmount": 0.00,
+    "discountAmount": 0.00,
+    "total": 500.00,
+    "currency": "USD",
+    "status": "draft",
+    "paymentTerms": "Net 30",
+    "notes": "First invoice for mobile app development project",
+    "createdAt": "2024-12-05T14:00:00Z",
+    "updatedAt": "2024-12-05T14:00:00Z",
+    "metadata": {
+      "sourceSystem": "quickbooks",
+      "externalId": "qb_inv_001",
+      "generatedBy": "auto_billing_system"
+    }
+  },
+  {
+    "id": "inv_sent_001",
+    "invoiceNumber": "INV-2024-002",
+    "projectId": "proj_website_redesign",
+    "sowId": "sow_website_001",
+    "clientId": "client_acme_corp",
+    "clientName": "Acme Corporation",
+    "issueDate": "2024-12-04",
+    "dueDate": "2025-01-03",
+    "periodStart": "2024-12-01",
+    "periodEnd": "2024-12-04",
+    "lineItems": [
+      {
+        "id": "li_002",
+        "type": "milestone",
+        "description": "Milestone 1: Design Phase Completion",
+        "quantity": 1,
+        "unitPrice": 8000.00,
+        "amount": 8000.00,
+        "taxAmount": 0.00,
+        "milestoneId": "milestone_001"
+      }
+    ],
+    "subtotal": 8000.00,
+    "taxAmount": 0.00,
+    "discountAmount": 0.00,
+    "total": 8000.00,
+    "currency": "USD",
+    "status": "sent",
+    "sentDate": "2024-12-04",
+    "paymentTerms": "Net 30",
+    "notes": "Milestone billing for design phase completion",
+    "approvalHistory": [
+      {
+        "approver": "emp_mgr_001",
+        "action": "approved",
+        "date": "2024-12-04T10:00:00Z",
+        "comments": "Design phase completed successfully"
+      }
+    ],
+    "createdAt": "2024-12-04T09:00:00Z",
+    "updatedAt": "2024-12-04T16:00:00Z",
+    "metadata": {
+      "sourceSystem": "netsuite",
+      "externalId": "ns_inv_002",
+      "generatedBy": "milestone_billing_automation"
+    }
+  },
+  {
+    "id": "inv_over_budget_001",
+    "invoiceNumber": "INV-2024-003",
+    "projectId": "proj_crm_integration",
+    "sowId": "sow_crm_001",
+    "clientId": "client_enterprise_co",
+    "clientName": "Enterprise Co",
+    "issueDate": "2024-12-06",
+    "dueDate": "2025-01-05",
+    "periodStart": "2024-12-01",
+    "periodEnd": "2024-12-06",
+    "lineItems": [
+      {
+        "id": "li_003",
+        "type": "time",
+        "description": "Backend Development - API Integration (OVER BUDGET)",
+        "quantity": 10.0,
+        "unitPrice": 110.00,
+        "amount": 1100.00,
+        "taxAmount": 0.00,
+        "employeeId": "emp_003",
+        "employeeName": "Lisa Wang",
+        "timeEntryIds": ["te_004"],
+        "billingDate": "2024-12-02"
+      },
+      {
+        "id": "li_004",
+        "type": "time",
+        "description": "QA Testing - Extended hours (NON-BILLABLE MARKED AS BILLABLE)",
+        "quantity": 12.0,
+        "unitPrice": 100.00,
+        "amount": 1200.00,
+        "taxAmount": 0.00,
+        "employeeId": "emp_002",
+        "employeeName": "Mike Chen",
+        "timeEntryIds": ["te_008"],
+        "billingDate": "2024-12-04"
+      }
+    ],
+    "subtotal": 2300.00,
+    "taxAmount": 0.00,
+    "discountAmount": 0.00,
+    "total": 2300.00,
+    "currency": "USD",
+    "status": "draft",
+    "paymentTerms": "Net 30",
+    "notes": "WARNING: This invoice exceeds project budget by $300",
+    "createdAt": "2024-12-06T11:00:00Z",
+    "updatedAt": "2024-12-06T11:00:00Z",
+    "metadata": {
+      "sourceSystem": "netsuite",
+      "externalId": "ns_inv_003",
+      "generatedBy": "manual_entry",
+      "flagged": true,
+      "flagReason": "exceeds_budget"
+    }
+  },
+  {
+    "id": "inv_missing_time_001",
+    "invoiceNumber": "INV-2024-004",
+    "projectId": "proj_website_redesign",
+    "sowId": "sow_website_001",
+    "clientId": "client_acme_corp",
+    "clientName": "Acme Corporation",
+    "issueDate": "2024-12-07",
+    "dueDate": "2025-01-06",
+    "periodStart": "2024-12-04",
+    "periodEnd": "2024-12-07",
+    "lineItems": [
+      {
+        "id": "li_005",
+        "type": "time",
+        "description": "UI Design - Product Pages (UNDER-BILLED)",
+        "quantity": 6.0,
+        "unitPrice": 125.00,
+        "amount": 750.00,
+        "taxAmount": 0.00,
+        "employeeId": "emp_001",
+        "employeeName": "Sarah Johnson",
+        "timeEntryIds": [],
+        "billingDate": "2024-12-04"
+      }
+    ],
+    "subtotal": 750.00,
+    "taxAmount": 0.00,
+    "discountAmount": 0.00,
+    "total": 750.00,
+    "currency": "USD",
+    "status": "draft",
+    "paymentTerms": "Net 30",
+    "notes": "Missing 1.5 hours of actual time entry (7.5 hours logged vs 6 hours billed)",
+    "createdAt": "2024-12-07T14:30:00Z",
+    "updatedAt": "2024-12-07T14:30:00Z",
+    "metadata": {
+      "sourceSystem": "netsuite",
+      "externalId": "ns_inv_004",
+      "generatedBy": "manual_entry",
+      "discrepancy": "under_billed_1.5_hours"
+    }
+  }
+]

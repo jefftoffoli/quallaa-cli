@@ -1,0 +1,325 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Revenue Recognition Policy",
+  "description": "Revenue recognition rules and compliance settings for projects",
+  "required": ["id", "projectId", "method", "recognitionRules"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique policy identifier"
+    },
+    "projectId": {
+      "type": "string",
+      "description": "Associated project identifier"
+    },
+    "sowId": {
+      "type": "string",
+      "description": "Associated SOW identifier"
+    },
+    "method": {
+      "type": "string",
+      "enum": ["percentage_completion", "milestone", "time_based", "completion", "point_in_time"],
+      "description": "Revenue recognition method per ASC 606/IFRS 15"
+    },
+    "complianceFramework": {
+      "type": "string",
+      "enum": ["ASC_606", "IFRS_15", "GAAP", "OTHER"],
+      "description": "Accounting framework being followed"
+    },
+    "recognitionRules": {
+      "type": "object",
+      "description": "Rules for when and how to recognize revenue",
+      "properties": {
+        "trigger": {
+          "type": "string",
+          "enum": ["invoice_sent", "milestone_completed", "percentage_complete", "payment_received", "delivery_completed"],
+          "description": "What triggers revenue recognition"
+        },
+        "frequency": {
+          "type": "string",
+          "enum": ["real_time", "daily", "weekly", "monthly", "milestone"],
+          "description": "How frequently to calculate recognition"
+        },
+        "minimumThreshold": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Minimum completion percentage before recognition starts"
+        },
+        "deferralRequired": {
+          "type": "boolean",
+          "description": "Whether revenue must be deferred initially"
+        }
+      }
+    },
+    "performanceObligations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Performance obligation identifier"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the performance obligation"
+          },
+          "allocatedAmount": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Revenue allocated to this obligation"
+          },
+          "satisfactionMethod": {
+            "type": "string",
+            "enum": ["over_time", "point_in_time"],
+            "description": "How the obligation is satisfied"
+          },
+          "measurementMethod": {
+            "type": "string",
+            "enum": ["input_method", "output_method", "time_elapsed"],
+            "description": "How to measure progress toward completion"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["not_started", "in_progress", "completed"],
+            "description": "Current status"
+          },
+          "percentComplete": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "description": "Percentage completed"
+          }
+        }
+      }
+    },
+    "costTracking": {
+      "type": "object",
+      "description": "Cost tracking for percentage completion method",
+      "properties": {
+        "totalEstimatedCosts": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Total estimated project costs"
+        },
+        "costsIncurredToDate": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Costs incurred to date"
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When cost estimates were last updated"
+        },
+        "costCategories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "category": {
+                "type": "string",
+                "description": "Cost category (labor, materials, overhead, etc.)"
+              },
+              "estimatedCost": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Estimated cost for this category"
+              },
+              "actualCost": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Actual cost incurred"
+              }
+            }
+          }
+        }
+      }
+    },
+    "accounts": {
+      "type": "object",
+      "description": "Account mapping for journal entries",
+      "properties": {
+        "revenueAccount": {
+          "type": "string",
+          "description": "Revenue GL account"
+        },
+        "deferredRevenueAccount": {
+          "type": "string",
+          "description": "Deferred revenue GL account"
+        },
+        "wipAccount": {
+          "type": "string",
+          "description": "Work in progress GL account"
+        },
+        "costsAccount": {
+          "type": "string",
+          "description": "Project costs GL account"
+        }
+      }
+    },
+    "calculations": {
+      "type": "object",
+      "description": "Current revenue recognition calculations",
+      "properties": {
+        "totalContractValue": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Total contract value"
+        },
+        "revenueRecognizedToDate": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Revenue recognized to date"
+        },
+        "deferredRevenue": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Remaining deferred revenue"
+        },
+        "percentageComplete": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Overall project completion percentage"
+        },
+        "lastCalculationDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When calculations were last run"
+        },
+        "nextCalculationDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When next calculation is scheduled"
+        }
+      }
+    },
+    "auditTrail": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date of audit entry"
+          },
+          "action": {
+            "type": "string",
+            "description": "Action performed"
+          },
+          "user": {
+            "type": "string",
+            "description": "User who performed action"
+          },
+          "revenueAmount": {
+            "type": "number",
+            "description": "Revenue amount recognized/adjusted"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason for the action"
+          },
+          "supportingDocuments": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Supporting document references"
+          }
+        }
+      }
+    },
+    "exceptions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Exception identifier"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["over_recognition", "under_recognition", "timing_difference", "cost_overrun", "milestone_delay"],
+            "description": "Type of exception"
+          },
+          "description": {
+            "type": "string",
+            "description": "Exception description"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Exception amount"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["open", "investigating", "resolved", "approved_variance"],
+            "description": "Exception status"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When exception was created"
+          },
+          "resolvedDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When exception was resolved"
+          },
+          "assignedTo": {
+            "type": "string",
+            "description": "Who is responsible for resolving"
+          }
+        }
+      }
+    },
+    "effectiveDate": {
+      "type": "string",
+      "format": "date",
+      "description": "When this policy becomes effective"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When policy was created"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When policy was last updated"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional policy metadata",
+      "properties": {
+        "sourceSystem": {
+          "type": "string",
+          "description": "Origin system"
+        },
+        "approvedBy": {
+          "type": "string",
+          "description": "Who approved this policy"
+        },
+        "approvalDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When policy was approved"
+        },
+        "reviewFrequency": {
+          "type": "string",
+          "enum": ["monthly", "quarterly", "annually"],
+          "description": "How often to review this policy"
+        },
+        "nextReviewDate": {
+          "type": "string",
+          "format": "date",
+          "description": "When policy is due for review"
+        }
+      }
+    }
+  }
+}

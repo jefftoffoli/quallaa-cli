@@ -1,0 +1,343 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Inventory",
+  "description": "Inventory level records for products across locations and channels",
+  "required": ["id", "skuId", "location", "quantity"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique inventory record identifier"
+    },
+    "skuId": {
+      "type": "string",
+      "description": "Product SKU identifier"
+    },
+    "variantId": {
+      "type": "string",
+      "description": "Product variant identifier (if applicable)"
+    },
+    "location": {
+      "type": "string",
+      "description": "Location identifier (warehouse, store, channel)"
+    },
+    "locationName": {
+      "type": "string",
+      "description": "Human-readable location name"
+    },
+    "locationType": {
+      "type": "string",
+      "enum": ["warehouse", "store", "fulfillment_center", "third_party", "virtual", "channel"],
+      "description": "Type of location"
+    },
+    "quantity": {
+      "type": "number",
+      "description": "Available quantity"
+    },
+    "reservedQuantity": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Quantity reserved for orders"
+    },
+    "onOrderQuantity": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Quantity on order from suppliers"
+    },
+    "inTransitQuantity": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Quantity in transit between locations"
+    },
+    "damagedQuantity": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Quantity damaged or unsellable"
+    },
+    "allocatedQuantity": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Quantity allocated to specific purposes"
+    },
+    "availableToSell": {
+      "type": "number",
+      "description": "Calculated available to sell quantity"
+    },
+    "safetyStock": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Safety stock level"
+    },
+    "reorderPoint": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Reorder point quantity"
+    },
+    "reorderQuantity": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Standard reorder quantity"
+    },
+    "maxStock": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Maximum stock level"
+    },
+    "costBasis": {
+      "type": "string",
+      "enum": ["fifo", "lifo", "average", "standard", "specific"],
+      "description": "Cost calculation method"
+    },
+    "unitCost": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Cost per unit in cents"
+    },
+    "totalValue": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Total inventory value in cents"
+    },
+    "currency": {
+      "type": "string",
+      "description": "Cost/value currency"
+    },
+    "lots": {
+      "type": "array",
+      "description": "Lot tracking information",
+      "items": {
+        "type": "object",
+        "properties": {
+          "lotNumber": { "type": "string" },
+          "quantity": { "type": "number" },
+          "expirationDate": { "type": "string", "format": "date" },
+          "receivedDate": { "type": "string", "format": "date" },
+          "cost": { "type": "number" }
+        }
+      }
+    },
+    "serials": {
+      "type": "array",
+      "description": "Serial number tracking",
+      "items": {
+        "type": "object",
+        "properties": {
+          "serialNumber": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": ["available", "reserved", "sold", "damaged", "returned"]
+          },
+          "cost": { "type": "number" },
+          "receivedDate": { "type": "string", "format": "date" }
+        }
+      }
+    },
+    "movements": {
+      "type": "array",
+      "description": "Recent inventory movements",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "type": {
+            "type": "string",
+            "enum": ["receipt", "sale", "adjustment", "transfer", "return", "damage", "cycle_count"]
+          },
+          "quantity": { "type": "number" },
+          "reference": { "type": "string" },
+          "reason": { "type": "string" },
+          "date": { "type": "string", "format": "date-time" },
+          "user": { "type": "string" },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "cycleCount": {
+      "type": "object",
+      "description": "Cycle count information",
+      "properties": {
+        "lastCountDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Date of last cycle count"
+        },
+        "lastCountQuantity": {
+          "type": "number",
+          "description": "Quantity from last count"
+        },
+        "variance": {
+          "type": "number",
+          "description": "Variance from last count"
+        },
+        "nextCountDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Next scheduled count date"
+        },
+        "countFrequency": {
+          "type": "string",
+          "description": "Count frequency (weekly, monthly, quarterly)"
+        }
+      }
+    },
+    "channelInventory": {
+      "type": "array",
+      "description": "Inventory levels in sales channels",
+      "items": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "type": "string",
+            "description": "Channel name (shopify, amazon, etc.)"
+          },
+          "channelLocationId": {
+            "type": "string",
+            "description": "Location ID in channel system"
+          },
+          "availableQuantity": {
+            "type": "number",
+            "description": "Available quantity in channel"
+          },
+          "lastSyncDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last sync with channel"
+          },
+          "syncStatus": {
+            "type": "string",
+            "enum": ["synced", "pending", "error"],
+            "description": "Sync status"
+          },
+          "discrepancy": {
+            "type": "number",
+            "description": "Difference from master inventory"
+          }
+        }
+      }
+    },
+    "forecasting": {
+      "type": "object",
+      "description": "Demand forecasting data",
+      "properties": {
+        "dailyUsage": {
+          "type": "number",
+          "description": "Average daily usage"
+        },
+        "leadTimeUsage": {
+          "type": "number",
+          "description": "Usage during lead time"
+        },
+        "seasonalityFactor": {
+          "type": "number",
+          "description": "Seasonality adjustment factor"
+        },
+        "forecastAccuracy": {
+          "type": "number",
+          "description": "Forecast accuracy percentage"
+        },
+        "daysOfStock": {
+          "type": "number",
+          "description": "Days of stock remaining"
+        },
+        "stockoutRisk": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "critical"],
+          "description": "Risk of stockout"
+        }
+      }
+    },
+    "supplierInfo": {
+      "type": "object",
+      "description": "Supplier information",
+      "properties": {
+        "supplierId": { "type": "string" },
+        "supplierName": { "type": "string" },
+        "leadTimeDays": { "type": "integer" },
+        "minimumOrderQuantity": { "type": "integer" },
+        "lastOrderDate": { "type": "string", "format": "date" },
+        "nextDeliveryDate": { "type": "string", "format": "date" }
+      }
+    },
+    "flags": {
+      "type": "array",
+      "description": "Inventory flags and alerts",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["low_stock", "out_of_stock", "overstock", "slow_moving", "obsolete", "discrepancy"]
+          },
+          "message": { "type": "string" },
+          "severity": {
+            "type": "string",
+            "enum": ["info", "warning", "error", "critical"]
+          },
+          "createdDate": { "type": "string", "format": "date-time" },
+          "resolved": { "type": "boolean" },
+          "resolvedDate": { "type": "string", "format": "date-time" }
+        }
+      }
+    },
+    "lastUpdated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When inventory was last updated"
+    },
+    "lastMovement": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date of last inventory movement"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When record was created"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When record was last updated"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "System-specific metadata",
+      "properties": {
+        "sourceSystem": {
+          "type": "string",
+          "description": "Origin system"
+        },
+        "externalId": {
+          "type": "string",
+          "description": "ID in source system"
+        },
+        "syncToken": {
+          "type": "string",
+          "description": "Token for incremental sync"
+        },
+        "lastSyncDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last successful sync"
+        },
+        "reconciliationStatus": {
+          "type": "string",
+          "enum": ["reconciled", "pending", "discrepancy", "error"],
+          "description": "Cross-system reconciliation status"
+        },
+        "dataQuality": {
+          "type": "object",
+          "properties": {
+            "accuracy": { "type": "number", "minimum": 0, "maximum": 100 },
+            "freshness": { "type": "number", "minimum": 0, "maximum": 100 },
+            "completeness": { "type": "number", "minimum": 0, "maximum": 100 },
+            "issues": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}
