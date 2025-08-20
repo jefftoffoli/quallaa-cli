@@ -65,3 +65,35 @@ export interface ServiceSetupResult {
   error?: Error;
   credentials?: Partial<ServiceCredentials>;
 }
+
+export type OutcomeTemplate = 'order-cash-reco' | 'lead-lifecycle-core';
+
+export interface OutcomeConfig extends ProjectConfig {
+  template: OutcomeTemplate;
+}
+
+export interface DataContract {
+  name: string;
+  description: string;
+  schema: Record<string, any>;
+}
+
+export interface ServiceConnector {
+  name: string;
+  type: 'input' | 'output' | 'bidirectional';
+  service: string;
+  description: string;
+  config: Record<string, any>;
+}
+
+export interface OutcomeTemplateDefinition {
+  name: string;
+  description: string;
+  domain: string;
+  requiredServices: string[];
+  optionalServices: string[];
+  dataContracts: DataContract[];
+  connectors: ServiceConnector[];
+  evaluatorMetrics: string[];
+  claudeSections: string[];
+}

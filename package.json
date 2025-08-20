@@ -46,6 +46,7 @@
     "axios": "^1.7.2",
     "chalk": "^4.1.2",
     "commander": "^12.0.0",
+    "date-fns": "^4.1.0",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "inquirer": "^8.2.6",
@@ -53,6 +54,7 @@
     "ora": "^5.4.1",
     "semver": "^7.7.2",
     "update-notifier": "^5.1.0",
+    "uuid": "^11.1.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
@@ -61,6 +63,7 @@
     "@types/node": "^20.11.24",
     "@types/semver": "^7.7.0",
     "@types/update-notifier": "^5.1.0",
+    "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
     "@vitest/coverage-v8": "^1.6.0",
