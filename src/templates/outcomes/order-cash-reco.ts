@@ -6,6 +6,26 @@ export const orderCashRecoTemplate: OutcomeTemplateDefinition = {
   domain: 'Finance & Operations',
   requiredServices: ['supabase', 'vercel'],
   optionalServices: ['resend', 'typesense'],
+  stackVariants: [
+    {
+      name: 'Web + Jobs (Default)',
+      description: 'Next.js frontend with background jobs for reconciliation processing',
+      isMinimal: false,
+      requiredServices: ['vercel', 'supabase'],
+      optionalServices: ['resend', 'typesense'],
+      architecture: 'web-jobs',
+      deployment: 'vercel'
+    },
+    {
+      name: 'Headless Worker-Only',
+      description: 'Minimal Node.js worker for batch reconciliation processing',
+      isMinimal: true,
+      requiredServices: ['supabase'],
+      optionalServices: ['resend'],
+      architecture: 'headless-worker',
+      deployment: 'fly'
+    }
+  ],
   dataContracts: [
     {
       name: 'Order',

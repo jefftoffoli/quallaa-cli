@@ -5,6 +5,7 @@ import ora from 'ora';
 import { displayWelcome } from '../ui/brand/banner';
 import { captureLeadInfo } from '../capture/leads';
 import { generateProject } from './generate/project';
+import { generateMinimalProject } from './generate/minimal-project';
 import { generateClaudeMd } from './generate/claude';
 import { setupAllServices } from './setup';
 import { Role, ProjectConfig } from '../types';
@@ -13,6 +14,7 @@ export const initCommand = new Command('init')
   .description('Initialize a new project with infrastructure services')
   .option('-n, --name <name>', 'Project name')
   .option('-r, --role <role>', 'Your role (founder, product, marketing, operations)')
+  .option('--minimal', 'Create headless worker variant (no UI, just jobs + API)')
   .option('--skip-lead-capture', 'Skip lead capture (not recommended)')
   .action(async (options) => {
     displayWelcome();
@@ -41,10 +43,15 @@ export const initCommand = new Command('init')
         leadInfo,
       };
 
-      // Create project
-      const spinner = ora('Creating project structure...').start();
-      await generateProject(config);
-      spinner.succeed('Project structure created');
+      // Create project (minimal or full)
+      const spinner = ora(`Creating ${options.minimal ? 'minimal worker' : 'project'} structure...`).start();
+      if (options.minimal) {
+        await generateMinimalProject(config);
+        spinner.succeed('Minimal worker structure created');
+      } else {
+        await generateProject(config);
+        spinner.succeed('Project structure created');
+      }
 
       // Generate CLAUDE.md
       spinner.start('Generating CLAUDE.md with role-specific context...');
@@ -57,12 +64,15 @@ export const initCommand = new Command('init')
       }
 
       // Success message
-      console.log(chalk.green('\n✅ Project initialized successfully!'));
+      console.log(chalk.green(`\n✅ ${options.minimal ? 'Minimal worker' : 'Project'} initialized successfully!`));
       console.log(chalk.gray(`\nNext steps:`));
       console.log(chalk.gray(`  1. cd ${projectName}`));
       console.log(chalk.gray(`  2. npm install`));
-      console.log(chalk.gray(`  3. npm run dev`));
-      console.log(chalk.gray(`\nOpen your project in VS Code and Claude will have all the context it needs!`));
+      console.log(chalk.gray(`  3. ${options.minimal ? 'npm run dev' : 'npm run dev'}`));
+      if (options.minimal) {
+        console.log(chalk.gray(`  4. npm run evaluate  # Run outcome metrics`));
+      }
+      console.log(chalk.gray(`\n${options.minimal ? 'Headless worker' : 'Project'} ready for AI-assisted development!`));
 
       // Feedback CTA
       if (leadInfo) {

@@ -70,6 +70,7 @@ export type OutcomeTemplate = 'order-cash-reco' | 'lead-lifecycle-core';
 
 export interface OutcomeConfig extends ProjectConfig {
   template: OutcomeTemplate;
+  stackVariant?: StackVariant;
 }
 
 export interface DataContract {
@@ -86,12 +87,23 @@ export interface ServiceConnector {
   config: Record<string, any>;
 }
 
+export interface StackVariant {
+  name: string;
+  description: string;
+  isMinimal: boolean;
+  requiredServices: string[];
+  optionalServices: string[];
+  architecture: 'web-jobs' | 'headless-worker';
+  deployment: 'vercel' | 'fly' | 'railway';
+}
+
 export interface OutcomeTemplateDefinition {
   name: string;
   description: string;
   domain: string;
   requiredServices: string[];
   optionalServices: string[];
+  stackVariants: StackVariant[];
   dataContracts: DataContract[];
   connectors: ServiceConnector[];
   evaluatorMetrics: string[];

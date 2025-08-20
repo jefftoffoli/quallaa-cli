@@ -5,6 +5,7 @@ import { setupCommand } from './commands/setup';
 import { generateCommand } from './commands/generate';
 import { doctorCommand } from './commands/doctor';
 import { outcomeCommand } from './commands/outcome';
+import { evaluatorsCommand } from './commands/evaluators';
 const packageJson = require('../package.json');
 const { version } = packageJson;
 
@@ -22,6 +23,7 @@ cli.addCommand(setupCommand);
 cli.addCommand(generateCommand);
 cli.addCommand(doctorCommand);
 cli.addCommand(outcomeCommand);
+cli.addCommand(evaluatorsCommand);
 
 // Global error handling
 cli.exitOverride();

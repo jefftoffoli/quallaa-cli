@@ -6,6 +6,26 @@ export const leadLifecycleCoreTemplate: OutcomeTemplateDefinition = {
   domain: 'Sales & Marketing',
   requiredServices: ['supabase', 'vercel'],
   optionalServices: ['resend', 'typesense'],
+  stackVariants: [
+    {
+      name: 'Web + Jobs (Default)',
+      description: 'Next.js CRM interface with background lead processing',
+      isMinimal: false,
+      requiredServices: ['vercel', 'supabase', 'resend'],
+      optionalServices: ['typesense'],
+      architecture: 'web-jobs',
+      deployment: 'vercel'
+    },
+    {
+      name: 'Headless Worker-Only',
+      description: 'Minimal API worker for lead enrichment and routing',
+      isMinimal: true,
+      requiredServices: ['supabase', 'resend'],
+      optionalServices: [],
+      architecture: 'headless-worker',
+      deployment: 'railway'
+    }
+  ],
   dataContracts: [
     {
       name: 'Lead',

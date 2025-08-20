@@ -7,7 +7,7 @@ import { captureLeadInfo } from '../capture/leads';
 import { generateProject } from './generate/project';
 import { generateClaudeMd } from './generate/claude';
 import { setupAllServices } from './setup';
-import { OutcomeConfig, OutcomeTemplate, Role } from '../types';
+import { OutcomeConfig, OutcomeTemplate, Role, StackVariant, OutcomeTemplateDefinition } from '../types';
 import { getOutcomeTemplate, listOutcomeTemplates } from '../templates/outcomes';
 import { generateOutcomeProject } from './generate/outcome-project';
 
@@ -39,15 +39,23 @@ export const outcomeCommand = new Command('outcome')
       console.log(chalk.gray(templateDef.description));
       console.log(chalk.gray(`Domain: ${templateDef.domain}\n`));
 
+      // Stack variant selection
+      console.log(chalk.cyan('⚙️ Architecture Selection'));
+      
+      const stackVariant = await askStackVariant(templateDef);
+      console.log(chalk.green(`\n🔧 Selected: ${stackVariant.name}`));
+      console.log(chalk.gray(stackVariant.description));
+      console.log(chalk.gray(`Architecture: ${stackVariant.architecture} | Deployment: ${stackVariant.deployment}\n`));
+
       // Project configuration
       console.log(chalk.cyan('📝 Project Configuration'));
       
       const projectName = options.name || await askProjectName(template);
       const role = options.role || await askRole();
       
-      // Services are automatically selected based on template
-      const services = [...templateDef.requiredServices];
-      const optionalServices = await askOptionalServices(templateDef.optionalServices);
+      // Services are automatically selected based on stack variant
+      const services = [...stackVariant.requiredServices];
+      const optionalServices = await askOptionalServices(stackVariant.optionalServices);
       services.push(...optionalServices);
 
       // Initialize outcome config
@@ -57,12 +65,18 @@ export const outcomeCommand = new Command('outcome')
         services,
         leadInfo,
         template,
+        stackVariant,
       };
 
       // Create base project structure
-      const spinner = ora('Creating base project structure...').start();
-      await generateProject(config);
-      spinner.succeed('Base project structure created');
+      const spinner = ora(`Creating ${stackVariant.isMinimal ? 'minimal worker' : 'project'} structure...`).start();
+      if (stackVariant.isMinimal) {
+        const { generateMinimalProject } = await import('./generate/minimal-project');
+        await generateMinimalProject(config);
+      } else {
+        await generateProject(config);
+      }
+      spinner.succeed(`${stackVariant.isMinimal ? 'Minimal worker' : 'Project'} structure created`);
 
       // Generate outcome-specific structure
       spinner.start('Generating outcome-specific components...');
@@ -80,18 +94,27 @@ export const outcomeCommand = new Command('outcome')
       }
 
       // Success message with outcome-specific guidance
-      console.log(chalk.green('\n✅ Outcome project initialized successfully!'));
+      console.log(chalk.green(`\n✅ ${templateDef.name} ${stackVariant.isMinimal ? 'worker' : 'project'} initialized successfully!`));
+      console.log(chalk.gray(`\nArchitecture: ${stackVariant.architecture}`));
+      console.log(chalk.gray(`Deployment: ${stackVariant.deployment}`));
       console.log(chalk.gray(`\nYour ${templateDef.name} system includes:`));
-      console.log(chalk.gray(`  • ${templateDef.dataContracts.length} data contracts in /contracts`));
-      console.log(chalk.gray(`  • ${templateDef.connectors.length} service connectors in /connectors`));
+      console.log(chalk.gray(`  • ${templateDef.dataContracts.length} data contracts in /${stackVariant.isMinimal ? 'contracts' : 'contracts'}`));
+      console.log(chalk.gray(`  • ${templateDef.connectors.length} service connectors in /${stackVariant.isMinimal ? 'integrations' : 'connectors'}`));
       console.log(chalk.gray(`  • Evaluator framework in /evaluators`));
-      console.log(chalk.gray(`  • Exception handling in /exceptions`));
+      if (!stackVariant.isMinimal) {
+        console.log(chalk.gray(`  • Exception handling in /exceptions`));
+      } else {
+        console.log(chalk.gray(`  • Job templates in /jobs`));
+      }
       
       console.log(chalk.gray(`\nNext steps:`));
       console.log(chalk.gray(`  1. cd ${projectName}`));
       console.log(chalk.gray(`  2. npm install`));
-      console.log(chalk.gray(`  3. Configure your service credentials in .env.local`));
+      console.log(chalk.gray(`  3. Configure your service credentials in ${stackVariant.isMinimal ? '.env' : '.env.local'}`));
       console.log(chalk.gray(`  4. npm run dev`));
+      if (stackVariant.isMinimal) {
+        console.log(chalk.gray(`  5. npm run evaluate  # Test outcome metrics`));
+      }
       console.log(chalk.gray(`\nCheck the generated CLAUDE.md for detailed domain context and implementation guidance!`));
 
       // Feedback CTA
@@ -195,6 +218,22 @@ function getServiceDisplayName(service: string): string {
   };
   
   return displayNames[service as keyof typeof displayNames] || service;
+}
+
+async function askStackVariant(templateDef: OutcomeTemplateDefinition): Promise<StackVariant> {
+  const { variant } = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'variant',
+      message: 'Which architecture would you like to use?',
+      choices: templateDef.stackVariants.map(variant => ({
+        name: `${variant.name} - ${variant.description}`,
+        value: variant,
+      })),
+    },
+  ]);
+  
+  return variant;
 }
 
 async function confirmServiceSetup(): Promise<boolean> {
