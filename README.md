@@ -1,228 +1,283 @@
 # Quallaa CLI
 
-> Sets up core infrastructure services for AI-assisted development
+> Domain Engineering infrastructure for AI-assisted development - Ship outcomes, not code
 
-[![npm version](https://badge.fury.io/js/%40quallaa%2Fcli.svg)](https://badge.fury.io/js/%40quallaa%2Fcli)
-[![Node.js Version](https://img.shields.io/node/v/@quallaa/cli.svg)](https://nodejs.org/)
+[![npm version](https://badge.fury.io/js/quallaa-cli.svg)](https://www.npmjs.com/package/quallaa-cli)
+[![Node.js Version](https://img.shields.io/node/v/quallaa-cli.svg)](https://nodejs.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub Release](https://img.shields.io/github/v/release/jefftoffoli/quallaa-cli)](https://github.com/jefftoffoli/quallaa-cli/releases)
 
-## What It Does
-
-Quallaa CLI sets up common infrastructure services needed for development projects, configured to work well with AI development assistants.
-
-### What You Get
-
-- **Infrastructure Setup**: Automated configuration of database, hosting, email, and other services
-- **AI Context Generation**: Creates detailed context files for AI development assistants
-- **Role-Based Configuration**: Setup tailored to your role (founder, product manager, marketing, operations)
-- **Service Integration**: Pre-configured connections between different services
-
-## 📋 Prerequisites
-
-- **Node.js** 18.0.0 or higher
-- **npm** or **yarn** package manager
-- **Git** for version control
-- Accounts with supported services (all have generous free tiers):
-  - [Vercel](https://vercel.com) - Hosting and deployment
-  - [Supabase](https://supabase.com) - Database and authentication
-  - [GitHub](https://github.com) - Version control
-  - [Resend](https://resend.com) - Email infrastructure
-  - [Typesense](https://typesense.org) - Search (optional)
-
-## 🔧 Installation
+## TL;DR in 90 seconds
 
 ```bash
-npm install -g @quallaa/cli
+# Install the CLI
+npm i -g quallaa-cli
+
+# Create an Order-to-Cash reconciliation system
+quallaa outcome --template order-cash-reco
+
+# Run evaluation harness
+quallaa evaluators run --format html
+open evaluators/scorecard.html
+
+# Check system health
+quallaa doctor --audit-secrets
 ```
 
-## 🎯 Quick Start
+This generates a tiny Next.js+Jobs project with real business workflow scaffolding, data contracts, service connectors, and an HTML scorecard showing accuracy, rework ratio, processing time, and unit cost.
 
-### 1. Initialize a New Project
+## 🎯 What is Quallaa CLI?
+
+**Quallaa CLI** helps domain experts (founders, product managers, marketers, operations managers) ship production-ready business outcomes using AI-assisted development. Instead of starting with a blank canvas, you get:
+
+- **🏗️ Outcome Templates**: Pre-built workflows for common business processes (reconciliation, lead management)
+- **🤖 AI Context**: Rich CLAUDE.md files that give AI assistants deep understanding of your domain
+- **📊 Evaluation Harness**: Measure what matters - accuracy, rework, time, and cost
+- **🔒 Security Built-in**: Secrets auditing, credential rotation reminders, secure storage
+- **⚡ Two Architectures**: Choose between full web apps or headless workers
+
+## 📦 Outcome Pack Templates
+
+### Order-to-Cash Reconciliation
+```bash
+quallaa outcome --template order-cash-reco
+```
+Generates:
+```
+/contracts       # Order, Payment, Invoice schemas
+/connectors      # Shopify, Stripe, QuickBooks integrations  
+/jobs            # Daily reconciliation, exception handling
+/evaluators      # Match rate, timing accuracy metrics
+/exceptions      # Mismatch queue with manual review UI
+```
+
+### Lead Lifecycle Management
+```bash
+quallaa outcome --template lead-lifecycle-core
+```
+Generates:
+```
+/contracts       # Lead, Company, Activity schemas
+/connectors      # CRM, enrichment, email integrations
+/jobs            # Deduplication, routing, SLA tracking
+/evaluators      # Response time, conversion metrics
+/workflows       # Lead scoring and assignment rules
+```
+
+## 🚀 Installation & Commands
 
 ```bash
-quallaa init
+# Install globally
+npm install -g quallaa-cli
+
+# Or use npx (no install)
+npx quallaa-cli@latest init
 ```
 
-This will:
-- Collect your information for support and improvements
-- Guide you through role selection (Technical Co-Founder, Product Manager, Marketing Lead, Operations Manager)
-- Set up your preferred services
-- Generate a complete Next.js application with role-specific configuration
-- Create a custom `CLAUDE.md` file with detailed project context for AI assistants
+### Core Commands
 
-### 2. Set Up Individual Services
+#### `quallaa init`
+Initialize a new project with infrastructure services
+```bash
+quallaa init --name my-startup --role founder
+quallaa init --minimal  # Headless worker variant (no UI)
+```
 
-You can also set up services individually:
+#### `quallaa outcome`
+Create a project from business workflow templates
+```bash
+quallaa outcome --template order-cash-reco
+quallaa outcome --template lead-lifecycle-core
+```
+
+#### `quallaa doctor`
+Check system health and configuration
+```bash
+quallaa doctor                  # Basic health check
+quallaa doctor --audit-secrets  # Security audit
+quallaa doctor --verbose        # Detailed output
+```
+
+#### `quallaa evaluators run`
+Measure outcome performance metrics
+```bash
+quallaa evaluators run --format html   # Visual scorecard
+quallaa evaluators run --format json   # Machine-readable
+quallaa evaluators run --format text   # Terminal output
+```
+
+#### `quallaa generate`
+Generate or enhance AI context files
+```bash
+quallaa generate claude           # Basic CLAUDE.md
+quallaa generate claude --augment # Enhanced with project analysis
+```
+
+## 🏗️ Architecture Choices
+
+### Web + Jobs (Default)
+Full-stack Next.js application with background processing
+- **Stack**: Next.js, Vercel, Supabase, Resend
+- **Use for**: Customer-facing apps, dashboards, CRMs
+- **Deploy to**: Vercel
+
+### Headless Worker-Only (`--minimal`)
+Minimal Node.js workers for batch processing
+- **Stack**: Node.js, TypeScript, cron jobs
+- **Use for**: ETL, reconciliation, automation
+- **Deploy to**: Fly.io, Railway
+
+## 📊 What Gets Measured
+
+Every outcome template includes evaluators that measure:
+
+- **Accuracy**: How often do we get the right answer? (target: ≥90%)
+- **Rework Ratio**: How often does someone intervene? (target: ≤5%)
+- **Processing Time**: How fast per item? (target: ≤5s)
+- **Unit Cost**: What does each operation cost? (target: ≤$0.10)
+
+Run `quallaa evaluators run` to generate scorecards in HTML, JSON, or text format.
+
+## 🎭 Role-Based Configuration
+
+Choose your role for customized setup and AI context:
+
+### Technical Co-Founder
+- Architecture decisions and scaling
+- Technical debt management
+- Team processes and tooling
+
+### Product Manager
+- User stories and requirements
+- Analytics and A/B testing
+- Feature flags and rollouts
+
+### Marketing Lead
+- Attribution and campaign tracking
+- Conversion optimization
+- Marketing automation
+
+### Operations Manager
+- Process automation
+- Data pipeline management
+- Reporting and dashboards
+
+## 🔧 Supported Services
+
+All services have generous free tiers:
+
+- **[Vercel](https://vercel.com)** - Hosting and deployment
+- **[Supabase](https://supabase.com)** - Database and authentication
+- **[GitHub](https://github.com)** - Version control
+- **[Resend](https://resend.com)** - Transactional email
+- **[Typesense](https://typesense.org)** - Search (optional)
+- **[Neon](https://neon.tech)** - Serverless Postgres (alternative to Supabase)
+
+## 🔒 Security & Credentials
+
+### Local Development
+- Credentials stored securely in OS keychain (macOS Keychain, Windows Credential Vault, Linux Secret Service)
+- Never committed to code
+- Automatic rotation reminders
+
+### Team Mode & CI/CD
+For team collaboration and CI/CD:
+1. Export credentials to GitHub Secrets or Vercel Environment Variables
+2. Use restricted API keys with minimum required scopes
+3. Rotate keys quarterly (doctor command reminds you)
 
 ```bash
-quallaa setup vercel    # Hosting and deployment
-quallaa setup supabase  # Database and authentication
-quallaa setup github    # Version control
-quallaa setup resend    # Email service
-quallaa setup typesense # Search (optional)
+# Audit your security posture
+quallaa doctor --audit-secrets
 ```
 
-### 3. Generate Additional Context
+## 📚 Documentation & Support
+
+- **Documentation** - See this README for complete usage guide
+- **[Changelog](CHANGELOG.md)** - Version history and updates
+- **[Issues](https://github.com/jefftoffoli/quallaa-cli/issues)** - Report bugs or request features
+- **Examples** - Coming soon at github.com/jefftoffoli/quallaa-examples
+
+## 🛠️ Troubleshooting
 
 ```bash
-quallaa generate claude  # Generate/update CLAUDE.md with role-specific context
+# Check everything is working
+quallaa doctor
+
+# Verify service authentication
+quallaa doctor --verbose
+
+# Audit for security issues
+quallaa doctor --audit-secrets
+
+# Update to latest version
+npm update -g quallaa-cli
+
+# Or with npx (always latest)
+npx quallaa-cli@latest doctor
 ```
 
-## 🎭 Role-Based Experience
+## 🎯 Philosophy
 
-### Technical Co-Founder / First Engineer
-- **Focus**: Scalable architecture and team processes
-- **Context**: Full-stack development, technical decisions, team scaling
-- **Libraries**: Next.js, TypeScript, Supabase, performance optimization
+**Domain Engineering**: Bridge the gap between business expertise and technical implementation
 
-### Product Manager / Product Owner  
-- **Focus**: Data-driven product decisions
-- **Context**: User analytics, A/B testing, feature tracking, customer feedback
-- **Libraries**: Analytics, experimentation frameworks, dashboard tools
+- **Ship Outcomes, Not Code**: Focus on business results, not technology
+- **Minimalist & Disposable**: Build simple systems meant to be replaced
+- **Measure What Matters**: Track business metrics, not technical metrics
+- **AI-Ready Context**: Give AI assistants deep domain understanding
 
-### Marketing Lead / Growth Hacker
-- **Focus**: Customer acquisition and retention
-- **Context**: Campaign tracking, segmentation, email automation, attribution
-- **Libraries**: Marketing automation, CRM integration, performance tracking
+## 📦 What's in the Box?
 
-### Operations Manager / Business Manager
-- **Focus**: Process automation and efficiency
-- **Context**: Workflow automation, data pipelines, reporting, integrations
-- **Libraries**: Automation tools, data processing, dashboard creation
-
-## 🛠 Services Integration
-
-### Vercel (Hosting & Deployment)
-- **Authentication**: OAuth browser flow or API token
-- **Features**: Project creation, environment variables, deployments
-- **Cost**: Generous free tier, pay for scale
-
-### Supabase (Database & Auth)
-- **Authentication**: Built-in CLI authentication
-- **Features**: PostgreSQL, Row Level Security, real-time, pgvector for AI
-- **Cost**: Generous free tier, pay for scale
-
-### GitHub (Version Control)
-- **Authentication**: GitHub CLI or Personal Access Token
-- **Features**: Repository creation, branch protection, webhooks
-- **Cost**: Free for public repos, paid for private/teams
-
-### Resend (Email Infrastructure)
-- **Authentication**: API key
-- **Features**: Transactional emails, domain verification, delivery tracking
-- **Cost**: 3,000 emails/month free, pay for scale
-
-### Typesense (Search) - Optional
-- **Authentication**: API key (cloud or self-hosted)
-- **Features**: Fast, typo-tolerant search, collections, analytics
-- **Cost**: Varies by hosting choice
-
-## 📂 Generated Project Structure
+After running `quallaa outcome`, your project includes:
 
 ```
-your-project/
-├── app/                    # Next.js 15 App Router
-│   ├── layout.tsx         # Root layout
-│   ├── page.tsx           # Home page
-│   ├── globals.css        # Global styles
-│   └── api/               # API routes
-├── components/            # React components
-│   └── ui/               # Reusable UI components
-├── lib/                  # Utilities and configurations
-│   ├── supabase.ts       # Database client
-│   ├── resend.ts         # Email client
-│   └── types.ts          # TypeScript definitions
-├── CLAUDE.md             # AI context and instructions
-├── .env.example          # Environment variables template
-├── .env.local            # Your actual environment variables
-└── README.md             # Project documentation
+project-name/
+├── contracts/          # JSON schemas for data structures
+├── connectors/         # Service integrations (or /integrations for minimal)
+├── jobs/              # Background workers and cron jobs
+├── evaluators/        # Gold datasets and scoring scripts
+├── exceptions/        # Error handling and manual review queues
+├── lib/               # Domain logic and utilities
+├── app/               # Next.js pages (web variant only)
+├── api/               # API endpoints
+├── CLAUDE.md          # AI context file
+├── .env.example       # Environment variables template
+└── package.json       # Dependencies and scripts
 ```
 
-## 🤖 The CLAUDE.md Advantage
+## 🚢 Deployment
 
-The generated `CLAUDE.md` file gives Claude Code comprehensive context about your project:
+Both architectures are production-ready:
 
-- **Role-Specific Context**: Tailored instructions for your domain expertise
-- **Service Configuration**: Details about your integrated services  
-- **Development Commands**: All the commands you need for development
-- **Architecture Overview**: Understanding of your tech stack and decisions
-- **Common Tasks**: Role-specific tasks and workflows
-- **Libraries & Dependencies**: What tools are available and how to use them
-
-This means AI assistants can provide more specific and relevant help for your project.
-
-## 🔒 Security & Privacy
-
-### Data Collection
-- **Required**: Name, email, role selection (for support and improvements)
-- **Optional**: Company name, additional context
-- **Usage Analytics**: Basic command usage (can be opted out)
-- **No Sensitive Data**: We never collect API keys, passwords, or proprietary code
-
-### Credential Storage
-- **Local Only**: All service credentials stored securely on your machine
-- **OS-Level Security**: Uses your operating system's credential manager
-- **Encrypted**: Credentials encrypted at rest
-- **No Transmission**: Credentials never sent to Quallaa servers
-
-## 🆘 Support & Troubleshooting
-
-### Common Issues
-
-1. **Node.js Version**: Ensure you're using Node.js 18.0.0 or higher
-2. **Service Authentication**: Check that your API keys and tokens are correct
-3. **Network Issues**: Some operations require internet connectivity
-4. **Permissions**: Ensure you have proper permissions for service operations
-
-### Getting Help
-
-- **Documentation**: [https://docs.quallaa.com](https://docs.quallaa.com)
-- **Issues**: [https://github.com/quallaa/quallaa-cli/issues](https://github.com/quallaa/quallaa-cli/issues)
-- **Email**: [support@quallaa.com](mailto:support@quallaa.com)
-
-### Debug Mode
-
+### Web + Jobs → Vercel
 ```bash
-DEBUG=quallaa* quallaa init  # Enable debug logging
+vercel deploy
 ```
 
-## 🔄 Updates
-
-The CLI automatically checks for updates and will notify you when a new version is available:
-
+### Headless Worker → Fly.io
 ```bash
-npm update -g @quallaa/cli  # Update to latest version
+fly launch
+fly deploy
 ```
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+This is a living tool that improves with community feedback. Contributions welcome!
 
-### Development Setup
-
-```bash
-git clone https://github.com/quallaa/quallaa-cli.git
-cd quallaa-cli
-npm install
-npm run dev     # Watch mode
-npm run build   # Build for production
-npm test        # Run tests
-```
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## 📄 License
 
-MIT License - see the [LICENSE](LICENSE) file for details.
+MIT - see [LICENSE](LICENSE) file for details
 
-## Why Use Quallaa CLI?
+## 🙏 Acknowledgments
 
-Quallaa CLI simplifies the process of setting up development infrastructure by:
-
-1. **Automating Setup**: Handles the configuration of multiple services in one command
-2. **Providing Context**: Generates detailed documentation for AI development assistants
-3. **Role-Based Configuration**: Tailors setup to different team roles and needs
-4. **Service Integration**: Pre-configures services to work well together
-5. **Reducing Setup Time**: Gets you from zero to working infrastructure quickly
+Built for domain experts who ship real business value. Special thanks to the early adopters testing outcome templates in production.
 
 ---
 
-*Built with ❤️ by [Quallaa](https://quallaa.com) - Domain Engineering for the AI Era*
+**Ready to ship an outcome?** Start with `quallaa outcome --template order-cash-reco` and have a working system in 90 seconds.
