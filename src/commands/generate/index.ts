@@ -2,6 +2,7 @@ import { Command } from 'commander';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
 import { generateClaudeMd } from './claude';
+import { generateEnhancedClaudeMd, AugmentationOptions } from './enhanced-claude';
 import { ProjectConfig, Role } from '../../types';
 
 export const generateCommand = new Command('generate')
@@ -10,6 +11,7 @@ export const generateCommand = new Command('generate')
     new Command('claude')
       .description('Generate CLAUDE.md context file for AI development assistant')
       .option('-r, --role <role>', 'Role for context generation')
+      .option('--augment <types>', 'Augment with project analysis (contracts,apis,metrics,integrations)')
       .action(async (options) => {
         try {
           let role = options.role as Role;
@@ -41,9 +43,25 @@ export const generateCommand = new Command('generate')
             leadInfo: null,
           };
           
+          // Parse augmentation options
+          const augmentations: AugmentationOptions = {};
+          if (options.augment) {
+            const types = options.augment.split(',').map((t: string) => t.trim());
+            augmentations.contracts = types.includes('contracts');
+            augmentations.apis = types.includes('apis');
+            augmentations.metrics = types.includes('metrics');
+            augmentations.integrations = types.includes('integrations');
+          }
+          
           console.log(chalk.yellow('Generating CLAUDE.md...'));
-          await generateClaudeMd(config);
-          console.log(chalk.green('✓ CLAUDE.md generated successfully!'));
+          
+          if (Object.values(augmentations).some(Boolean)) {
+            await generateEnhancedClaudeMd(config, augmentations);
+            console.log(chalk.green('✓ Enhanced CLAUDE.md generated with project analysis!'));
+          } else {
+            await generateClaudeMd(config);
+            console.log(chalk.green('✓ CLAUDE.md generated successfully!'));
+          }
           
         } catch (error) {
           console.error(chalk.red('Error generating CLAUDE.md:'), error);

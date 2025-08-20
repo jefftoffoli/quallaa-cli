@@ -49,6 +49,7 @@
     "date-fns": "^4.1.0",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "glob": "^11.0.3",
     "inquirer": "^8.2.6",
     "keytar": "^7.9.0",
     "ora": "^5.4.1",
@@ -59,6 +60,7 @@
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
+    "@types/glob": "^8.1.0",
     "@types/inquirer": "^8.2.10",
     "@types/node": "^20.11.24",
     "@types/semver": "^7.7.0",
