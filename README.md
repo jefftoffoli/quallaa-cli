@@ -13,8 +13,11 @@
 # Install the CLI
 npm i -g quallaa-cli
 
-# Create an Order-to-Cash reconciliation system
-quallaa outcome --template order-cash-reco
+# Create a professional services billing system
+quallaa outcome --template project-invoice-guardrails
+
+# Or choose from 5 outcome pack templates
+quallaa outcome  # Interactive selection
 
 # Run evaluation harness
 quallaa evaluators run --format html
@@ -24,13 +27,13 @@ open evaluators/scorecard.html
 quallaa doctor --audit-secrets
 ```
 
-This generates a tiny Next.js+Jobs project with real business workflow scaffolding, data contracts, service connectors, and an HTML scorecard showing accuracy, rework ratio, processing time, and unit cost.
+This generates a production-ready project with business workflow scaffolding, JSON schema data contracts, API integrations, gold datasets for testing, and evaluation harnesses measuring accuracy, efficiency, and cost.
 
 ## 🎯 What is Quallaa CLI?
 
 **Quallaa CLI** helps domain experts (founders, product managers, marketers, operations managers) ship production-ready business outcomes using AI-assisted development. Instead of starting with a blank canvas, you get:
 
-- **🏗️ Outcome Templates**: Pre-built workflows for common business processes (reconciliation, lead management)
+- **🏗️ 5 Outcome Templates**: Pre-built workflows for professional services, nonprofits, e-commerce, CRM, and financial operations
 - **🤖 AI Context**: Rich CLAUDE.md files that give AI assistants deep understanding of your domain
 - **📊 Evaluation Harness**: Measure what matters - accuracy, rework, time, and cost
 - **🔒 Security Built-in**: Secrets auditing, credential rotation reminders, secure storage
@@ -38,31 +41,80 @@ This generates a tiny Next.js+Jobs project with real business workflow scaffoldi
 
 ## 📦 Outcome Pack Templates
 
-### Order-to-Cash Reconciliation
+### 1. Project → Invoice Guardrails
+**Professional Services Billing Automation**
 ```bash
-quallaa outcome --template order-cash-reco
+quallaa outcome --template project-invoice-guardrails
 ```
-Generates:
+Generates complete time-to-cash workflow:
 ```
-/contracts       # Order, Payment, Invoice schemas
-/connectors      # Shopify, Stripe, QuickBooks integrations  
-/jobs            # Daily reconciliation, exception handling
-/evaluators      # Match rate, timing accuracy metrics
-/exceptions      # Mismatch queue with manual review UI
+/contracts       # TimeEntry, Project, SOW, Invoice, RevRecPolicy schemas
+/integrations    # Harvest time tracking, QuickBooks Online connectors
+/jobs            # Time ingestion, invoice generation, revenue recognition
+/evaluators      # Billing accuracy, realization rates, ASC 606 compliance
+/gold-data       # Sample projects, invoices, time entries for testing
 ```
+**Perfect for:** Consultancies, agencies, law firms, professional services
 
-### Lead Lifecycle Management
+### 2. Donor & Member Rollups  
+**Nonprofit Management & Compliance**
+```bash
+quallaa outcome --template donor-member-rollups
+```
+Generates comprehensive nonprofit operations:
+```
+/contracts       # Donation, Member, Fund, JournalEntry schemas
+/integrations    # Stripe payments, NeonCRM, QuickBooks connectors
+/jobs            # Donation processing, membership renewals, fund tracking
+/evaluators      # Donation conversion, member retention, compliance metrics
+/gold-data       # Sample donors, campaigns, restricted funds for testing
+```
+**Perfect for:** Nonprofits, foundations, membership organizations
+
+### 3. Inventory & Pricing Sync
+**E-commerce Multi-Channel Operations**
+```bash
+quallaa outcome --template inventory-pricing-sync
+```
+Generates unified commerce operations:
+```
+/contracts       # SKU, Inventory, Price schemas with multi-channel support
+/integrations    # Shopify, Amazon, POS system connectors
+/jobs            # Real-time sync, pricing updates, overselling prevention
+/evaluators      # Stock accuracy, pricing consistency, exception rates
+/gold-data       # Sample products, pricing tiers, inventory levels
+```
+**Perfect for:** E-commerce retailers, multi-channel sellers, inventory-heavy businesses
+
+### 4. Lead Lifecycle Core
+**CRM Lead Management & Attribution**  
 ```bash
 quallaa outcome --template lead-lifecycle-core
 ```
-Generates:
+Generates complete lead operations:
 ```
-/contracts       # Lead, Company, Activity schemas
-/connectors      # CRM, enrichment, email integrations
-/jobs            # Deduplication, routing, SLA tracking
-/evaluators      # Response time, conversion metrics
-/workflows       # Lead scoring and assignment rules
+/contracts       # Lead, Activity, RoutingRule, SLATarget schemas
+/integrations    # HubSpot CRM, Google Analytics 4 connectors
+/jobs            # Lead scoring, deduplication, SLA monitoring
+/evaluators      # Response times, conversion rates, attribution accuracy
+/gold-data       # Sample leads, activities, conversion funnels
 ```
+**Perfect for:** SaaS companies, marketing teams, sales operations
+
+### 5. Order-to-Cash Reconciliation
+**Financial Reconciliation & Accounting**
+```bash
+quallaa outcome --template order-cash-reco  
+```
+Generates automated financial workflows:
+```
+/contracts       # Order, Payment, AccountingEntry schemas
+/integrations    # Shopify, Stripe, Xero/QuickBooks connectors
+/jobs            # Daily reconciliation, exception handling, audit trails
+/evaluators      # Match rates, timing accuracy, manual intervention metrics  
+/gold-data       # Sample orders, payments, accounting entries
+```
+**Perfect for:** E-commerce finance teams, accounting departments, CFO operations
 
 ## 🚀 Installation & Commands
 
@@ -86,8 +138,15 @@ quallaa init --minimal  # Headless worker variant (no UI)
 #### `quallaa outcome`
 Create a project from business workflow templates
 ```bash
-quallaa outcome --template order-cash-reco
+# Interactive selection from all 5 templates
+quallaa outcome
+
+# Or specify directly
+quallaa outcome --template project-invoice-guardrails
+quallaa outcome --template donor-member-rollups
+quallaa outcome --template inventory-pricing-sync
 quallaa outcome --template lead-lifecycle-core
+quallaa outcome --template order-cash-reco
 ```
 
 #### `quallaa doctor`
@@ -164,7 +223,8 @@ Choose your role for customized setup and AI context:
 
 ## 🔧 Supported Services
 
-All services have generous free tiers:
+### Infrastructure Services
+All infrastructure services have generous free tiers:
 
 - **[Vercel](https://vercel.com)** - Hosting and deployment
 - **[Supabase](https://supabase.com)** - Database and authentication
@@ -172,6 +232,17 @@ All services have generous free tiers:
 - **[Resend](https://resend.com)** - Transactional email
 - **[Typesense](https://typesense.org)** - Search (optional)
 - **[Neon](https://neon.tech)** - Serverless Postgres (alternative to Supabase)
+
+### Business System Integrations
+Production-ready connectors for major business systems:
+
+- **[HubSpot CRM](https://hubspot.com)** - Lead management and sales pipeline
+- **[Google Analytics 4](https://analytics.google.com)** - Web analytics and attribution
+- **[Harvest](https://getharvest.com)** - Time tracking and project billing
+- **[QuickBooks Online](https://quickbooks.com)** - Accounting and financial reporting
+- **[Stripe](https://stripe.com)** - Payment processing and payouts
+- **[Shopify](https://shopify.com)** - E-commerce platform integration
+- **[NeonCRM](https://neoncrm.com)** - Nonprofit donor management
 
 ## 🔒 Security & Credentials
 
