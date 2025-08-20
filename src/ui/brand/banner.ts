@@ -12,7 +12,7 @@ ${chalk.blue('   ╚══▀▀═╝  ╚═════╝  ╚═╝  ╚═
 ${chalk.bold('Quallaa CLI')}
 ${chalk.gray('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')}
 
-${chalk.gray('Sets up core infrastructure services for AI-assisted development')}
+${chalk.gray('Domain Engineering infrastructure for AI-assisted development')}
 `;
 
   console.log(banner);

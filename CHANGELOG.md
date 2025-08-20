@@ -5,6 +5,76 @@ All notable changes to the Quallaa CLI will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.2] - 2025-08-20
+
+### Added
+- **Enhanced Discoverability** - Added comprehensive business-focused keywords to package.json
+- **Complete CHANGELOG** - Comprehensive changelog with all v1.2.x features documented
+
+### Changed
+- **Package Description** - Updated to highlight 5 outcome pack templates and business focus
+- **CLI Help Text** - Now shows all 5 available outcome templates in help output
+- **Banner Messaging** - Updated to reflect "Domain Engineering infrastructure" focus
+
+### Fixed
+- **Repository URLs** - Corrected package.json URLs to match actual GitHub repository
+- **Test Failures** - Fixed CLI and banner tests that were failing due to naming changes
+- **Generated Files** - Removed accidentally committed template files from repository
+- **CLI Description** - Added proper CLI description that was missing from help output
+
+### Removed
+- **Generated Template Files** - Cleaned up my-app/ and coverage/ directories from repo
+- **Test Coverage Files** - Coverage reports are now properly gitignored
+
+## [1.2.1] - 2025-08-20
+
+### Added
+- **Comprehensive README Documentation** - Complete documentation for all 5 outcome pack templates
+- **Enhanced Package Metadata** - Improved keywords, description, and discoverability on npm
+- **Business System Integration Documentation** - Full coverage of HubSpot, GA4, Harvest, QuickBooks, Stripe, Shopify, NeonCRM
+
+### Changed
+- README completely rewritten to showcase all outcome pack templates with business use cases
+- Package.json enhanced with business-focused keywords and updated repository URLs
+- CLI help text now lists all 5 available outcome templates
+
+### Fixed
+- Repository URLs corrected to match actual GitHub repository
+- Generated template files removed from source repository
+- .gitignore updated to prevent accidental commits of generated projects
+
+## [1.2.0] - 2025-08-20
+
+### Added
+- **5 Complete Outcome Pack Templates** - Production-ready business workflow automation:
+  - **Project → Invoice Guardrails** - Professional services billing with Harvest and QuickBooks
+  - **Donor & Member Rollups** - Nonprofit management with Stripe, NeonCRM, and QuickBooks
+  - **Inventory & Pricing Sync** - E-commerce operations with Shopify, Amazon, POS systems
+  - **Lead Lifecycle Core** - Enhanced CRM management with HubSpot and Google Analytics 4
+  - **Order-to-Cash Reconciliation** - Financial reconciliation (enhanced from v1.1.0)
+- **15 JSON Schema Data Contracts** - Type-safe business data validation across all templates
+- **Production-Ready API Integrations** - Complete connectors for major business systems
+- **Gold Dataset Framework** - Pre-configured demo data and expected results for testing
+- **Enhanced TypeScript Architecture** - Comprehensive type safety and IntelliSense support
+- **Compliance Features** - Built-in support for ASC 606, IFRS 15, GAAP revenue recognition
+- **Multi-Architecture Support** - Flexible deployment options (Web+Jobs vs Headless Worker)
+
+### Business System Integrations Added
+- **HubSpot CRM** - Lead/contact synchronization with advanced querying and data transformation
+- **Google Analytics 4** - Behavioral tracking, conversion analysis, and attribution modeling
+- **Harvest** - Time tracking integration with project billing and cost calculations  
+- **QuickBooks Online** - Complete accounting system integration with invoice and customer management
+- **Stripe** - Enhanced payment processing with payout reconciliation and fee analysis
+- **Shopify** - E-commerce platform integration with order and inventory management
+- **NeonCRM** - Nonprofit donor management with campaign and fundraising tracking
+
+### Enhanced Features
+- **Outcome-Specific Project Generation** - Automated scaffolding with data contracts and integrations
+- **Demo Mode Support** - Gold datasets enable rapid prototyping and stakeholder demos
+- **Exception Handling Workflows** - Automated detection and correction of data discrepancies
+- **Real-Time Monitoring** - Built-in alerting and performance tracking capabilities
+- **Board-Ready Reporting** - Executive dashboards with key performance indicators
+
 ## [1.1.0] - 2024-12-20
 
 ### Added

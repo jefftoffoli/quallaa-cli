@@ -51,3 +51,9 @@ Thumbs.db
 
 # Optional eslint cache
 .eslintcache
+
+# Generated template projects (should not be committed)
+my-app/
+test-project/
+*-project/
+*-system/

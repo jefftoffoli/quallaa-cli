@@ -15,7 +15,7 @@ describe('Banner', () => {
     expect(mockConsole).toHaveBeenCalled();
     const output = mockConsole.mock.calls.map(call => call[0]).join('');
     expect(output).toContain('█████╗'); // ASCII art characters
-    expect(output).toContain('Domain Engineering Revolution');
+    expect(output).toContain('Domain Engineering infrastructure');
   });
 
   it('should display welcome message by calling displayBanner', () => {

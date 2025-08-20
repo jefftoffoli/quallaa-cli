@@ -1,7 +1,7 @@
 {
   "name": "quallaa-cli",
-  "version": "1.2.1",
-  "description": "Sets up core infrastructure services for AI-assisted development",
+  "version": "1.2.2",
+  "description": "Domain-driven infrastructure automation with 5 outcome pack templates for professional services, nonprofits, e-commerce, CRM, and financial operations",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
@@ -27,17 +27,34 @@
     "ai",
     "development",
     "automation",
-    "domain-engineering"
+    "domain-engineering",
+    "outcome-templates",
+    "business-automation",
+    "professional-services",
+    "nonprofit",
+    "e-commerce",
+    "crm",
+    "financial-operations",
+    "billing",
+    "invoicing",
+    "donation-management",
+    "inventory-management",
+    "lead-management",
+    "revenue-recognition",
+    "quickbooks",
+    "hubspot",
+    "stripe",
+    "shopify"
   ],
   "author": "Quallaa",
   "license": "MIT",
-  "homepage": "https://github.com/quallaa/quallaa-cli",
+  "homepage": "https://github.com/jefftoffoli/quallaa-cli",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/quallaa/quallaa-cli.git"
+    "url": "git+https://github.com/jefftoffoli/quallaa-cli.git"
   },
   "bugs": {
-    "url": "https://github.com/quallaa/quallaa-cli/issues"
+    "url": "https://github.com/jefftoffoli/quallaa-cli/issues"
   },
   "engines": {
     "node": ">=18.0.0"

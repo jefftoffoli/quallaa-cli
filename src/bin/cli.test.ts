@@ -59,6 +59,6 @@ describe('CLI Binary Structure', () => {
     
     expect(packageJson).toHaveProperty('name');
     expect(packageJson).toHaveProperty('version');
-    expect(packageJson.name).toBe('@quallaa/cli');
+    expect(packageJson.name).toBe('quallaa-cli');
   });
 });

@@ -13,7 +13,7 @@ export const cli = new Command();
 
 cli
   .name('quallaa')
-  .description('')
+  .description('Domain Engineering infrastructure for AI-assisted development - Ship outcomes, not code')
   .version(version, '-v, --version', 'display version number')
   .helpOption('-h, --help', 'display help for command');
 

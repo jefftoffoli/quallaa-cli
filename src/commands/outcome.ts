@@ -13,7 +13,7 @@ import { generateOutcomeProject } from './generate/outcome-project';
 
 export const outcomeCommand = new Command('outcome')
   .description('Initialize a project with pre-configured outcome templates')
-  .option('-t, --template <template>', 'Outcome template (order-cash-reco, lead-lifecycle-core)')
+  .option('-t, --template <template>', 'Outcome template: project-invoice-guardrails, donor-member-rollups, inventory-pricing-sync, lead-lifecycle-core, order-cash-reco')
   .option('-n, --name <name>', 'Project name')
   .option('-r, --role <role>', 'Your role (founder, product, marketing, operations)')
   .option('--demo', 'Generate with demo data and sample configurations')
