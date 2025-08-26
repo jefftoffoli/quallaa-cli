@@ -26,10 +26,10 @@ interface EvaluationSuite {
 }
 
 export const evaluatorsCommand = new Command('evaluators')
-  .description('Run evaluation harness and generate scorecards')
+  .description('Measure your project\'s performance and business value')
   .addCommand(
     new Command('run')
-      .description('Execute gold tests and emit HTML scorecard')
+      .description('Test technical performance against quality standards')
       .option('--output <path>', 'Output path for scorecard HTML', 'evaluators/scorecard.html')
       .option('--threshold <number>', 'Overall passing threshold (0-1)', '0.8')
       .option('--format <format>', 'Output format (html|json|text)', 'html')
@@ -99,7 +99,7 @@ export const evaluatorsCommand = new Command('evaluators')
         console.log(chalk.gray('Let\'s figure out if your project is worth it...\n'));
 
         try {
-          const baseline = await collectBaselineInteractively();
+          await collectBaselineInteractively();
 
           console.log(chalk.green('\n✅ Perfect! Now you can track your ROI.'));
           
@@ -603,7 +603,7 @@ function displaySummary(suite: EvaluationSuite): void {
 /**
  * Simple, elegant ROI results display
  */
-async function displaySimpleROIResults(roiMetrics: any, baseline: any): Promise<void> {
+async function displaySimpleROIResults(roiMetrics: any, _baseline: any): Promise<void> {
   const { financial, productivity } = roiMetrics;
   
   console.log('');
@@ -655,7 +655,6 @@ async function displaySimpleROIResults(roiMetrics: any, baseline: any): Promise<
  */
 async function generateROIDashboard(baseline: any, snapshots: any[], format: string): Promise<string> {
   const latest = snapshots[snapshots.length - 1];
-  const calculator = new ROICalculator();
 
   if (format === 'html') {
     return generateHTMLDashboard(baseline, snapshots, latest);

@@ -1,7 +1,7 @@
 {
   "name": "quallaa-cli",
-  "version": "1.2.2",
-  "description": "Domain-driven infrastructure automation with 5 outcome pack templates for professional services, nonprofits, e-commerce, CRM, and financial operations",
+  "version": "1.3.0",
+  "description": "Domain-driven infrastructure automation with elegant ROI tracking. 5 outcome pack templates plus business intelligence for measuring project value and justifying investments.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
@@ -27,6 +27,10 @@
     "ai",
     "development",
     "automation",
+    "roi-tracking",
+    "business-intelligence",
+    "project-analytics",
+    "investment-analysis",
     "domain-engineering",
     "outcome-templates",
     "business-automation",
@@ -44,7 +48,10 @@
     "quickbooks",
     "hubspot",
     "stripe",
-    "shopify"
+    "shopify",
+    "break-even-analysis",
+    "cost-benefit",
+    "productivity-measurement"
   ],
   "author": "Quallaa",
   "license": "MIT",
