@@ -57,3 +57,6 @@ my-app/
 test-project/
 *-project/
 *-system/
+
+# Internal notes (not for public consumption)
+notes/
