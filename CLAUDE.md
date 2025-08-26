@@ -27,6 +27,23 @@ npm link             # Create global symlink for testing
 quallaa --version    # Verify CLI is working
 ```
 
+### ROI Tracking Commands (v1.3+) - Simple & Elegant
+```bash
+# First time setup
+quallaa evaluators setup                # Set up ROI tracking (one-time)
+
+# Check your ROI anytime  
+quallaa evaluators check                # Quick ROI check with simple questions
+
+# Detailed analysis
+quallaa evaluators report               # Generate business case report
+quallaa evaluators report --web         # Create shareable web report
+
+# Traditional evaluation harness
+quallaa evaluators run                  # Run technical performance tests
+quallaa evaluators run --format json    # JSON output for CI/CD integration
+```
+
 ### Testing Individual Components
 ```bash
 # Run specific test file
@@ -54,6 +71,14 @@ Commands in `src/commands/` follow Commander.js patterns:
 - Uses inquirer for interactive prompts
 - Implements error handling with custom error types
 - Shows progress with ora spinners
+
+### ROI Tracking Architecture (v1.3+)
+The ROI tracking system implements academic-grade measurement standards:
+- **BaselineCollector** (`src/lib/roi/baseline.ts`): Establishes measurement baselines
+- **ROICalculator** (`src/lib/roi/calculator.ts`): Multi-dimensional ROI calculation engine
+- **Data Storage**: Uses `.quallaa/` directory for baseline and snapshot persistence
+- **Statistical Analysis**: Monte Carlo simulation for confidence intervals
+- **Benchmarking**: Industry targets (Forrester 248% ROI, <6 month payback)
 
 ### Role-Based Context System
 The CLI generates different contexts based on user role (src/contexts/):
@@ -102,6 +127,13 @@ The CLI generates different contexts based on user role (src/contexts/):
 3. Add to service selection in `src/commands/init.ts`
 4. Create tests in `src/services/<service-name>.test.ts`
 5. Update types in `src/types/services.ts`
+
+### Working with ROI Tracking System
+1. **Baseline Setup**: Users must establish baseline via `quallaa evaluators baseline`
+2. **Data Collection**: Current metrics collected interactively during ROI calculation
+3. **Snapshot Creation**: ROI calculations can be saved as snapshots for trend analysis
+4. **Dashboard Generation**: Historical snapshots visualized in HTML/text dashboards
+5. **Testing ROI Features**: Use test files in `src/lib/roi/*.test.ts` for validation
 
 ### Modifying Role Contexts
 1. Edit relevant file in `src/contexts/`

@@ -108,6 +108,125 @@ export interface StackVariant {
   features?: string[];
 }
 
+// ROI Tracking Types - Multi-dimensional measurement framework
+export interface ROIBaseline {
+  establishedAt: Date;
+  developmentCost: number;
+  currentSaasSpend: number;
+  teamSize: number;
+  currentProcessingHours: number;
+  errorRateBaseline: number;
+  accuracyBaseline: number;
+  complianceScore: number;
+  customerSatisfactionScore: number;
+}
+
+export interface FinancialMetrics {
+  developmentCost: number;
+  saasReplacementSavings: number;
+  operationalCostReduction: number;
+  maintenanceCosts: number;
+  cumulativeSavings: number;
+  breakEvenMonths: number;
+  currentROI: number;
+}
+
+export interface ProductivityMetrics {
+  timeSavedHours: number;
+  tasksAutomated: number;
+  errorReductionRate: number;
+  employeeAdoptionRate: number;
+  processingTimeReduction: number;
+  throughputIncrease: number;
+}
+
+export interface QualityMetrics {
+  defectReduction: number;
+  customerSatisfactionDelta: number;
+  complianceImprovement: number;
+  accuracyImprovement: number;
+  reviewCycleReduction: number;
+}
+
+export interface ROIMetrics {
+  financial: FinancialMetrics;
+  productivity: ProductivityMetrics;
+  quality: QualityMetrics;
+  timestamp: Date;
+  confidenceInterval: {
+    lower: number;
+    upper: number;
+    confidenceLevel: number;
+  };
+}
+
+export interface ROISnapshot {
+  id: string;
+  projectId: string;
+  timestamp: Date;
+  metrics: ROIMetrics;
+  baseline: ROIBaseline;
+  period: {
+    startDate: Date;
+    endDate: Date;
+  };
+  statisticalSignificance: {
+    pValue: number;
+    isSignificant: boolean;
+  };
+}
+
+export interface ROITrend {
+  metric: string;
+  category: 'financial' | 'productivity' | 'quality';
+  values: Array<{
+    timestamp: Date;
+    value: number;
+    confidenceInterval?: {
+      lower: number;
+      upper: number;
+    };
+  }>;
+  trend: 'improving' | 'declining' | 'stable';
+  trendConfidence: number;
+}
+
+export interface ROIDashboard {
+  projectId: string;
+  generatedAt: Date;
+  overallROI: number;
+  roiConfidenceInterval: {
+    lower: number;
+    upper: number;
+    confidenceLevel: number;
+  };
+  breakEvenStatus: {
+    achieved: boolean;
+    projectedDate?: Date;
+    actualDate?: Date;
+    monthsToBreakEven: number;
+  };
+  trends: ROITrend[];
+  benchmarks: {
+    industryAverage: number;
+    forresterTarget: number; // 248% ROI
+    paybackTarget: number; // <6 months
+  };
+  recommendations: string[];
+}
+
+export interface ROIConfig {
+  trackingEnabled: boolean;
+  baselineRequired: boolean;
+  confidenceLevel: number; // Default 95%
+  reportingFrequency: 'daily' | 'weekly' | 'monthly' | 'quarterly';
+  benchmarkTargets: {
+    roiTarget: number;
+    paybackMonths: number;
+    adoptionRate: number;
+  };
+}
+
 export interface OutcomeTemplateDefinition {
   name: string;
   description: string;
@@ -192,6 +311,17 @@ export interface OutcomeTemplateDefinition {
   }>;
   
   generatedFiles?: string[];
+
+  // ROI Enhancement - link evaluators to business metrics
+  roiTracking?: {
+    enabled: boolean;
+    baselineMetrics: string[];
+    businessImpactMapping: Record<string, {
+      category: 'financial' | 'productivity' | 'quality';
+      weight: number;
+      formula?: string;
+    }>;
+  };
 
   // Legacy fields for backward compatibility
   requiredServices?: string[];
