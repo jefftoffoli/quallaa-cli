@@ -157,9 +157,20 @@ quallaa doctor --audit-secrets  # Security audit
 quallaa doctor --verbose        # Detailed output
 ```
 
-#### `quallaa evaluators run`
-Measure outcome performance metrics
+#### `quallaa evaluators`
+ROI tracking and performance measurement system
 ```bash
+# First time setup
+quallaa evaluators setup               # Set up ROI tracking (one-time)
+
+# Check your ROI anytime  
+quallaa evaluators check               # Quick ROI check with simple questions
+
+# Detailed analysis
+quallaa evaluators report              # Generate business case report
+quallaa evaluators report --web        # Create shareable web report
+
+# Traditional evaluation harness
 quallaa evaluators run --format html   # Visual scorecard
 quallaa evaluators run --format json   # Machine-readable
 quallaa evaluators run --format text   # Terminal output
